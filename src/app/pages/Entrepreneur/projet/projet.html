@@ -1,0 +1,316 @@
+<div class="min-h-screen px-4 py-6 sm:px-6 lg:px-8 xl:px-10">
+  <!-- ================================================= -->
+  <!-- HEADER -->
+  <!-- ================================================= -->
+
+  <header class="mb-7 flex flex-col gap-5 xl:flex-row xl:items-center xl:justify-between">
+    <!-- Titre -->
+
+    <div>
+      <h1 class="text-2xl font-bold tracking-tight text-[#152238] sm:text-3xl">Mes projets</h1>
+
+      <p class="mt-1 text-sm text-[#64748B] sm:text-base">
+        Suivez l’avancement et les dépenses de vos chantiers.
+      </p>
+    </div>
+
+    <!-- Actions -->
+
+    <div class="flex flex-col gap-3 sm:flex-row sm:items-center">
+      <!-- Recherche -->
+
+      <div class="relative w-full sm:w-64 lg:w-72">
+        <i
+          class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"
+        ></i>
+
+        <input
+          type="text"
+          placeholder="Rechercher un projet..."
+          class="h-11 w-full rounded-lg border border-[#DCE4EE] bg-white pl-10 pr-4 text-sm text-[#152238] outline-none placeholder:text-[#94A3B8] focus:border-[#0797D5] focus:ring-2 focus:ring-[#0797D5]/10"
+        />
+      </div>
+
+      <!-- Notifications -->
+
+      <button
+        type="button"
+        class="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-[#DCE4EE] bg-white text-[#152238] hover:bg-gray-50"
+      >
+        <i class="fa-regular fa-bell"></i>
+      </button>
+
+      <!-- Utilisateur -->
+
+      <div class="hidden px-2 text-sm font-semibold text-[#152238] lg:block">M. Diop</div>
+
+      <!-- Nouveau projet -->
+
+      <button
+        type="button"
+        class="flex h-11 items-center justify-center gap-2 rounded-lg bg-[#0797D5] px-5 text-sm font-semibold text-white transition hover:bg-[#0787BF]"
+      >
+        <i class="fa-solid fa-plus"></i>
+
+        <span>Nouveau projet</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ================================================= -->
+  <!-- STATISTIQUES -->
+  <!-- ================================================= -->
+
+  <section class="mb-8 grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
+    <!-- Projets en cours -->
+
+    <div class="rounded-lg border border-[#DFE7F0] bg-white p-5 shadow-sm">
+      <div class="flex items-start justify-between">
+        <span class="text-sm font-medium text-[#64748B]"> Projets en cours </span>
+
+        <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-[#EEF8FD]">
+          <i class="fa-solid fa-suitcase text-lg text-[#0797D5]"></i>
+        </div>
+      </div>
+
+      <p class="mt-4 text-2xl font-bold text-[#152238]">3</p>
+    </div>
+
+    <!-- Projets terminés -->
+
+    <div class="rounded-lg border border-[#DFE7F0] bg-white p-5 shadow-sm">
+      <div class="flex items-start justify-between">
+        <span class="text-sm font-medium text-[#64748B]"> Projets terminés </span>
+
+        <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-[#ECFAF5]">
+          <i class="fa-regular fa-circle-check text-lg text-[#16B981]"></i>
+        </div>
+      </div>
+
+      <p class="mt-4 text-2xl font-bold text-[#152238]">1</p>
+    </div>
+
+    <!-- Budget -->
+
+    <div class="rounded-lg border border-[#DFE7F0] bg-white p-5 shadow-sm">
+      <div class="flex items-start justify-between">
+        <span class="text-sm font-medium text-[#64748B]"> Budget total </span>
+
+        <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-[#FFF7ED]">
+          <i class="fa-regular fa-money-bill-1 text-lg text-[#F59E0B]"></i>
+        </div>
+      </div>
+
+      <p class="mt-4 text-xl font-bold text-[#152238] sm:text-2xl">245 000 000 FCFA</p>
+    </div>
+
+    <!-- Dépenses -->
+
+    <div class="rounded-lg bg-[#0D192C] p-5 shadow-sm">
+      <div class="flex items-start justify-between">
+        <span class="text-sm font-medium text-[#0797D5]"> Dépenses réalisées </span>
+
+        <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-[#172A48]">
+          <i class="fa-solid fa-wallet text-lg text-[#0797D5]"></i>
+        </div>
+      </div>
+
+      <p class="mt-4 text-xl font-bold text-white sm:text-2xl">127 500 000 FCFA</p>
+    </div>
+  </section>
+
+  <!-- ================================================= -->
+  <!-- FILTRES -->
+  <!-- ================================================= -->
+
+  <section class="mb-6 flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+    <!-- Filtres -->
+
+    <div class="flex gap-6 overflow-x-auto border-b border-transparent pb-1">
+      @for (filter of filters; track filter) {
+        <button
+          type="button"
+          (click)="setFilter(filter)"
+          class="relative whitespace-nowrap pb-3 text-sm font-medium transition"
+          [class.text-[#0797D5]]="activeFilter === filter"
+          [class.text-[#64748B]]="activeFilter !== filter"
+        >
+          {{ filter }}
+
+          @if (activeFilter === filter) {
+            <span class="absolute bottom-0 left-0 h-0.5 w-full bg-[#0797D5]"></span>
+          }
+        </button>
+      }
+    </div>
+
+    <!-- Tri -->
+
+    <button
+      type="button"
+      class="flex h-10 w-full items-center justify-between gap-4 rounded-lg border border-[#DCE4EE] bg-white px-4 text-sm text-[#64748B] sm:w-auto"
+    >
+      <span> Trier par :</span>
+
+      <span class="font-semibold text-[#152238]"> Plus récents </span>
+
+      <i class="fa-solid fa-chevron-down text-xs"></i>
+    </button>
+  </section>
+
+  <!-- ================================================= -->
+  <!-- PROJETS -->
+  <!-- ================================================= -->
+
+  <section class="grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-3">
+    @for (project of projects; track project.title) {
+      <article
+        class="flex flex-col rounded-lg border border-[#DFE7F0] bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md"
+      >
+        <!-- Titre + statut -->
+
+        <div class="flex items-start justify-between gap-3">
+          <div class="min-w-0">
+            <h2 class="truncate text-lg font-bold text-[#152238]">
+              {{ project.title }}
+            </h2>
+
+            <p class="mt-1 flex items-center gap-1 text-xs text-[#718096]">
+              <i class="fa-solid fa-location-dot"></i>
+
+              {{ project.location }}
+            </p>
+          </div>
+
+          <!-- Status -->
+
+          <span
+            class="shrink-0 rounded-lg px-3 py-1 text-xs font-semibold"
+            [class.bg-[#DFF3FC]]="project.status === 'En cours'"
+            [class.text-[#0788C4]]="project.status === 'En cours'"
+            [class.bg-[#FEE2E2]]="project.status === 'En retard'"
+            [class.text-[#DC2626]]="project.status === 'En retard'"
+          >
+            {{ project.status }}
+          </span>
+        </div>
+
+        <!-- Bailleur -->
+
+        <div class="mt-4 text-sm">
+          <span class="text-[#718096]"> Bailleur : </span>
+
+          <span class="ml-2 font-semibold text-[#152238]">
+            {{ project.bailleur }}
+          </span>
+        </div>
+
+        <!-- Progression -->
+
+        <div class="mt-5">
+          <div class="mb-2 flex items-center justify-between text-sm">
+            <span class="text-[#718096]"> Avancement physique </span>
+
+            <span class="font-semibold text-[#0797D5]"> {{ project.progress }}% </span>
+          </div>
+
+          <div class="h-2 overflow-hidden rounded-full bg-[#EDF2F7]">
+            <div class="h-full rounded-full bg-[#0797D5]" [style.width.%]="project.progress"></div>
+          </div>
+        </div>
+
+        <!-- Budget -->
+
+        <div class="mt-7 space-y-2 text-sm">
+          <div class="flex justify-between gap-3">
+            <span class="text-[#718096]"> Budget total </span>
+
+            <span class="font-semibold text-[#152238]">
+              {{ project.budget }}
+            </span>
+          </div>
+
+          <div class="flex justify-between gap-3">
+            <span class="text-[#718096]"> Dépenses </span>
+
+            <span class="font-semibold text-[#6266F1]">
+              {{ project.expenses }}
+            </span>
+          </div>
+
+          <div class="flex justify-between gap-3">
+            <span class="text-[#718096]"> Budget restant </span>
+
+            <span class="font-semibold text-[#0797D5]">
+              {{ project.remaining }}
+            </span>
+          </div>
+        </div>
+
+        <!-- Etape -->
+
+        <div class="mt-7">
+          <p class="text-xs font-semibold uppercase text-[#718096]">Étape en cours</p>
+
+          <p class="mt-1 text-sm font-semibold text-[#152238]">
+            {{ project.stage }}
+          </p>
+        </div>
+
+        <!-- Date -->
+
+        <div class="mt-3 flex items-center gap-2 text-sm text-[#718096]">
+          <i class="fa-regular fa-calendar"></i>
+
+          <span> Fin prévue : {{ project.endDate }} </span>
+        </div>
+
+        <!-- Alerte retard -->
+
+        @if (project.late) {
+          <div
+            class="mt-4 flex items-center gap-2 rounded-lg bg-[#FFF8ED] px-3 py-3 text-sm text-[#D97706]"
+          >
+            <i class="fa-solid fa-triangle-exclamation"></i>
+
+            <span class="font-medium"> retard de 3 semaines </span>
+          </div>
+        }
+
+        <!-- Bouton -->
+
+        <button
+          type="button"
+          class="mt-4 h-10 w-full rounded-lg border border-[#0797D5] bg-white text-sm font-semibold text-[#0797D5] transition hover:bg-[#F3FAFD]"
+        >
+          Voir le projet
+        </button>
+      </article>
+    }
+  </section>
+
+  <!-- ================================================= -->
+  <!-- EMPTY STATE -->
+  <!-- ================================================= -->
+
+  <section
+    class="mt-8 flex min-h-[280px] flex-col items-center justify-center rounded-lg border border-[#DFE7F0] bg-white px-6 py-12 text-center"
+  >
+    <div class="flex h-16 w-16 items-center justify-center rounded-lg bg-[#EEF8FD]">
+      <i class="fa-solid fa-helmet-safety text-2xl text-[#0797D5]"></i>
+    </div>
+
+    <h2 class="mt-5 text-base font-bold text-[#152238] sm:text-lg">Aucun projet pour le moment</h2>
+
+    <p class="mt-2 max-w-md text-sm text-[#718096]">
+      Commencez par créer votre premier projet pour suivre son avancement.
+    </p>
+
+    <button
+      type="button"
+      class="mt-5 rounded-lg bg-[#0797D5] px-5 py-3 text-sm font-semibold text-white hover:bg-[#0787BF]"
+    >
+      Créer mon premier projet
+    </button>
+  </section>
+</div>
