@@ -1,1 +1,423 @@
-<p>orc-controle works!</p>
+<div class="min-h-screen bg-[#f6f8fb] text-slate-800 ml-0">
+  <!-- ===================================================== -->
+  <!-- HEADER -->
+  <!-- ===================================================== -->
+  <header class="border-b border-slate-200 bg-white">
+    <div class="flex min-h-[116px] items-center justify-between gap-4 px-5 py-5 sm:px-8">
+      <!-- Breadcrumb + title -->
+      <div class="min-w-0">
+        <div class="mb-1 flex flex-wrap items-center gap-2 text-xs sm:text-sm">
+          <span class="font-medium uppercase tracking-wide text-slate-500"> CHANTIAL </span>
+
+          <svg class="h-3.5 w-3.5 text-slate-400" viewBox="0 0 20 20" fill="currentColor">
+            <path
+              fill-rule="evenodd"
+              d="M7.21 14.77a.75.75 0 0 1 .02-1.06L10.94 10 7.23 6.29a.75.75 0 1 1 1.06-1.06l4.24 4.24a.75.75 0 0 1 0 1.06l-4.24 4.24a.75.75 0 0 1-1.08 0z"
+              clip-rule="evenodd"
+            />
+          </svg>
+
+          <span class="text-slate-500"> Justificatifs </span>
+
+          <svg class="h-3.5 w-3.5 text-slate-400" viewBox="0 0 20 20" fill="currentColor">
+            <path
+              fill-rule="evenodd"
+              d="M7.21 14.77a.75.75 0 0 1 .02-1.06L10.94 10 7.23 6.29a.75.75 0 1 1 1.06-1.06l4.24 4.24a.75.75 0 0 1 0 1.06l-4.24 4.24a.75.75 0 0 1-1.08 0z"
+              clip-rule="evenodd"
+            />
+          </svg>
+
+          <span class="font-medium text-slate-800"> Contrôle OCR </span>
+        </div>
+
+        <h1 class="truncate text-2xl font-bold text-slate-900 sm:text-3xl">
+          Contrôle & Vérification OCR
+        </h1>
+      </div>
+
+      <!-- Header actions -->
+      <div class="flex shrink-0 items-center gap-2 sm:gap-3">
+        <!-- Score -->
+        <div
+          class="hidden rounded-lg bg-emerald-100 px-4 py-3 text-xs font-bold text-emerald-600 sm:block sm:text-sm"
+        >
+          Score de confiance : 94%
+        </div>
+
+        <!-- Notification -->
+        <button
+          class="flex h-11 w-11 items-center justify-center rounded-full bg-slate-50 text-slate-500 transition hover:bg-slate-100"
+        >
+          <svg
+            class="h-5 w-5"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9" />
+            <path d="M10 21h4" />
+          </svg>
+        </button>
+
+        <!-- Search -->
+        <button
+          class="hidden h-11 w-11 items-center justify-center rounded-full bg-slate-50 text-slate-500 transition hover:bg-slate-100 sm:flex"
+        >
+          <svg
+            class="h-5 w-5"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <circle cx="11" cy="11" r="7" />
+            <path d="m20 20-4-4" />
+          </svg>
+        </button>
+
+        <div class="hidden h-9 w-px bg-slate-200 sm:block"></div>
+
+        <span class="hidden text-sm font-semibold text-slate-800 md:block"> Sow BTP </span>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===================================================== -->
+  <!-- MAIN -->
+  <!-- ===================================================== -->
+  <main class="px-4 py-7 sm:px-6 lg:px-8">
+    <!-- ================================================= -->
+    <!-- TOP GRID -->
+    <!-- ================================================= -->
+    <div class="grid grid-cols-1 gap-6 xl:grid-cols-2">
+      <!-- =============================================== -->
+      <!-- LEFT COLUMN -->
+      <!-- =============================================== -->
+      <div class="space-y-6">
+        <!-- Aperçu justificatif -->
+        <section class="rounded-xl bg-[#0c172d] p-5 shadow-sm sm:p-6">
+          <h2 class="mb-4 text-base font-bold text-white">Aperçu du justificatif scanné</h2>
+
+          <!-- Document preview -->
+          <div
+            class="flex h-[220px] flex-col items-center justify-center rounded-lg border-2 border-dashed border-slate-300 bg-[#f8fafc] sm:h-[222px]"
+          >
+            <!-- File icon -->
+            <div class="mb-2">
+              <svg
+                class="h-12 w-12 text-slate-500"
+                viewBox="0 0 48 48"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.8"
+              >
+                <path d="M14 5h14l11 11v27H14z" stroke-linejoin="round" />
+
+                <path d="M28 5v11h11" />
+
+                <path d="m21 27-4 4 4 4" />
+                <path d="m27 35 4-4-4-4" />
+              </svg>
+            </div>
+
+            <p class="text-center text-sm font-bold text-slate-800">Ciments_du_Sahel_FA2026.pdf</p>
+
+            <p class="text-xs text-slate-400">Facture numérisée le 12/03/2026</p>
+          </div>
+        </section>
+
+        <!-- Données OCR -->
+        <section class="rounded-xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6">
+          <h2 class="mb-5 text-base font-bold text-slate-900">Données extraites par OCR</h2>
+
+          <div class="space-y-3 text-sm">
+            <div class="grid grid-cols-[120px_1fr] gap-3">
+              <span class="text-slate-500"> Fournisseur : </span>
+
+              <span class="font-semibold text-slate-800"> Ciments du Sahel </span>
+            </div>
+
+            <div class="grid grid-cols-[120px_1fr] gap-3">
+              <span class="text-slate-500"> Date émission : </span>
+
+              <span class="font-semibold text-slate-800"> 12/03/2026 </span>
+            </div>
+
+            <div class="grid grid-cols-[120px_1fr] gap-3">
+              <span class="text-slate-500"> Montant TTC : </span>
+
+              <span class="font-semibold text-slate-800"> 2 450 000 FCFA </span>
+            </div>
+
+            <div class="grid grid-cols-[120px_1fr] gap-3">
+              <span class="text-slate-500"> N° facture : </span>
+
+              <span class="font-semibold text-slate-800"> FAC-2026-0847 </span>
+            </div>
+          </div>
+
+          <!-- OCR confidence -->
+          <div class="mt-5">
+            <div class="mb-1.5 flex items-center justify-between text-xs">
+              <span class="text-slate-500"> Fiabilité globale </span>
+
+              <span class="font-bold text-emerald-500"> 94% </span>
+            </div>
+
+            <div class="h-1.5 overflow-hidden rounded-full bg-slate-100">
+              <div class="h-full bg-emerald-500" style="width: 94%"></div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <!-- =============================================== -->
+      <!-- RIGHT COLUMN -->
+      <!-- =============================================== -->
+      <div class="space-y-6">
+        <!-- Données entrepreneur -->
+        <section class="rounded-xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6">
+          <h2 class="mb-5 text-base font-bold text-slate-900">
+            Données déclarées par l'entrepreneur
+          </h2>
+
+          <div class="space-y-3 text-sm">
+            <div class="grid grid-cols-[125px_1fr] gap-3">
+              <span class="text-slate-500"> Libellé : </span>
+
+              <span class="font-semibold text-slate-800"> Achat ciment Portland </span>
+            </div>
+
+            <div class="grid grid-cols-[125px_1fr] gap-3">
+              <span class="text-slate-500"> Étape : </span>
+
+              <span class="font-semibold text-slate-800"> Fondations </span>
+            </div>
+
+            <div class="grid grid-cols-[125px_1fr] gap-3">
+              <span class="text-slate-500"> Montant déclaré : </span>
+
+              <span class="font-semibold text-slate-800"> 2 500 000 FCFA </span>
+            </div>
+
+            <div class="grid grid-cols-[125px_1fr] gap-3">
+              <span class="text-slate-500"> Date déclarée : </span>
+
+              <span class="font-semibold text-slate-800"> 12/03/2026 </span>
+            </div>
+          </div>
+        </section>
+
+        <!-- Comparaison -->
+        <section class="rounded-xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6">
+          <h2 class="mb-4 text-base font-bold text-slate-900">Comparaison automatique</h2>
+
+          <div class="overflow-x-auto">
+            <table class="w-full min-w-[600px] border-collapse text-sm">
+              <thead>
+                <tr class="bg-slate-50 text-left text-xs font-semibold text-slate-500">
+                  <th class="rounded-l-lg px-3 py-3">Champ</th>
+
+                  <th class="px-3 py-3">Déclaré</th>
+
+                  <th class="px-3 py-3">Extrait OCR</th>
+
+                  <th class="rounded-r-lg px-3 py-3 text-right">Écart</th>
+                </tr>
+              </thead>
+
+              <tbody class="divide-y divide-slate-200">
+                <!-- Montant -->
+                <tr>
+                  <td class="px-3 py-2.5 text-slate-500">Montant</td>
+
+                  <td class="px-3 py-2.5 font-semibold text-slate-800">2 500 000 FCFA</td>
+
+                  <td class="px-3 py-2.5 font-semibold text-slate-800">2 450 000 FCFA</td>
+
+                  <td class="px-3 py-2.5 text-right font-bold text-red-500">+ 50 000 FCFA</td>
+                </tr>
+
+                <!-- Date -->
+                <tr>
+                  <td class="px-3 py-2.5 text-slate-500">Date</td>
+
+                  <td class="px-3 py-2.5 font-semibold text-slate-800">12/03/2026</td>
+
+                  <td class="px-3 py-2.5 font-semibold text-slate-800">12/03/2026</td>
+
+                  <td class="px-3 py-2.5 text-right font-bold text-emerald-500">Aucun</td>
+                </tr>
+
+                <!-- Fournisseur -->
+                <tr>
+                  <td class="px-3 py-2.5 text-slate-500">Fournisseur</td>
+
+                  <td class="px-3 py-2.5 font-semibold text-slate-800">Ciments du Sahel</td>
+
+                  <td class="px-3 py-2.5 font-semibold text-slate-800">Ciments du Sahel</td>
+
+                  <td class="px-3 py-2.5 text-right font-bold text-emerald-500">Aucun</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Warning -->
+          <div
+            class="mt-3 flex items-center gap-3 rounded-lg border border-red-400 bg-red-50 px-3 py-3 text-sm text-red-500"
+          >
+            <svg
+              class="h-5 w-5 shrink-0"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path
+                d="M10.3 3.9 2.5 17a2 2 0 0 0 1.7 3h15.6a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z"
+              />
+
+              <path d="M12 9v4" />
+              <path d="M12 17h.01" />
+            </svg>
+
+            <span> Écart constaté : 50 000 FCFA — Vérification recommandée </span>
+          </div>
+        </section>
+      </div>
+    </div>
+
+    <!-- ================================================= -->
+    <!-- BOTTOM GRID -->
+    <!-- ================================================= -->
+    <div class="mt-6 grid grid-cols-1 gap-6 xl:grid-cols-[1.5fr_1fr]">
+      <!-- Anomalies -->
+      <section class="rounded-xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6">
+        <h2 class="mb-4 text-base font-bold text-slate-900">Anomalies & Recommandations</h2>
+
+        <div class="space-y-3 text-sm">
+          <!-- Warning -->
+          <div class="flex items-start gap-3">
+            <svg
+              class="mt-0.5 h-5 w-5 shrink-0 text-red-500"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.5"
+            >
+              <circle cx="12" cy="12" r="9" />
+              <path d="M12 8v5" />
+              <path d="M12 16h.01" />
+            </svg>
+
+            <p class="text-slate-700">
+              L'écart de 50 000 FCFA provient d'une surévaluation manuelle par rapport à la facture
+              émise.
+            </p>
+          </div>
+
+          <!-- Information -->
+          <div class="flex items-start gap-3">
+            <svg
+              class="mt-0.5 h-5 w-5 shrink-0 text-sky-500"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.5"
+            >
+              <circle cx="12" cy="12" r="9" />
+              <path d="M12 10v6" />
+              <path d="M12 7h.01" />
+            </svg>
+
+            <p class="text-slate-700">
+              Action conseillée : Valider avec réserve ou Demander correction au chef de chantier.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Décision -->
+      <section class="rounded-xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6">
+        <h2 class="mb-4 text-base font-bold text-slate-900">Prendre une décision</h2>
+
+        <div class="grid grid-cols-1 gap-2 sm:grid-cols-2">
+          <!-- Valider -->
+          <button
+            class="flex h-10 items-center justify-center gap-2 rounded-lg bg-emerald-500 px-4 text-sm font-bold text-white transition hover:bg-emerald-600"
+          >
+            <svg
+              class="h-4 w-4"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="3"
+            >
+              <path d="m5 12 4 4L19 6" />
+            </svg>
+
+            Valider
+          </button>
+
+          <!-- Avec réserve -->
+          <button
+            class="flex h-10 items-center justify-center gap-2 rounded-lg bg-sky-100 px-4 text-sm font-bold text-sky-600 transition hover:bg-sky-200"
+          >
+            <svg
+              class="h-4 w-4"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.5"
+            >
+              <circle cx="12" cy="12" r="9" />
+              <path d="M12 10v5" />
+              <path d="M12 7h.01" />
+            </svg>
+
+            Avec réserve
+          </button>
+
+          <!-- Rejeter -->
+          <button
+            class="flex h-10 items-center justify-center gap-2 rounded-lg bg-red-500 px-4 text-sm font-bold text-white transition hover:bg-red-600"
+          >
+            <svg
+              class="h-4 w-4"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.5"
+            >
+              <path d="M12 5v14" />
+              <path d="M5 12h14" />
+            </svg>
+
+            Rejeter
+          </button>
+
+          <!-- Correction -->
+          <button
+            class="flex h-10 items-center justify-center gap-2 rounded-lg bg-sky-600 px-4 text-sm font-bold text-white transition hover:bg-sky-700"
+          >
+            <svg
+              class="h-4 w-4"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.5"
+            >
+              <path
+                d="M20 11.5a8 8 0 0 1-8 8 8.5 8.5 0 0 1-3.5-.75L4 20l1.25-4.5A8.5 8.5 0 0 1 4 12a8 8 0 0 1 8-8 8 8 0 0 1 8 7.5Z"
+              />
+            </svg>
+
+            Correction
+          </button>
+        </div>
+      </section>
+    </div>
+  </main>
+</div>

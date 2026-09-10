@@ -48,6 +48,7 @@
 
       <button
         type="button"
+        (click)="ouvrirModalProjet()"
         class="flex h-11 items-center justify-center gap-2 rounded-lg bg-[#0797D5] px-5 text-sm font-semibold text-white transition hover:bg-[#0787BF]"
       >
         <i class="fa-solid fa-plus"></i>
@@ -314,3 +315,9 @@
     </button>
   </section>
 </div>
+@if (CreerProjet) {
+  <app-creer-projet
+    (close)="fermerModalProjet()"
+    (projectCreated)="projetCree($event)"
+  ></app-creer-projet>
+}

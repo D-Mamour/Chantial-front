@@ -1,1 +1,192 @@
-<p>declarer-avancement works!</p>
+<!-- ===================================================== -->
+<!-- OVERLAY -->
+<!-- ===================================================== -->
+
+<div
+  class="fixed inset-0 z-[100] flex items-center justify-center bg-[#111827]/50 p-3 sm:p-5 lg:p-8"
+  (click)="onOverlayClick($event)"
+>
+  <!-- =================================================== -->
+  <!-- MODAL -->
+  <!-- =================================================== -->
+
+  <div
+    class="flex w-full max-w-[930px] max-h-[95vh] flex-col overflow-hidden rounded-lg bg-white shadow-2xl sm:max-h-[92vh]"
+  >
+    <!-- ================================================= -->
+    <!-- HEADER -->
+    <!-- ================================================= -->
+
+    <header
+      class="flex shrink-0 items-center justify-between border-b border-[#DCE4EE] px-5 py-5 sm:px-7 sm:py-6 lg:px-8"
+    >
+      <h2 class="text-xl font-bold text-[#152238] sm:text-2xl lg:text-[30px]">
+        Déclarer un avancement
+      </h2>
+
+      <!-- Fermer -->
+
+      <button
+        type="button"
+        (click)="fermer()"
+        class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-[#F6F8FA] text-[#64748B] transition hover:bg-[#EAF0F5]"
+        aria-label="Fermer"
+      >
+        <i class="fa-solid fa-circle-xmark text-xl"></i>
+      </button>
+    </header>
+
+    <!-- ================================================= -->
+    <!-- FORMULAIRE -->
+    <!-- ================================================= -->
+
+    <form
+      [formGroup]="progressForm"
+      (ngSubmit)="declarer()"
+      class="overflow-y-auto px-5 py-6 sm:px-7 lg:px-10 lg:py-8"
+    >
+      <!-- ================================================= -->
+      <!-- INFORMATION -->
+      <!-- ================================================= -->
+
+      <div class="mb-8 flex items-start gap-3 rounded-lg bg-[#DFF2FC] px-4 py-4 text-[#0797D5]">
+        <i class="fa-solid fa-circle-info mt-0.5 shrink-0 text-xl"></i>
+
+        <p class="text-sm font-medium sm:text-base lg:text-lg">
+          L'avancement actuel de cette étape est de
+          <strong>{{ currentProgress }}%</strong>
+        </p>
+      </div>
+
+      <!-- ================================================= -->
+      <!-- ÉTAPE -->
+      <!-- ================================================= -->
+
+      <div class="mb-7">
+        <label for="etape" class="mb-2 block text-base font-semibold text-[#152238]">
+          Étape concernée
+        </label>
+
+        <div class="relative">
+          <select
+            id="etape"
+            formControlName="etape"
+            class="h-14 w-full appearance-none rounded-lg border border-[#DCE4EE] bg-white px-5 pr-12 text-base text-[#64748B] outline-none focus:border-[#0797D5] focus:ring-2 focus:ring-[#0797D5]/10"
+          >
+            @for (step of steps; track step) {
+              <option [value]="step">
+                {{ step }}
+              </option>
+            }
+          </select>
+
+          <i
+            class="fa-solid fa-chevron-down pointer-events-none absolute right-5 top-1/2 -translate-y-1/2 text-xl text-[#64748B]"
+          ></i>
+        </div>
+      </div>
+
+      <!-- ================================================= -->
+      <!-- POURCENTAGE -->
+      <!-- ================================================= -->
+
+      <div class="mb-8">
+        <div class="mb-4 flex items-center justify-between gap-3">
+          <label for="pourcentage" class="text-base font-semibold text-[#152238]">
+            Pourcentage d'avancement
+          </label>
+
+          <span class="text-xl font-bold text-[#0797D5]">
+            {{ progressForm.controls.pourcentage.value }}%
+          </span>
+        </div>
+
+        <!-- Slider -->
+
+        <input
+          id="pourcentage"
+          type="range"
+          min="0"
+          max="100"
+          step="1"
+          formControlName="pourcentage"
+          (input)="onProgressChange($event)"
+          class="progress-slider h-2 w-full cursor-pointer appearance-none rounded-full bg-[#E4EAF1]"
+        />
+      </div>
+
+      <!-- ================================================= -->
+      <!-- DATE -->
+      <!-- ================================================= -->
+
+      <div class="mb-7">
+        <label for="dateDeclaration" class="mb-2 block text-base font-semibold text-[#152238]">
+          Date de la déclaration
+        </label>
+
+        <div class="relative">
+          <input
+            id="dateDeclaration"
+            type="date"
+            formControlName="dateDeclaration"
+            class="h-14 w-full rounded-xl border border-[#DCE4EE] bg-white px-5 text-base text-[#64748B] outline-none focus:border-[#0797D5] focus:ring-2 focus:ring-[#0797D5]/10"
+          />
+        </div>
+      </div>
+
+      <!-- ================================================= -->
+      <!-- COMMENTAIRE -->
+      <!-- ================================================= -->
+
+      <div class="mb-8">
+        <label for="commentaire" class="mb-2 block text-base font-semibold text-[#152238]">
+          Commentaire
+        </label>
+
+        <textarea
+          id="commentaire"
+          formControlName="commentaire"
+          rows="5"
+          placeholder="Décrivez l'avancement réalisé..."
+          class="w-full resize-none rounded-xl border border-[#DCE4EE] px-5 py-4 text-base text-[#152238] outline-none placeholder:text-[#718096] focus:border-[#0797D5] focus:ring-2 focus:ring-[#0797D5]/10"
+        ></textarea>
+      </div>
+
+      <!-- ================================================= -->
+      <!-- FOOTER -->
+      <!-- ================================================= -->
+
+      <div
+        class="flex flex-col-reverse gap-3 border-t border-[#DCE4EE] pt-6 sm:flex-row sm:justify-end"
+      >
+        <!-- Annuler -->
+
+        <button
+          type="button"
+          (click)="fermer()"
+          class="h-12 w-full rounded-xl border border-[#0797D5] bg-white px-7 text-base font-semibold text-[#0797D5] transition hover:bg-[#F8FAFC] sm:w-auto"
+        >
+          Annuler
+        </button>
+
+        <!-- Déclarer -->
+
+        <button
+          type="submit"
+          [disabled]="isSubmitting()"
+          class="h-12 w-full rounded-xl bg-[#0797D5] px-7 text-base font-semibold text-white transition hover:bg-[#0787BF] disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto"
+        >
+          @if (isSubmitting()) {
+            <span class="flex items-center justify-center gap-2">
+              <i class="fa-solid fa-spinner animate-spin"></i>
+
+              Déclaration...
+            </span>
+          } @else {
+            Déclarer
+          }
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

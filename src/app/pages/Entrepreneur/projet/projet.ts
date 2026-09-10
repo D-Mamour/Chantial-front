@@ -1,15 +1,18 @@
 import { Component } from '@angular/core';
+import { CreerProjet } from '../creer-projet/creer-projet';
 
 @Component({
   selector: 'app-mes-projets',
   standalone: true,
-  imports: [],
+  imports: [CreerProjet],
   templateUrl: './projet.html',
   styleUrl: './projet.css'
 })
 export class ProjetComponent {
 
   activeFilter = 'Tous';
+  CreerProjet = false;
+
 
   filters = [
     'Tous',
@@ -17,6 +20,28 @@ export class ProjetComponent {
     'Terminés',
     'En retard'
   ];
+
+  ouvrirModalProjet(): void {
+    this.CreerProjet = true;
+  }
+
+
+  fermerModalProjet(): void {
+    this.CreerProjet = false;
+  }
+
+
+  projetCree(projet: any): void {
+
+    console.log('Nouveau projet reçu :', projet);
+
+    // Plus tard :
+    // appel API Django/FastAPI
+    // puis actualisation de la liste des projets
+
+    this.CreerProjet = false;
+  }
+
 
   projects = [
     {

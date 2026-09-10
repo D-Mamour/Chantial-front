@@ -1,1 +1,397 @@
-<p>depenses-justificatifs works!</p>
+<div class="min-h-screen bg-[#f6f8fb] text-slate-800 ml-0">
+  <!-- =====================================================
+       HEADER
+  ====================================================== -->
+  <header class="border-b border-slate-200 bg-white">
+    <div class="flex min-h-[108px] items-center justify-between gap-4 px-5 py-5 sm:px-8">
+      <!-- Title -->
+      <div class="min-w-0">
+        <div class="mb-1 flex items-center gap-2 text-xs sm:text-sm">
+          <span class="font-medium uppercase tracking-wide text-slate-500"> CHANTIAL </span>
+
+          <svg class="h-3.5 w-3.5 text-slate-400" viewBox="0 0 20 20" fill="currentColor">
+            <path
+              fill-rule="evenodd"
+              d="M7.21 14.77a.75.75 0 0 1 .02-1.06L10.94 10 7.23 6.29a.75.75 0 1 1 1.06-1.06l4.24 4.24a.75.75 0 0 1 0 1.06l-4.24 4.24a.75.75 0 0 1-1.08 0z"
+              clip-rule="evenodd"
+            />
+          </svg>
+
+          <span class="font-medium text-slate-800"> Comptabilité </span>
+        </div>
+
+        <h1 class="truncate text-2xl font-bold text-slate-900 sm:text-3xl">
+          Dépenses & Justificatifs
+        </h1>
+      </div>
+
+      <!-- Actions -->
+      <div class="flex shrink-0 items-center gap-2 sm:gap-3">
+        <!-- Add expense -->
+        <button
+          (click)="addExpense()"
+          class="hidden h-11 items-center gap-2 rounded-lg bg-[#0788cf] px-5 text-sm font-semibold text-white shadow-sm transition hover:bg-[#067bb9] sm:flex"
+        >
+          <svg
+            class="h-5 w-5"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2.5"
+          >
+            <path d="M12 5v14" />
+            <path d="M5 12h14" />
+          </svg>
+
+          Ajouter dépense
+        </button>
+
+        <!-- Notification -->
+        <button
+          class="flex h-11 w-11 items-center justify-center rounded-full bg-slate-50 text-slate-500 hover:bg-slate-100"
+        >
+          <svg
+            class="h-5 w-5"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9" />
+
+            <path d="M10 21h4" />
+          </svg>
+        </button>
+
+        <!-- Search -->
+        <button
+          class="hidden h-11 w-11 items-center justify-center rounded-full bg-slate-50 text-slate-500 hover:bg-slate-100 sm:flex"
+        >
+          <svg
+            class="h-5 w-5"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <circle cx="11" cy="11" r="7" />
+            <path d="m20 20-4-4" />
+          </svg>
+        </button>
+
+        <div class="hidden h-9 w-px bg-slate-200 sm:block"></div>
+
+        <span class="hidden text-sm font-semibold text-slate-800 md:block"> Sow BTP </span>
+      </div>
+    </div>
+  </header>
+
+  <!-- =====================================================
+       MAIN
+  ====================================================== -->
+  <main class="px-4 py-7 sm:px-6 lg:px-8">
+    <!-- ===================================================
+         STATISTICS CARDS
+    ==================================================== -->
+    <section class="grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-3">
+      <!-- Total dépenses -->
+      <div class="rounded-lg border border-slate-200 bg-white p-5 shadow-sm sm:p-6">
+        <p class="text-sm font-semibold text-slate-500">Total des dépenses déclarées</p>
+
+        <p class="mt-2 text-2xl font-bold tracking-tight text-slate-900 sm:text-[26px]">
+          187 500 000 FCFA
+        </p>
+
+        <div class="mt-2 flex items-center gap-1 text-xs font-medium text-emerald-500">
+          <span>✓</span>
+
+          <span> Intégralité des chantiers pris en compte </span>
+        </div>
+      </div>
+
+      <!-- Justificatifs -->
+      <div class="rounded-lg border border-slate-200 bg-white p-5 shadow-sm sm:p-6">
+        <p class="text-sm font-semibold text-slate-500">Justificatifs validés</p>
+
+        <div class="mt-2 flex items-baseline gap-2">
+          <span class="text-2xl font-bold text-emerald-500 sm:text-[26px]"> 45 / 62 </span>
+
+          <span class="text-sm font-medium text-slate-500"> (72%) </span>
+        </div>
+
+        <p class="mt-2 text-xs text-slate-400 sm:text-sm">
+          17 justificatifs restants en cours de traitement
+        </p>
+      </div>
+
+      <!-- Anomalies -->
+      <div class="rounded-lg border border-slate-200 bg-white p-5 shadow-sm sm:p-6">
+        <p class="text-sm font-semibold text-slate-500">Écarts détectés</p>
+
+        <div class="mt-2 flex items-baseline gap-2">
+          <span class="text-2xl font-bold text-[#df7900] sm:text-[26px]"> 5 anomalies </span>
+
+          <span class="text-sm font-medium text-slate-500"> - OCR </span>
+        </div>
+
+        <div class="mt-2 flex items-center gap-1 text-xs font-medium text-red-500">
+          <svg
+            class="h-4 w-4"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2.5"
+          >
+            <path
+              d="M10.3 3.9 2.5 17a2 2 0 0 0 1.7 3h15.6a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z"
+            />
+
+            <path d="M12 9v4" />
+            <path d="M12 17h.01" />
+          </svg>
+
+          <span> Résolution manuelle requise </span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================
+         FILTERS
+    ==================================================== -->
+    <section class="mt-6 rounded-lg border border-slate-200 bg-white p-4 shadow-sm sm:p-5">
+      <div class="flex flex-col gap-3 xl:flex-row xl:items-center xl:justify-between">
+        <!-- Filters -->
+        <div class="flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+          <!-- Search -->
+          <div class="relative">
+            <svg
+              class="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-500"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.5"
+            >
+              <circle cx="11" cy="11" r="7" />
+              <path d="m20 20-4-4" />
+            </svg>
+
+            <input
+              [(ngModel)]="searchTerm"
+              type="text"
+              placeholder="Filtrer par mot-clé..."
+              class="h-10 w-full rounded-lg border border-slate-200 bg-white pl-9 pr-3 text-sm text-slate-700 outline-none transition placeholder:text-slate-400 focus:border-sky-400 focus:ring-2 focus:ring-sky-100 sm:w-[220px]"
+            />
+          </div>
+
+          <!-- Project -->
+          <select
+            [(ngModel)]="selectedProject"
+            class="h-10 rounded-lg border border-slate-200 bg-white px-3 text-sm font-medium text-slate-700 outline-none focus:border-sky-400"
+          >
+            <option value="Almadies">Projet: Almadies</option>
+
+            <option value="Pikine">Projet: Pikine</option>
+
+            <option value="Tous">Projet: Tous</option>
+          </select>
+
+          <!-- Justificatif -->
+          <select
+            [(ngModel)]="selectedStatus"
+            class="h-10 rounded-lg border border-slate-200 bg-white px-3 text-sm font-medium text-slate-700 outline-none focus:border-sky-400"
+          >
+            <option value="Tous">Justificatif: Tous</option>
+
+            <option value="Valide">Justificatif: Validé</option>
+
+            <option value="Attente">Justificatif: En attente</option>
+
+            <option value="Rejete">Justificatif: Rejeté</option>
+
+            <option value="NonFourni">Justificatif: Non fourni</option>
+          </select>
+        </div>
+
+        <!-- Period -->
+        <button
+          class="flex h-10 items-center gap-2 text-left text-sm text-slate-500 xl:justify-end"
+        >
+          <span> Période : Ce mois </span>
+
+          <svg
+            class="h-5 w-5 text-slate-500"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <rect x="3" y="4" width="18" height="18" rx="2" />
+
+            <path d="M16 2v4" />
+            <path d="M8 2v4" />
+            <path d="M3 10h18" />
+          </svg>
+        </button>
+      </div>
+    </section>
+
+    <!-- ===================================================
+         TRANSACTIONS
+    ==================================================== -->
+    <section class="mt-6 rounded-lg border border-slate-200 bg-white p-5 shadow-sm sm:p-6">
+      <h2 class="mb-3 text-lg font-bold text-slate-900">Toutes les transactions</h2>
+
+      <!-- Table -->
+      <div class="overflow-x-auto">
+        <table class="w-full min-w-[1050px] border-collapse">
+          <!-- Header -->
+          <thead>
+            <tr class="bg-slate-50 text-left text-xs font-semibold text-slate-500">
+              <th class="rounded-l-lg px-3 py-3.5">Projet</th>
+
+              <th class="px-3 py-3.5">Étape</th>
+
+              <th class="px-3 py-3.5">Libellé dépense</th>
+
+              <th class="px-3 py-3.5">Montant</th>
+
+              <th class="px-3 py-3.5">Date</th>
+
+              <th class="px-3 py-3.5">Justificatif</th>
+
+              <th class="rounded-r-lg px-3 py-3.5 text-right">Actions</th>
+            </tr>
+          </thead>
+
+          <!-- Body -->
+          <tbody class="divide-y divide-slate-200">
+            @for (transaction of filteredTransactions; track transaction.id) {
+              <tr class="text-sm">
+                <!-- Projet -->
+                <td class="whitespace-nowrap px-3 py-3.5 font-semibold text-slate-800">
+                  {{ transaction.project }}
+                </td>
+
+                <!-- Étape -->
+                <td class="whitespace-nowrap px-3 py-3.5 text-slate-500">
+                  {{ transaction.step }}
+                </td>
+
+                <!-- Libellé -->
+                <td class="whitespace-nowrap px-3 py-3.5 text-slate-800">
+                  {{ transaction.label }}
+                </td>
+
+                <!-- Montant -->
+                <td class="whitespace-nowrap px-3 py-3.5 font-bold text-slate-800">
+                  {{ transaction.amount }}
+                </td>
+
+                <!-- Date -->
+                <td class="whitespace-nowrap px-3 py-3.5 text-slate-500">
+                  {{ transaction.date }}
+                </td>
+
+                <!-- Status -->
+                <td class="whitespace-nowrap px-3 py-3.5">
+                  @if (transaction.status === 'Validé') {
+                    <span
+                      class="inline-flex rounded-lg bg-emerald-100 px-2.5 py-1 text-xs font-semibold text-emerald-600"
+                    >
+                      Validé
+                    </span>
+                  } @else if (transaction.status === 'En attente') {
+                    <span
+                      class="inline-flex rounded-lg bg-amber-100 px-2.5 py-1 text-xs font-semibold text-amber-600"
+                    >
+                      En attente
+                    </span>
+                  } @else if (transaction.status === 'Rejeté') {
+                    <span
+                      class="inline-flex rounded-lg bg-red-100 px-2.5 py-1 text-xs font-semibold text-red-500"
+                    >
+                      Rejeté
+                    </span>
+                  } @else {
+                    <span
+                      class="inline-flex rounded-lg bg-slate-100 px-2.5 py-1 text-xs font-semibold text-slate-500"
+                    >
+                      Non fourni
+                    </span>
+                  }
+                </td>
+
+                <!-- Actions -->
+                <td class="px-3 py-3.5">
+                  <div class="flex justify-end gap-4 whitespace-nowrap">
+                    <button
+                      (click)="consult(transaction)"
+                      class="font-semibold text-sky-600 transition hover:text-sky-800"
+                    >
+                      Consulter
+                    </button>
+
+                    <button
+                      (click)="edit(transaction)"
+                      class="font-medium text-slate-500 transition hover:text-slate-800"
+                    >
+                      Éditer
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+
+      <!-- =================================================
+           FOOTER / PAGINATION
+      ================================================== -->
+      <div class="mt-4 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+        <p class="text-sm text-slate-500">Affichage de 1-8 sur 62 dépenses</p>
+
+        <div class="flex items-center gap-1">
+          <!-- Previous -->
+          <button
+            (click)="previousPage()"
+            class="flex h-9 w-9 items-center justify-center rounded-lg bg-slate-50 text-sm font-semibold text-slate-700 hover:bg-slate-100"
+          >
+            &lt;
+          </button>
+
+          <!-- Page 1 -->
+          <button
+            class="flex h-9 w-9 items-center justify-center rounded-lg bg-[#0788cf] text-sm font-semibold text-white"
+          >
+            1
+          </button>
+
+          <!-- Page 2 -->
+          <button
+            (click)="goToPage(2)"
+            class="flex h-9 w-9 items-center justify-center rounded-lg border border-slate-200 bg-white text-sm font-medium text-slate-700 hover:bg-slate-50"
+          >
+            2
+          </button>
+
+          <!-- Page 3 -->
+          <button
+            (click)="goToPage(3)"
+            class="flex h-9 w-9 items-center justify-center rounded-lg border border-slate-200 bg-white text-sm font-medium text-slate-700 hover:bg-slate-50"
+          >
+            3
+          </button>
+
+          <!-- Next -->
+          <button
+            (click)="nextPage()"
+            class="flex h-9 w-9 items-center justify-center rounded-lg bg-slate-50 text-sm font-semibold text-slate-700 hover:bg-slate-100"
+          >
+            &gt;
+          </button>
+        </div>
+      </div>
+    </section>
+  </main>
+</div>

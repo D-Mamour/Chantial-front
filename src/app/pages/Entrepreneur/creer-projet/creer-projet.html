@@ -1,1 +1,227 @@
-<p>creer-projet works!</p>
+<!-- OVERLAY -->
+
+<div
+  class="fixed inset-0 z-[100] flex items-center justify-center bg-[#111827]/50 p-3 sm:p-5 lg:p-8"
+  (click)="onOverlayClick($event)"
+>
+  <!-- MODAL -->
+
+  <div
+    class="flex w-full max-w-[920px] max-h-[95vh] flex-col overflow-hidden rounded-lg bg-white shadow-2xl sm:max-h-[92vh]"
+  >
+    <!-- ============================================= -->
+    <!-- HEADER -->
+    <!-- ============================================= -->
+
+    <header
+      class="flex shrink-0 items-center justify-between border-b border-[#DCE4EE] px-5 py-5 sm:px-7 sm:py-6 lg:px-8"
+    >
+      <h2 class="text-xl font-bold text-[#152238] sm:text-2xl">Créer un nouveau projet</h2>
+
+      <!-- Fermer -->
+
+      <button
+        type="button"
+        (click)="fermer()"
+        class="flex h-9 w-9 items-center justify-center rounded-lg bg-[#F6F8FA] text-[#64748B] transition hover:bg-[#EAF0F5] hover:text-[#152238]"
+        aria-label="Fermer"
+      >
+        <i class="fa-solid fa-circle-xmark text-xl"></i>
+      </button>
+    </header>
+
+    <!-- ============================================= -->
+    <!-- CONTENU -->
+    <!-- ============================================= -->
+
+    <form
+      [formGroup]="projectForm"
+      (ngSubmit)="creerProjet()"
+      class="overflow-y-auto px-5 py-6 sm:px-7 lg:px-8 lg:py-7"
+    >
+      <!-- =========================================== -->
+      <!-- NOM -->
+      <!-- =========================================== -->
+
+      <div class="mb-6">
+        <label for="nom" class="mb-2 block text-sm font-semibold text-[#152238]">
+          Nom du projet
+        </label>
+
+        <input
+          id="nom"
+          type="text"
+          formControlName="nom"
+          placeholder="Ex : Résidence Almadies"
+          class="h-12 w-full rounded-lg border border-[#DCE4EE] px-4 text-sm text-[#152238] outline-none placeholder:text-[#718096] focus:border-[#0797D5] focus:ring-2 focus:ring-[#0797D5]/10"
+        />
+
+        @if (projectForm.controls.nom.touched && projectForm.controls.nom.invalid) {
+          <p class="mt-1 text-xs text-red-500">Le nom du projet est obligatoire.</p>
+        }
+      </div>
+
+      <!-- =========================================== -->
+      <!-- DESCRIPTION -->
+      <!-- =========================================== -->
+
+      <div class="mb-6">
+        <label for="description" class="mb-2 block text-sm font-semibold text-[#152238]">
+          Description
+        </label>
+
+        <textarea
+          id="description"
+          rows="4"
+          formControlName="description"
+          placeholder="Description synthétique des objectifs du projet..."
+          class="w-full resize-none rounded-xl border border-[#DCE4EE] px-4 py-3 text-sm text-[#152238] outline-none placeholder:text-[#718096] focus:border-[#0797D5] focus:ring-2 focus:ring-[#0797D5]/10"
+        ></textarea>
+      </div>
+
+      <!-- =========================================== -->
+      <!-- ADRESSE -->
+      <!-- =========================================== -->
+
+      <div class="mb-6">
+        <label for="adresse" class="mb-2 block text-sm font-semibold text-[#152238]">
+          Adresse complète
+        </label>
+
+        <input
+          id="adresse"
+          type="text"
+          formControlName="adresse"
+          placeholder="Rue, Quartier, Ville, Sénégal"
+          class="h-12 w-full rounded-lg border border-[#DCE4EE] px-4 text-sm text-[#152238] outline-none placeholder:text-[#718096] focus:border-[#0797D5] focus:ring-2 focus:ring-[#0797D5]/10"
+        />
+      </div>
+
+      <!-- =========================================== -->
+      <!-- BAILLEUR -->
+      <!-- =========================================== -->
+
+      <div class="mb-6">
+        <label for="bailleur" class="mb-2 block text-sm font-semibold text-[#152238]">
+          Bailleur
+        </label>
+
+        <div class="relative">
+          <select
+            id="bailleur"
+            formControlName="bailleur"
+            class="h-12 w-full appearance-none rounded-lg border border-[#DCE4EE] bg-white px-4 pr-12 text-sm text-[#64748B] outline-none focus:border-[#0797D5] focus:ring-2 focus:ring-[#0797D5]/10"
+          >
+            <option value="">Sélectionner un bailleur</option>
+
+            <option value="AFD">AFD</option>
+
+            <option value="M. Abdoulaye Diallo">M. Abdoulaye Diallo</option>
+
+            <option value="SCI Les Parcelles">SCI Les Parcelles</option>
+
+            <option value="Mme Fatou Sow">Mme Fatou Sow</option>
+          </select>
+
+          <i
+            class="fa-solid fa-chevron-down pointer-events-none absolute right-5 top-1/2 -translate-y-1/2 text-[#64748B]"
+          ></i>
+        </div>
+      </div>
+
+      <!-- =========================================== -->
+      <!-- BUDGET -->
+      <!-- =========================================== -->
+
+      <div class="mb-6">
+        <label for="budget" class="mb-2 block text-sm font-semibold text-[#152238]">
+          Budget total en FCFA
+        </label>
+
+        <input
+          id="budget"
+          type="number"
+          formControlName="budget"
+          placeholder="Ex : 85 000 000"
+          class="h-12 w-full rounded-lg border border-[#DCE4EE] px-4 text-sm text-[#152238] outline-none placeholder:text-[#718096] focus:border-[#0797D5] focus:ring-2 focus:ring-[#0797D5]/10"
+        />
+      </div>
+
+      <!-- =========================================== -->
+      <!-- DATES -->
+      <!-- =========================================== -->
+
+      <div class="mb-7 grid grid-cols-1 gap-5 sm:grid-cols-2">
+        <!-- Date début -->
+
+        <div>
+          <label for="dateDebut" class="mb-2 block text-sm font-semibold text-[#152238]">
+            Date de début
+          </label>
+
+          <div class="relative">
+            <input
+              id="dateDebut"
+              type="date"
+              formControlName="dateDebut"
+              class="h-12 w-full rounded-lg border border-[#DCE4EE] bg-white px-4 text-sm text-[#64748B] outline-none focus:border-[#0797D5] focus:ring-2 focus:ring-[#0797D5]/10"
+            />
+          </div>
+        </div>
+
+        <!-- Date fin -->
+
+        <div>
+          <label for="dateFin" class="mb-2 block text-sm font-semibold text-[#152238]">
+            Date de fin
+          </label>
+
+          <div class="relative">
+            <input
+              id="dateFin"
+              type="date"
+              formControlName="dateFin"
+              class="h-12 w-full rounded-lg border border-[#DCE4EE] bg-white px-4 text-sm text-[#64748B] outline-none focus:border-[#0797D5] focus:ring-2 focus:ring-[#0797D5]/10"
+            />
+          </div>
+        </div>
+      </div>
+
+      <!-- =========================================== -->
+      <!-- FOOTER -->
+      <!-- =========================================== -->
+
+      <div
+        class="flex flex-col-reverse gap-3 border-t border-[#DCE4EE] pt-6 sm:flex-row sm:justify-end"
+      >
+        <!-- Annuler -->
+
+        <button
+          type="button"
+          (click)="fermer()"
+          class="h-12 w-full rounded-lg border border-[#0797D5] bg-white px-6 text-sm font-semibold text-[#0797D5] transition hover:bg-[#F8FAFC] sm:w-auto"
+        >
+          Annuler
+        </button>
+
+        <!-- Créer -->
+
+        <button
+          type="submit"
+          [disabled]="isSubmitting()"
+          class="h-12 w-full rounded-lg bg-[#0797D5] px-6 text-sm font-semibold text-white transition hover:bg-[#0787BF] disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto"
+        >
+          @if (isSubmitting()) {
+            <span class="flex items-center gap-2">
+              <i class="fa-solid fa-spinner animate-spin"></i>
+
+              Création...
+            </span>
+          } @else {
+            Créer le projet
+          }
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

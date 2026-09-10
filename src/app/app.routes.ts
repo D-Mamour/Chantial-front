@@ -16,19 +16,26 @@ export const routes: Routes = [
             .then(m => m.ProjetComponent)
       },
 
-    //   {
-    //     path: 'depenses',
-    //     loadComponent: () =>
-    //       import('./pages/depenses/depenses.component')
-    //         .then(m => m.DepensesComponent)
-    //   },
+      {
+        path: 'detail',
+        loadComponent: () =>
+          import('./pages/Entrepreneur/detail-projet/detail-projet')
+        .then(m => m.DetailProjetComponent)
+      },
 
-    //   {
-    //     path: 'justificatifs',
-    //     loadComponent: () =>
-    //       import('./pages/justificatifs/justificatifs.component')
-    //         .then(m => m.JustificatifsComponent)
-    //   },
+      {
+        path: 'controle',
+        loadComponent: () =>
+          import('./pages/Entrepreneur/orc-controle/orc-controle')
+            .then(m => m.OrcControle)
+      },
+
+      {
+        path: 'justificatifs',
+        loadComponent: () =>
+          import('./pages/Entrepreneur/depenses-justificatifs/depenses-justificatifs')
+            .then(m => m.DepensesJustificatifs)
+      },
 
     //   {
     //     path: 'analyses',
