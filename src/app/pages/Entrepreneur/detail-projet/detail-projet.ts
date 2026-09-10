@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { DeclarerAvancement } from '../declarer-avancement/declarer-avancement';
 import { AjoutEtape } from "../ajout-etape/ajout-etape";
-import { ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-residence-almadies',
@@ -13,11 +12,7 @@ import { ViewChild } from '@angular/core';
 export class DetailProjetComponent {
 
   showProgressModal = false;
-
-  @ViewChild('addStepModal')
-  addStepModal!: AjoutEtape;
-
-
+  showAddStepModal = false;
 
   ouvrirDeclaration(): void {
     this.showProgressModal = true;
@@ -38,18 +33,20 @@ export class DetailProjetComponent {
     // actualisation de l'avancement
   }
 
-   openAddStepModal(): void {
-    this.addStepModal.open();
-  }
+  ouvrirAjoutEtape(): void {
+  this.showAddStepModal = true;
+}
 
+fermerAjoutEtape(): void {
+  this.showAddStepModal = false;
+}
 
-  onStepAdded(step: any): void {
+onStepAdded(etape: any): void {
+  console.log('Nouvelle étape :', etape);
 
-    console.log('Étape reçue :', step);
+  this.showAddStepModal = false;
 
-    // Ici tu pourras appeler ton service API
-    // this.projectService.addStep(step).subscribe(...)
-
-  }
+  // appel API ici
+}
 
 }

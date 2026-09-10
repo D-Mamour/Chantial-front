@@ -1,1 +1,338 @@
-<p>ajout-depense works!</p>
+<div
+  class="fixed inset-0 z-[100] flex items-center justify-center bg-slate-900/50 p-3 sm:p-6"
+  (click)="onOverlayClick($event)"
+>
+  <!-- MODAL -->
+  <div
+    class="flex w-full max-w-[1005px] max-h-[95vh] flex-col overflow-hidden rounded-[22px] bg-white shadow-2xl"
+  >
+    <!-- =========================
+         HEADER
+    ========================== -->
+
+    <div
+      class="flex shrink-0 items-center justify-between border-b border-slate-200 px-6 py-6 sm:px-10 sm:py-7"
+    >
+      <h2 class="text-[26px] font-bold tracking-[-0.5px] text-slate-900 sm:text-[32px]">
+        Ajouter une dépense
+      </h2>
+
+      <button
+        type="button"
+        (click)="fermer()"
+        aria-label="Fermer"
+        class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-slate-50 text-slate-500 transition hover:bg-slate-100"
+      >
+        <svg
+          class="h-7 w-7"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2.8"
+        >
+          <circle cx="12" cy="12" r="9" />
+
+          <path d="m9 9 6 6" />
+          <path d="m15 9-6 6" />
+        </svg>
+      </button>
+    </div>
+
+    <!-- =========================
+         FORMULAIRE
+    ========================== -->
+
+    <form [formGroup]="expenseForm" (ngSubmit)="enregistrer()" class="overflow-y-auto">
+      <div class="space-y-7 px-6 py-7 sm:px-10 sm:py-9">
+        <!-- =========================
+             PROJET + ÉTAPE
+        ========================== -->
+
+        <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
+          <!-- PROJET -->
+
+          <div>
+            <label for="projet" class="mb-3 block text-[20px] font-bold text-slate-900">
+              Projet
+            </label>
+
+            <div class="relative">
+              <select
+                id="projet"
+                formControlName="projet"
+                class="h-[60px] w-full appearance-none rounded-[14px] border-2 border-slate-200 bg-white px-5 pr-14 text-[19px] text-slate-500 outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-100"
+              >
+                @for (project of projects; track project) {
+                  <option [value]="project">
+                    {{ project }}
+                  </option>
+                }
+              </select>
+
+              <svg
+                class="pointer-events-none absolute right-5 top-1/2 h-7 w-7 -translate-y-1/2 text-slate-500"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.5"
+              >
+                <path d="m6 9 6 12 6-12" />
+              </svg>
+            </div>
+          </div>
+
+          <!-- ÉTAPE -->
+
+          <div>
+            <label for="etape" class="mb-3 block text-[20px] font-bold text-slate-900">
+              Étape
+            </label>
+
+            <div class="relative">
+              <select
+                id="etape"
+                formControlName="etape"
+                class="h-[60px] w-full appearance-none rounded-[14px] border-2 border-slate-200 bg-white px-5 pr-14 text-[19px] text-slate-500 outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-100"
+              >
+                @for (step of steps; track step) {
+                  <option [value]="step">
+                    {{ step }}
+                  </option>
+                }
+              </select>
+
+              <svg
+                class="pointer-events-none absolute right-5 top-1/2 h-7 w-7 -translate-y-1/2 text-slate-500"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.5"
+              >
+                <path d="m6 9 6 12 6-12" />
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        <!-- =========================
+             LIBELLÉ
+        ========================== -->
+
+        <div>
+          <label for="libelle" class="mb-3 block text-[20px] font-bold text-slate-900">
+            Libellé de la dépense
+          </label>
+
+          <input
+            id="libelle"
+            type="text"
+            formControlName="libelle"
+            placeholder="Ex : Achat ciment Portland"
+            class="h-[60px] w-full rounded-[14px] border-2 border-slate-200 px-5 text-[19px] text-slate-700 outline-none placeholder:text-slate-400 focus:border-sky-500 focus:ring-2 focus:ring-sky-100"
+          />
+        </div>
+
+        <!-- =========================
+             CATÉGORIE
+        ========================== -->
+
+        <div>
+          <label for="categorie" class="mb-3 block text-[20px] font-bold text-slate-900">
+            Catégorie
+          </label>
+
+          <div class="relative">
+            <select
+              id="categorie"
+              formControlName="categorie"
+              class="h-[60px] w-full appearance-none rounded-[14px] border-2 border-slate-200 bg-white px-5 pr-14 text-[19px] text-slate-500 outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-100"
+            >
+              @for (category of categories; track category) {
+                <option [value]="category">
+                  {{ category }}
+                </option>
+              }
+            </select>
+
+            <svg
+              class="pointer-events-none absolute right-5 top-1/2 h-7 w-7 -translate-y-1/2 text-slate-500"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.5"
+            >
+              <path d="m6 9 6 12 6-12" />
+            </svg>
+          </div>
+        </div>
+
+        <!-- =========================
+             MONTANT + DATE
+        ========================== -->
+
+        <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
+          <!-- MONTANT -->
+
+          <div>
+            <label for="montant" class="mb-3 block text-[20px] font-bold text-slate-900">
+              Montant en FCFA
+            </label>
+
+            <input
+              id="montant"
+              type="number"
+              formControlName="montant"
+              placeholder="Ex : 2 500 000"
+              class="h-[60px] w-full rounded-[14px] border-2 border-slate-200 px-5 text-[19px] text-slate-700 outline-none placeholder:text-slate-400 focus:border-sky-500 focus:ring-2 focus:ring-sky-100"
+            />
+          </div>
+
+          <!-- DATE -->
+
+          <div>
+            <label for="dateDepense" class="mb-3 block text-[20px] font-bold text-slate-900">
+              Date de la dépense
+            </label>
+
+            <input
+              id="dateDepense"
+              type="date"
+              formControlName="dateDepense"
+              class="h-[60px] w-full rounded-[14px] border-2 border-slate-200 bg-white px-5 text-[19px] text-slate-500 outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-100"
+            />
+          </div>
+        </div>
+
+        <!-- =========================
+             DESCRIPTION
+        ========================== -->
+
+        <div>
+          <label for="description" class="mb-3 block text-[20px] font-bold text-slate-900">
+            Description détaillée
+          </label>
+
+          <textarea
+            id="description"
+            formControlName="description"
+            rows="3"
+            placeholder="Détails supplémentaires concernant cette transaction..."
+            class="w-full resize-none rounded-[14px] border-2 border-slate-200 px-5 py-4 text-[19px] text-slate-700 outline-none placeholder:text-slate-400 focus:border-sky-500 focus:ring-2 focus:ring-sky-100"
+          ></textarea>
+        </div>
+
+        <!-- =========================
+             UPLOAD JUSTIFICATIF
+        ========================== -->
+
+        <div>
+          <label class="mb-3 block text-[20px] font-bold text-slate-900">
+            Upload justificatif
+          </label>
+
+          <label
+            for="justificatif"
+            class="flex min-h-[185px] cursor-pointer flex-col items-center justify-center rounded-[14px] border-2 border-dashed border-sky-500 bg-slate-50 px-5 py-8 text-center transition hover:bg-sky-50"
+            (drop)="onDrop($event)"
+            (dragover)="onDragOver($event)"
+          >
+            <input
+              id="justificatif"
+              type="file"
+              accept=".pdf,.jpg,.jpeg,.png"
+              class="hidden"
+              (change)="onFileSelected($event)"
+            />
+
+            @if (!selectedFile) {
+              <!-- UPLOAD ICON -->
+
+              <svg
+                class="mb-4 h-9 w-9 text-sky-600"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.2"
+              >
+                <path d="M12 16V4" />
+
+                <path d="m7 9 5-5 5 5" />
+
+                <path
+                  d="M5 15v4a1 1 0 0 0 1 1h12
+                     a1 1 0 0 0 1-1v-4"
+                />
+              </svg>
+
+              <p class="text-[20px] font-bold text-slate-900">
+                Glissez votre justificatif ici ou cliquez pour parcourir
+              </p>
+
+              <p class="mt-2 text-[17px] text-slate-500">PDF, JPG, PNG — Max 10 Mo</p>
+            } @else {
+              <svg
+                class="mb-3 h-9 w-9 text-emerald-500"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path d="M5 12.5 9.5 17 19 7" />
+              </svg>
+
+              <p class="max-w-full truncate text-[18px] font-bold text-slate-900">
+                {{ selectedFile.name }}
+              </p>
+
+              <p class="mt-2 text-sm text-slate-500">
+                {{ (selectedFile.size / 1024 / 1024).toFixed(2) }} Mo
+              </p>
+
+              <button
+                type="button"
+                (click)="supprimerFichier()"
+                class="mt-3 text-sm font-semibold text-red-500 hover:text-red-600"
+              >
+                Supprimer le fichier
+              </button>
+            }
+          </label>
+        </div>
+      </div>
+
+      <!-- =========================
+           FOOTER
+      ========================== -->
+
+      <div class="mx-6 border-t-2 border-slate-200 sm:mx-10"></div>
+
+      <div
+        class="flex flex-col-reverse gap-3 px-6 py-6 sm:flex-row sm:justify-end sm:px-10 sm:py-7"
+      >
+        <!-- ANNULER -->
+
+        <button
+          type="button"
+          (click)="fermer()"
+          class="h-[60px] w-full rounded-[14px] border-2 border-slate-200 bg-white px-8 text-[19px] font-bold text-slate-500 transition hover:bg-slate-50 sm:w-auto"
+        >
+          Annuler
+        </button>
+
+        <!-- ENREGISTRER -->
+
+        <button
+          type="submit"
+          [disabled]="expenseForm.invalid || isSubmitting()"
+          class="h-[60px] w-full rounded-[14px] bg-[#0788cf] px-8 text-[19px] font-bold text-white transition hover:bg-[#067bb9] disabled:cursor-not-allowed disabled:opacity-50 sm:w-auto"
+        >
+          @if (isSubmitting()) {
+            Enregistrement...
+          } @else {
+            Enregistrer la dépense
+          }
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

@@ -28,23 +28,16 @@
       <!-- Actions -->
       <div class="flex shrink-0 items-center gap-2 sm:gap-3">
         <!-- Add expense -->
-        <button
-          (click)="addExpense()"
-          class="hidden h-11 items-center gap-2 rounded-lg bg-[#0788cf] px-5 text-sm font-semibold text-white shadow-sm transition hover:bg-[#067bb9] sm:flex"
-        >
-          <svg
-            class="h-5 w-5"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2.5"
-          >
-            <path d="M12 5v14" />
-            <path d="M5 12h14" />
-          </svg>
-
-          Ajouter dépense
-        </button>
+       <button
+  type="button"
+  (click)="ouvrirAjoutDepense()"
+  class="inline-flex items-center gap-2 rounded-lg
+         bg-sky-600 px-5 py-3
+         font-semibold text-white
+         hover:bg-sky-700"
+>
+  + Ajouter dépense
+</button>
 
         <!-- Notification -->
         <button
@@ -395,3 +388,14 @@
     </section>
   </main>
 </div>
+
+@if (showAddExpenseModal) {
+
+  <app-ajout-depense
+    (close)="fermerAjoutDepense()"
+    (expenseAdded)="onExpenseAdded($event)"
+  />
+
+}
+  
+

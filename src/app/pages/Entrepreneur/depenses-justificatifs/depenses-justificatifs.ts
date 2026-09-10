@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { AjoutDepense } from "../ajout-depense/ajout-depense";
 
 interface Transaction {
   id: number;
@@ -14,7 +15,7 @@ interface Transaction {
 @Component({
   selector: 'app-depenses-justificatifs',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule, AjoutDepense],
   templateUrl: './depenses-justificatifs.html'
 })
 export class DepensesJustificatifs {
@@ -27,6 +28,7 @@ export class DepensesJustificatifs {
 
   currentPage = 1;
 
+  showAddExpenseModal = false;
 
   transactions: Transaction[] = [
 
@@ -202,5 +204,24 @@ export class DepensesJustificatifs {
   nextPage(): void {
     this.currentPage++;
   }
+
+ouvrirAjoutDepense(): void {
+  this.showAddExpenseModal = true;
+}
+
+fermerAjoutDepense(): void {
+  this.showAddExpenseModal = false;
+}
+
+onExpenseAdded(depense: any): void {
+
+  console.log('Nouvelle dépense :', depense);
+
+  // API
+  // this.expenseService.create(depense).subscribe(...)
+
+  this.showAddExpenseModal = false;
+}
+
 
 }

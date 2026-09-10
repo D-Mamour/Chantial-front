@@ -10,23 +10,35 @@ import { FormGroup, FormBuilder, ReactiveFormsModule, Validators } from '@angula
 })
 export class AjoutEtape {
 
-  @Output() closed = new EventEmitter<void>();
-
+    @Output() close = new EventEmitter<void>();
   @Output() stepAdded = new EventEmitter<any>();
 
-  isOpen = false;
+  isSubmitting = signal(false);
 
-  stepForm: FormGroup;
+  steps = [
+    'Fondations',
+    'Élévation des murs',
+    'Toiture',
+    'Électricité',
+    'Plomberie',
+    'Second œuvre',
+    'Revêtement',
+    'Finitions'
+  ];
 
+  stepForm;
 
   constructor(private fb: FormBuilder) {
 
     this.stepForm = this.fb.group({
 
-      name: ['', Validators.required],
+      nomEtape: [
+        'Fondations',
+        Validators.required
+      ],
 
-      order: [
-        '',
+      ordre: [
+        1,
         [
           Validators.required,
           Validators.min(1)
@@ -41,34 +53,31 @@ export class AjoutEtape {
         ]
       ],
 
-      startDate: ['', Validators.required],
+      dateDebut: [
+        '',
+        Validators.required
+      ],
 
-      endDate: ['', Validators.required],
+      dateFin: [
+        '',
+        Validators.required
+      ],
 
-      description: ['']
+      description: [
+        ''
+      ]
 
     });
 
   }
 
 
-  open(): void {
-    this.isOpen = true;
-
-    document.body.classList.add('overflow-hidden');
+  fermer(): void {
+    this.close.emit();
   }
 
 
-  close(): void {
-    this.isOpen = false;
-
-    document.body.classList.remove('overflow-hidden');
-
-    this.closed.emit();
-  }
-
-
-  submit(): void {
+  ajouter(): void {
 
     if (this.stepForm.invalid) {
 
@@ -77,16 +86,25 @@ export class AjoutEtape {
       return;
     }
 
+    this.isSubmitting.set(true);
 
-    const step = this.stepForm.value;
+    const etape = this.stepForm.value;
 
-    console.log('Nouvelle étape :', step);
+    console.log('Étape ajoutée :', etape);
 
-    this.stepAdded.emit(step);
+    this.stepAdded.emit(etape);
 
-    this.stepForm.reset();
+    this.isSubmitting.set(false);
 
-    this.close();
+    this.fermer();
+  }
+
+
+  onOverlayClick(event: MouseEvent): void {
+
+    if (event.target === event.currentTarget) {
+      this.fermer();
+    }
 
   }
 }
