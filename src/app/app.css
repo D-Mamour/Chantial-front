@@ -1,0 +1,39 @@
+/*
+ * Aucun tailwind.config.js requis : les couleurs sont écrites en dur
+ * dans les templates (ex. bg-[#0B1526]) via la syntaxe "valeur arbitraire"
+ * de Tailwind, disponible nativement avec n'importe quelle installation.
+ *
+ * Ce fichier ne contient que du CSS classique à coller à la suite de
+ * votre src/styles.css existant (pas de nouvelle config, pas de plugin).
+ */
+
+/* Police condensée pour les titres — optionnel, à retirer si vous ne
+   voulez pas charger de police externe. Sans ça, les titres utilisent
+   simplement votre police par défaut. */
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&display=swap');
+
+.font-display {
+  font-family: 'Oswald', sans-serif;
+}
+
+/* Animation d'entrée utilisée par le hero et le carrousel des 6 étapes */
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fade-in-up 700ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-fade-in-up {
+    animation: none;
+  }
+}

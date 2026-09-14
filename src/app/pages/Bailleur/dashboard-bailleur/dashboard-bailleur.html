@@ -1,1 +1,459 @@
-<p>dashboard-bailleur works!</p>
+<!--
+  PAGE PRINCIPALE
+
+  Desktop  : ml-80
+  Mobile   : ml-0
+  xl       : largeur disponible
+-->
+
+<main class="min-h-screen bg-slate-50 ml-0 lg:ml-80 transition-all duration-300">
+  <!-- =====================================================
+       CONTENU
+  ====================================================== -->
+
+  <div class="mx-auto w-full max-w-[1440px] px-4 py-6 sm:px-6 sm:py-8 lg:px-8 xl:px-10">
+    <!-- =====================================================
+         HEADER
+    ====================================================== -->
+
+    <header
+      class="flex flex-col gap-5 border-b border-slate-200 pb-6 md:flex-row md:items-center md:justify-between"
+    >
+      <!-- TITRE -->
+
+      <div>
+        <div class="flex flex-wrap items-center gap-2">
+          <h1 class="text-2xl font-bold tracking-tight text-slate-900 sm:text-3xl">
+            Bonjour, Mike Andrew
+          </h1>
+
+          <span class="rounded-full bg-sky-100 px-3 py-1 text-xs font-bold text-sky-600 sm:text-sm">
+            Bailleur Privé
+          </span>
+        </div>
+
+        <p class="mt-1 text-sm text-slate-500 sm:text-base">
+          Suivi de votre investissement :
+          <span class="font-medium"> Résidence Les Oliviers </span>
+        </p>
+      </div>
+
+      <!-- DATE -->
+
+      <div
+        class="flex w-fit items-center gap-2 rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm font-medium text-slate-700 shadow-sm"
+      >
+        <!-- Calendar -->
+
+        <svg
+          class="h-5 w-5 text-slate-500"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+        >
+          <rect x="3" y="4" width="18" height="17" rx="2" />
+
+          <path d="M16 2v4" />
+          <path d="M8 2v4" />
+          <path d="M3 10h18" />
+        </svg>
+
+        <span> Aujourd'hui, 24 Mai 2025 </span>
+      </div>
+    </header>
+
+    <!-- =====================================================
+         STATISTIQUES
+    ====================================================== -->
+
+    <section class="mt-7 grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-4">
+      <!-- AVANCEMENT -->
+
+      <div class="rounded-[24px] border border-slate-100 bg-white p-6 shadow-sm sm:p-7">
+        <div class="flex items-start justify-between">
+          <!-- Icon -->
+
+          <div class="flex h-14 w-14 items-center justify-center rounded-2xl bg-sky-50">
+            <svg class="h-8 w-8 text-sky-600" viewBox="0 0 32 32" fill="none">
+              <circle cx="16" cy="16" r="3" fill="currentColor" />
+
+              <circle cx="16" cy="5" r="2" fill="currentColor" />
+
+              <circle cx="25" cy="9" r="2" fill="currentColor" />
+
+              <circle cx="27" cy="18" r="2" fill="currentColor" />
+
+              <circle cx="21" cy="26" r="2" fill="currentColor" />
+
+              <circle cx="11" cy="27" r="2" fill="currentColor" />
+
+              <circle cx="5" cy="20" r="2" fill="currentColor" />
+
+              <circle cx="6" cy="11" r="2" fill="currentColor" />
+            </svg>
+          </div>
+
+          <div class="text-right">
+            <p class="text-xs font-semibold uppercase tracking-widest text-slate-400">
+              Phase actuelle
+            </p>
+
+            <p class="mt-1 text-sm font-bold text-sky-600">Élévation</p>
+          </div>
+        </div>
+
+        <p class="mt-7 text-base font-medium text-slate-500">Avancement Global</p>
+
+        <div class="mt-1 flex items-center gap-3">
+          <span class="text-4xl font-bold tracking-tight text-slate-900"> 45% </span>
+
+          <span class="text-sm font-bold text-emerald-500"> ↑ +5% </span>
+        </div>
+
+        <!-- Progress -->
+
+        <div class="mt-5 h-2 overflow-hidden rounded-full bg-slate-100">
+          <div class="h-full w-[45%] rounded-full bg-sky-600"></div>
+        </div>
+      </div>
+
+      <!-- BUDGET -->
+
+      <div class="rounded-[24px] border border-slate-100 bg-white p-6 shadow-sm sm:p-7">
+        <div class="flex h-14 w-14 items-center justify-center rounded-2xl bg-indigo-50">
+          <svg
+            class="h-8 w-8 text-indigo-600"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <rect x="3" y="5" width="18" height="15" rx="2" />
+
+            <path d="M7 5V3h10v2" />
+            <circle cx="12" cy="12" r="3" />
+          </svg>
+        </div>
+
+        <p class="mt-7 text-base font-medium text-slate-500">Budget Prévu</p>
+
+        <div class="mt-1 flex items-baseline gap-2">
+          <span class="text-4xl font-bold tracking-tight text-slate-900"> 120M </span>
+
+          <span class="text-base text-slate-400"> FCFA </span>
+        </div>
+
+        <p class="mt-2 text-sm text-slate-400">Total estimé du projet</p>
+      </div>
+
+      <!-- DEPENSES -->
+
+      <div class="rounded-[24px] border border-slate-100 bg-white p-6 shadow-sm sm:p-7">
+        <div class="flex h-14 w-14 items-center justify-center rounded-2xl bg-emerald-50">
+          <svg
+            class="h-8 w-8 text-emerald-600"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path d="M6 3h12v18H6z" />
+
+            <path d="M8 7h8" />
+            <path d="M8 11h8" />
+            <path d="M8 15h5" />
+          </svg>
+        </div>
+
+        <p class="mt-7 text-base font-medium text-slate-500">Dépenses Réelles</p>
+
+        <div class="mt-1 flex items-baseline gap-2">
+          <span class="text-4xl font-bold tracking-tight text-slate-900"> 54M </span>
+
+          <span class="text-base text-slate-400"> FCFA </span>
+        </div>
+
+        <span
+          class="mt-2 inline-flex rounded-full bg-emerald-100 px-3 py-1 text-xs font-bold text-emerald-600"
+        >
+          45% du budget
+        </span>
+      </div>
+
+      <!-- SOLDE -->
+
+      <div class="rounded-[24px] bg-slate-900 p-6 shadow-lg sm:p-7">
+        <div class="flex h-14 w-14 items-center justify-center rounded-2xl bg-slate-800">
+          <svg
+            class="h-8 w-8 text-sky-500"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <rect x="3" y="6" width="18" height="14" rx="2" />
+
+            <path d="M16 10h5" />
+            <circle cx="16" cy="13" r="1" />
+          </svg>
+        </div>
+
+        <p class="mt-7 text-base font-medium text-slate-400">Solde Restant</p>
+
+        <div class="mt-1 flex items-baseline gap-2">
+          <span class="text-4xl font-bold tracking-tight text-white"> 66M </span>
+
+          <span class="text-base text-slate-500"> FCFA </span>
+        </div>
+
+        <p class="mt-2 text-sm text-sky-400">Fonds disponibles</p>
+      </div>
+    </section>
+
+    <!-- =====================================================
+         ETAPE ACTUELLE
+    ====================================================== -->
+
+    <section class="mt-7 rounded-[22px] border border-slate-200 bg-white p-6 shadow-sm sm:p-7">
+      <div class="flex flex-col gap-5 lg:flex-row lg:items-start lg:justify-between">
+        <div>
+          <p class="text-sm font-bold uppercase tracking-wide text-sky-600">Étape actuelle</p>
+
+          <h2 class="mt-1 text-2xl font-bold tracking-tight text-slate-900 sm:text-[25px]">
+            Gros œuvre — Élévation des murs
+          </h2>
+
+          <!-- Informations -->
+
+          <div class="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-3 sm:gap-10">
+            <div>
+              <p class="text-sm text-slate-500">Début de phase</p>
+
+              <p class="mt-1 font-semibold text-slate-900">12 Janvier 2025</p>
+            </div>
+
+            <div>
+              <p class="text-sm text-slate-500">Fin estimée</p>
+
+              <p class="mt-1 font-semibold text-slate-900">15 Juin 2025</p>
+            </div>
+
+            <div>
+              <p class="text-sm text-slate-500">Entrepreneur</p>
+
+              <p class="mt-1 font-semibold text-slate-900">Bâtipro SARL</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Risque -->
+
+        <span class="w-fit rounded-xl bg-amber-100 px-4 py-2 text-sm font-bold text-amber-600">
+          Risque modéré
+        </span>
+      </div>
+    </section>
+
+    <!-- =====================================================
+         CHRONOLOGIE
+    ====================================================== -->
+
+    <section class="mt-7 rounded-[22px] border border-slate-200 bg-white p-6 shadow-sm sm:p-7">
+      <h2 class="text-xl font-bold text-slate-900">Chronologie du Chantier</h2>
+
+      <!--
+        overflow-x-auto :
+        permet de conserver la timeline horizontale
+        sur téléphone sans casser le design.
+      -->
+
+      <div class="mt-7 overflow-x-auto pb-3">
+        <div class="flex min-w-[760px] items-start">
+          @for (item of timeline; track item.number) {
+            <div class="relative flex-1">
+              <div class="flex items-center">
+                <!-- Cercle -->
+
+                <div
+                  class="z-10 flex h-9 w-9 shrink-0 items-center justify-center rounded-full"
+                  [class.bg-sky-100]="item.status === 'completed'"
+                  [class.bg-sky-600]="item.status === 'current'"
+                  [class.bg-slate-50]="item.status === 'pending'"
+                  [class.text-sky-600]="item.status === 'completed'"
+                  [class.text-white]="item.status === 'current'"
+                  [class.text-slate-500]="item.status === 'pending'"
+                >
+                  @if (item.status === 'completed') {
+                    <svg
+                      class="h-5 w-5"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="3"
+                    >
+                      <path d="m5 12 4 4L19 6" />
+                    </svg>
+                  } @else {
+                    {{ item.number }}
+                  }
+                </div>
+
+                <!-- Ligne -->
+
+                @if (!$last) {
+                  <div
+                    class="h-[3px] flex-1 bg-slate-200"
+                    [class.bg-sky-600]="item.status === 'completed'"
+                  ></div>
+                }
+              </div>
+
+              <!-- Label -->
+
+              <p
+                class="mt-3 text-sm font-medium"
+                [class.text-sky-600]="item.status === 'current'"
+                [class.font-bold]="item.status === 'current'"
+                [class.text-slate-900]="item.status !== 'current'"
+              >
+                {{ item.title }}
+              </p>
+            </div>
+          }
+        </div>
+      </div>
+    </section>
+
+    <!-- =====================================================
+         POINTS D'ATTENTION
+    ====================================================== -->
+
+    <section class="mt-7">
+      <h2 class="text-xl font-bold text-slate-900 sm:text-2xl">
+        Points nécessitant votre attention
+      </h2>
+
+      <div class="mt-5 grid grid-cols-1 gap-5 lg:grid-cols-3">
+        @for (point of attentionPoints; track point.title) {
+          <article class="rounded-[18px] border border-slate-200 bg-white p-5 shadow-sm sm:p-6">
+            <!-- TOP -->
+
+            <div class="flex items-start justify-between gap-3">
+              <!-- Icon -->
+
+              @if (point.type === 'document') {
+                <div
+                  class="flex h-10 w-10 items-center justify-center rounded-xl bg-slate-50 text-amber-500"
+                >
+                  <svg
+                    class="h-6 w-6"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  >
+                    <path
+                      d="M14 2H6a2 2 0 0 0-2 2v16
+                         a2 2 0 0 0 2 2h12
+                         a2 2 0 0 0 2-2V8z"
+                    />
+
+                    <path d="M14 2v6h6" />
+
+                    <path d="M9 15l2 2 4-5" />
+                  </svg>
+                </div>
+              } @else if (point.type === 'alert') {
+                <div
+                  class="flex h-10 w-10 items-center justify-center rounded-xl bg-slate-50 text-red-500"
+                >
+                  <svg
+                    class="h-6 w-6"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  >
+                    <path
+                      d="M10.3 3.8 2.6 17
+                         a2 2 0 0 0 1.7 3h15.4
+                         a2 2 0 0 0 1.7-3L13.7 3.8
+                         a2 2 0 0 0-3.4 0z"
+                    />
+
+                    <path d="M12 9v4" />
+                    <path d="M12 17h.01" />
+                  </svg>
+                </div>
+              } @else {
+                <div
+                  class="flex h-10 w-10 items-center justify-center rounded-xl bg-slate-50 text-amber-500"
+                >
+                  <svg
+                    class="h-6 w-6"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  >
+                    <circle cx="12" cy="12" r="9" />
+
+                    <path d="M12 7v5l3 2" />
+                  </svg>
+                </div>
+              }
+
+              <!-- BADGE -->
+
+              <span
+                class="rounded-lg px-3 py-1 text-xs font-bold"
+                [class.bg-amber-100]="point.badgeClass === 'yellow'"
+                [class.text-amber-600]="point.badgeClass === 'yellow'"
+                [class.bg-red-100]="point.badgeClass === 'red'"
+                [class.text-red-500]="point.badgeClass === 'red'"
+              >
+                {{ point.badge }}
+              </span>
+            </div>
+
+            <!-- CONTENT -->
+
+            <div class="mt-5">
+              <h3 class="text-lg font-bold text-slate-900">
+                {{ point.title }}
+              </h3>
+
+              <p class="mt-1 text-sm leading-6 text-slate-500">
+                {{ point.description }}
+              </p>
+            </div>
+
+            <!-- FOOTER -->
+
+            <div class="mt-5 border-t border-slate-200 pt-4">
+              <button
+                type="button"
+                (click)="voirDetails(point)"
+                class="inline-flex items-center gap-2 text-sm font-bold text-sky-600 transition hover:text-sky-700"
+              >
+                Voir détails
+
+                <svg
+                  class="h-4 w-4"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2.5"
+                >
+                  <path d="M5 12h14" />
+                  <path d="m13 6 6 6-6 6" />
+                </svg>
+              </button>
+            </div>
+          </article>
+        }
+      </div>
+    </section>
+  </div>
+</main>

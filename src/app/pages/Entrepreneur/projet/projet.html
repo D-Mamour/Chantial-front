@@ -282,6 +282,7 @@
 
         <button
           type="button"
+          routerLink='/entrepreneur/detail'
           class="mt-4 h-10 w-full rounded-lg border border-[#0797D5] bg-white text-sm font-semibold text-[#0797D5] transition hover:bg-[#F3FAFD]"
         >
           Voir le projet
@@ -308,13 +309,17 @@
     </p>
 
     <button
-      type="button"
-      class="mt-5 rounded-lg bg-[#0797D5] px-5 py-3 text-sm font-semibold text-white hover:bg-[#0787BF]"
-    >
-      Créer mon premier projet
-    </button>
+        type="button"
+        (click)="ouvrirModalProjet()"
+        class="flex h-11 items-center justify-center gap-2 rounded-lg bg-[#0797D5] px-5 text-sm font-semibold text-white transition hover:bg-[#0787BF]"
+      >
+        <i class="fa-solid fa-plus"></i>
+
+        <span>Creer mon premier projet </span>
+      </button>
   </section>
 </div>
+
 @if (CreerProjet) {
   <app-creer-projet
     (close)="fermerModalProjet()"

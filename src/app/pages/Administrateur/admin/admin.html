@@ -1,1 +1,724 @@
-<p>admin works!</p>
+<div class="min-h-screen bg-[#f7f9fc] lg:ml-80">
+
+  <!-- HEADER -->
+  <header
+    class="border-b border-slate-200 bg-white px-4 py-5
+           sm:px-6 lg:px-8"
+  >
+    <div
+      class="flex flex-col gap-4
+             md:flex-row md:items-center md:justify-between"
+    >
+
+      <div>
+        <h1
+          class="text-2xl font-bold tracking-tight text-slate-900
+                 sm:text-3xl"
+        >
+          Administration Système
+        </h1>
+
+        <p class="mt-1 text-sm text-slate-500 sm:text-base">
+          Gérez les utilisateurs, rôles et l'activité de la plateforme CHANTIAL
+        </p>
+      </div>
+
+      <!-- Date -->
+      <div
+        class="flex w-fit items-center gap-2 rounded-lg
+               border border-slate-200 bg-white px-4 py-2.5
+               text-sm font-medium text-slate-700 shadow-sm"
+      >
+        <svg
+          class="h-5 w-5 text-slate-500"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M8 7V3m8 4V3m-9 8h10M5 5h14a2 2 0 012 2v12a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2z"
+          />
+        </svg>
+
+        <span class="whitespace-nowrap">
+          Aujourd'hui, 24 Mai 2025
+        </span>
+      </div>
+
+    </div>
+  </header>
+
+
+  <!-- CONTENT -->
+  <main class="px-4 py-6 sm:px-6 lg:px-8">
+
+    <!-- STATISTIQUES -->
+    <section
+      class="grid grid-cols-1 gap-4
+             sm:grid-cols-2
+             xl:grid-cols-4"
+    >
+
+      <!-- Total utilisateurs -->
+      <div
+        class="rounded-2xl border border-slate-200 bg-white
+               p-5 shadow-sm"
+      >
+        <div class="flex items-center justify-between">
+
+          <div>
+            <p class="text-sm font-medium text-slate-500">
+              Total utilisateurs
+            </p>
+
+            <p class="mt-2 text-3xl font-bold text-slate-900">
+              342
+            </p>
+
+            <p class="mt-2 text-sm text-slate-500">
+              +12 nouveaux ce mois
+            </p>
+          </div>
+
+          <div
+            class="flex h-12 w-12 items-center justify-center
+                   rounded-full bg-slate-50 text-[#0788cf]"
+          >
+            <svg
+              class="h-6 w-6"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M17 20h5v-2a4 4 0 00-4-4h-1M9 20H4v-2a4 4 0 014-4h1m4-9a4 4 0 110 8 4 4 0 010-8zm6 4a3 3 0 10-2.83-4"
+              />
+            </svg>
+          </div>
+
+        </div>
+      </div>
+
+
+      <!-- Entrepreneurs -->
+      <div
+        class="rounded-2xl border border-slate-200 bg-white
+               p-5 shadow-sm"
+      >
+        <div class="flex items-center justify-between">
+
+          <div>
+            <p class="text-sm font-medium text-slate-500">
+              Entrepreneurs actifs
+            </p>
+
+            <p class="mt-2 text-3xl font-bold text-slate-900">
+              128
+            </p>
+
+            <p class="mt-2 text-sm text-slate-500">
+              Vérifiés par l'administration
+            </p>
+          </div>
+
+          <div
+            class="flex h-12 w-12 items-center justify-center
+                   rounded-full bg-slate-50 text-[#0788cf]"
+          >
+            <svg
+              class="h-6 w-6"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M4 21h16M6 21V5a2 2 0 012-2h8a2 2 0 012 2v16M9 7h6M9 11h6M9 15h6"
+              />
+            </svg>
+          </div>
+
+        </div>
+      </div>
+
+
+      <!-- Bailleurs -->
+      <div
+        class="rounded-2xl border border-slate-200 bg-white
+               p-5 shadow-sm"
+      >
+        <div class="flex items-center justify-between">
+
+          <div>
+            <p class="text-sm font-medium text-slate-500">
+              Bailleurs actifs
+            </p>
+
+            <p class="mt-2 text-3xl font-bold text-slate-900">
+              204
+            </p>
+
+            <p class="mt-2 text-sm text-slate-500">
+              Particuliers & institutionnels
+            </p>
+          </div>
+
+          <div
+            class="flex h-12 w-12 items-center justify-center
+                   rounded-full bg-slate-50 text-[#0788cf]"
+          >
+            <svg
+              class="h-6 w-6"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M4 7h16v12H4zM7 7V5a2 2 0 012-2h6a2 2 0 012 2v2M4 11h16"
+              />
+            </svg>
+          </div>
+
+        </div>
+      </div>
+
+
+      <!-- Comptes suspendus -->
+      <div
+        class="rounded-2xl border border-slate-200 bg-white
+               p-5 shadow-sm"
+      >
+        <div class="flex items-center justify-between">
+
+          <div>
+            <p class="text-sm font-medium text-slate-500">
+              Comptes suspendus
+            </p>
+
+            <p class="mt-2 text-3xl font-bold text-red-500">
+              10
+            </p>
+
+            <p class="mt-2 text-sm text-slate-500">
+              Nécessitant une revue
+            </p>
+          </div>
+
+          <div
+            class="flex h-12 w-12 items-center justify-center
+                   rounded-full bg-slate-50 text-[#0788cf]"
+          >
+            <svg
+              class="h-6 w-6"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M16 21v-2a4 4 0 00-4-4H6a4 4 0 00-4 4v2M9 11a4 4 0 100-8 4 4 0 000 8zm11 3l-4 4m0-4l4 4"
+              />
+            </svg>
+          </div>
+
+        </div>
+      </div>
+
+    </section>
+
+
+    <!-- UTILISATEURS + FORMULAIRE -->
+    <section
+      class="mt-6 grid grid-cols-1 gap-6
+             xl:grid-cols-[minmax(0,1.8fr)_390px]"
+    >
+
+      <!-- TABLE UTILISATEURS -->
+      <div
+        class="min-w-0 overflow-hidden rounded-2xl
+               border border-slate-200 bg-white shadow-sm"
+      >
+
+        <div class="p-5 sm:p-6">
+
+          <div class="mb-5 flex items-center justify-between">
+            <h2 class="text-lg font-bold text-slate-900">
+              Utilisateurs enregistrés
+            </h2>
+
+            <button
+              type="button"
+              (click)="createUser()"
+              class="rounded-lg bg-[#0788cf] px-4 py-2
+                     text-sm font-semibold text-white
+                     transition hover:bg-[#0678b7]"
+            >
+              + Ajouter
+            </button>
+          </div>
+
+
+          <!-- Responsive table -->
+          <div class="overflow-x-auto">
+
+            <table class="w-full min-w-[700px] text-left">
+
+              <thead>
+                <tr class="bg-slate-50 text-xs uppercase text-slate-500">
+
+                  <th class="rounded-l-lg px-3 py-3 font-semibold">
+                    Nom complet
+                  </th>
+
+                  <th class="px-3 py-3 font-semibold">
+                    Rôle
+                  </th>
+
+                  <th class="px-3 py-3 font-semibold">
+                    Statut
+                  </th>
+
+                  <th class="px-3 py-3 font-semibold">
+                    Date d'inscription
+                  </th>
+
+                  <th class="rounded-r-lg px-3 py-3 text-right font-semibold">
+                    Actions
+                  </th>
+
+                </tr>
+              </thead>
+
+
+              <tbody class="divide-y divide-slate-100">
+
+                @for (user of users; track user.id) {
+
+                  <tr class="hover:bg-slate-50">
+
+                    <td class="px-3 py-4">
+
+                      <div class="font-semibold text-slate-800">
+                        {{ user.nom }}
+                      </div>
+
+                      <div class="mt-0.5 text-xs text-slate-400">
+                        {{ user.email }}
+                      </div>
+
+                    </td>
+
+
+                    <td class="px-3 py-4">
+
+                      <span
+                        class="inline-flex rounded-md px-2.5 py-1
+                               text-xs font-semibold"
+                        [ngClass]="{
+                          'bg-sky-100 text-sky-600':
+                            user.role === 'Entrepreneur',
+
+                          'bg-indigo-100 text-indigo-600':
+                            user.role === 'Bailleur',
+
+                          'bg-slate-200 text-slate-700':
+                            user.role === 'Admin'
+                        }"
+                      >
+                        {{ user.role }}
+                      </span>
+
+                    </td>
+
+
+                    <td class="px-3 py-4">
+
+                      <span
+                        class="inline-flex rounded-md px-2.5 py-1
+                               text-xs font-semibold"
+                        [ngClass]="{
+                          'bg-emerald-100 text-emerald-600':
+                            user.statut === 'Actif',
+
+                          'bg-red-100 text-red-500':
+                            user.statut === 'Suspendu'
+                        }"
+                      >
+                        {{ user.statut }}
+                      </span>
+
+                    </td>
+
+
+                    <td class="whitespace-nowrap px-3 py-4 text-sm text-slate-500">
+                      {{ user.date }}
+                    </td>
+
+
+                    <td class="px-3 py-4">
+
+                      <div class="flex justify-end gap-3">
+
+                        <!-- Modifier -->
+                        <button
+                          type="button"
+                          (click)="editUser(user)"
+                          title="Modifier"
+                          class="text-[#0788cf] transition hover:text-[#056d9f]"
+                        >
+                          <svg
+                            class="h-5 w-5"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                          >
+                            <path
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              stroke-width="2"
+                              d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"
+                            />
+                          </svg>
+                        </button>
+
+
+                        <!-- Suspendre -->
+                        <button
+                          type="button"
+                          (click)="toggleUser(user)"
+                          title="Suspendre / Activer"
+                          class="text-amber-500 transition hover:text-amber-600"
+                        >
+                          <svg
+                            class="h-5 w-5"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                          >
+                            <path
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              stroke-width="2"
+                              d="M15 12H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"
+                            />
+                          </svg>
+                        </button>
+
+
+                        <!-- Supprimer -->
+                        <button
+                          type="button"
+                          (click)="deleteUser(user)"
+                          title="Supprimer"
+                          class="text-red-500 transition hover:text-red-600"
+                        >
+                          <svg
+                            class="h-5 w-5"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                          >
+                            <path
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              stroke-width="2"
+                              d="M6 7h12m-9 0v10m6-10v10M9 7V4h6v3m-8 0h10l-1 13H8L7 7z"
+                            />
+                          </svg>
+                        </button>
+
+                      </div>
+
+                    </td>
+
+                  </tr>
+
+                }
+
+              </tbody>
+
+            </table>
+
+          </div>
+
+
+          <!-- Pagination -->
+          <div
+            class="mt-5 flex flex-col gap-3
+                   sm:flex-row sm:items-center sm:justify-between"
+          >
+
+            <p class="text-sm text-slate-500">
+              Affichage de 1 à 4 sur 342 utilisateurs
+            </p>
+
+            <div class="flex items-center gap-2">
+
+              <button
+                class="rounded-lg border border-slate-200
+                       px-3 py-2 text-sm text-slate-600
+                       hover:bg-slate-50"
+              >
+                Précédent
+              </button>
+
+              <button
+                class="rounded-lg bg-[#0788cf] px-3 py-2
+                       text-sm font-semibold text-white"
+              >
+                1
+              </button>
+
+              <button
+                class="rounded-lg border border-slate-200
+                       px-3 py-2 text-sm text-slate-700
+                       hover:bg-slate-50"
+              >
+                Suivant
+              </button>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- FORMULAIRE -->
+      <div
+        class="rounded-2xl border border-slate-200
+               bg-white p-5 shadow-sm sm:p-6"
+      >
+
+        <h2 class="text-lg font-bold text-slate-900">
+          {{ selectedUser() ? 'Modifier utilisateur' : 'Créer utilisateur' }}
+        </h2>
+
+
+        <div class="mt-5 space-y-4">
+
+          <!-- Prénom -->
+          <div>
+            <label class="mb-1.5 block text-xs font-medium uppercase text-slate-500">
+              Prénom
+            </label>
+
+            <input
+              [(ngModel)]="form.prenom"
+              type="text"
+              class="w-full rounded-lg border border-slate-200
+                     px-3 py-2.5 text-sm text-slate-800
+                     outline-none transition
+                     focus:border-[#0788cf]
+                     focus:ring-2 focus:ring-[#0788cf]/10"
+            />
+          </div>
+
+
+          <!-- Nom -->
+          <div>
+            <label class="mb-1.5 block text-xs font-medium uppercase text-slate-500">
+              Nom
+            </label>
+
+            <input
+              [(ngModel)]="form.nom"
+              type="text"
+              class="w-full rounded-lg border border-slate-200
+                     px-3 py-2.5 text-sm text-slate-800
+                     outline-none transition
+                     focus:border-[#0788cf]
+                     focus:ring-2 focus:ring-[#0788cf]/10"
+            />
+          </div>
+
+
+          <!-- Email -->
+          <div>
+            <label class="mb-1.5 block text-xs font-medium uppercase text-slate-500">
+              Email
+            </label>
+
+            <input
+              [(ngModel)]="form.email"
+              type="email"
+              class="w-full rounded-lg border border-slate-200
+                     px-3 py-2.5 text-sm text-slate-800
+                     outline-none transition
+                     focus:border-[#0788cf]
+                     focus:ring-2 focus:ring-[#0788cf]/10"
+            />
+          </div>
+
+
+          <!-- Téléphone -->
+          <div>
+            <label class="mb-1.5 block text-xs font-medium uppercase text-slate-500">
+              Téléphone
+            </label>
+
+            <input
+              [(ngModel)]="form.telephone"
+              type="tel"
+              class="w-full rounded-lg border border-slate-200
+                     px-3 py-2.5 text-sm text-slate-800
+                     outline-none transition
+                     focus:border-[#0788cf]
+                     focus:ring-2 focus:ring-[#0788cf]/10"
+            />
+          </div>
+
+
+          <!-- Role -->
+          <div>
+            <label class="mb-1.5 block text-xs font-medium uppercase text-slate-500">
+              Rôle
+            </label>
+
+            <select
+              [(ngModel)]="form.role"
+              class="w-full rounded-lg border border-slate-200
+                     bg-white px-3 py-2.5 text-sm text-slate-800
+                     outline-none
+                     focus:border-[#0788cf]
+                     focus:ring-2 focus:ring-[#0788cf]/10"
+            >
+              <option value="Entrepreneur">Entrepreneur</option>
+              <option value="Bailleur">Bailleur</option>
+              <option value="Admin">Admin</option>
+            </select>
+          </div>
+
+
+          <!-- Toggle -->
+          <div class="flex items-center justify-between pt-2">
+
+            <span class="text-sm font-medium text-slate-600">
+              Activer le compte
+            </span>
+
+            <button
+              type="button"
+              (click)="form.actif = !form.actif"
+              class="relative h-6 w-11 rounded-full transition"
+              [ngClass]="
+                form.actif
+                  ? 'bg-emerald-500'
+                  : 'bg-slate-300'
+              "
+            >
+
+              <span
+                class="absolute top-1 h-4 w-4 rounded-full
+                       bg-white shadow transition"
+                [ngClass]="
+                  form.actif
+                    ? 'left-6'
+                    : 'left-1'
+                "
+              ></span>
+
+            </button>
+
+          </div>
+
+
+          <!-- Boutons -->
+          <div class="flex gap-3 pt-4">
+
+            <button
+              type="button"
+              (click)="createUser()"
+              class="flex-1 rounded-lg bg-slate-50
+                     px-4 py-3 text-sm font-semibold
+                     text-slate-500 transition
+                     hover:bg-slate-100"
+            >
+              Annuler
+            </button>
+
+            <button
+              type="button"
+              (click)="saveUser()"
+              class="flex-1 rounded-lg bg-[#0788cf]
+                     px-4 py-3 text-sm font-semibold
+                     text-white transition
+                     hover:bg-[#0678b7]"
+            >
+              Enregistrer
+            </button>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- JOURNAL -->
+    <section
+      class="mt-6 rounded-2xl border border-slate-200
+             bg-white p-5 shadow-sm sm:p-6"
+    >
+
+      <h2 class="text-lg font-bold text-slate-900">
+        Journal d'activité système
+      </h2>
+
+
+      <div class="mt-5 divide-y divide-slate-100">
+
+        @for (item of activity; track item.initials) {
+
+          <div class="flex gap-3 py-4 first:pt-0 last:pb-0">
+
+            <div
+              class="flex h-9 w-9 shrink-0 items-center
+                     justify-center rounded-full
+                     bg-slate-50 text-xs font-bold
+                     text-[#0788cf]"
+            >
+              {{ item.initials }}
+            </div>
+
+
+            <div class="min-w-0">
+
+              <p class="text-sm text-slate-500">
+                {{ item.date }}
+              </p>
+
+              <p class="mt-0.5 text-sm font-semibold text-slate-800">
+                {{ item.text }}
+              </p>
+
+            </div>
+
+          </div>
+
+        }
+
+      </div>
+
+    </section>
+
+  </main>
+
+</div>

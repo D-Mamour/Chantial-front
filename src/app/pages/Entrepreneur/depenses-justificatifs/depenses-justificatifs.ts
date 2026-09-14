@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AjoutDepense } from "../ajout-depense/ajout-depense";
+import { RouterLink } from '@angular/router';
 
 interface Transaction {
   id: number;
@@ -15,7 +16,7 @@ interface Transaction {
 @Component({
   selector: 'app-depenses-justificatifs',
   standalone: true,
-  imports: [FormsModule, AjoutDepense],
+  imports: [FormsModule, AjoutDepense, RouterLink],
   templateUrl: './depenses-justificatifs.html'
 })
 export class DepensesJustificatifs {

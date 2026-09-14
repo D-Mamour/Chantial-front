@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import { CreerProjet } from '../creer-projet/creer-projet';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-mes-projets',
   standalone: true,
-  imports: [CreerProjet],
+  imports: [CreerProjet, RouterLink],
   templateUrl: './projet.html',
   styleUrl: './projet.css'
 })

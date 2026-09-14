@@ -1,1 +1,482 @@
-<p>ma-construction works!</p>
+<div class="min-h-screen bg-slate-50 ml-0 lg:ml-80">
+
+  <!-- ================= HEADER ================= -->
+  <header class="border-b border-slate-200 bg-slate-50">
+    <div class="px-4 sm:px-6 lg:px-10 py-6">
+
+      <div class="flex flex-col gap-5 xl:flex-row xl:items-center xl:justify-between">
+
+        <!-- Titre -->
+        <div>
+          <div class="flex flex-wrap items-center gap-3">
+            <h1 class="text-2xl sm:text-3xl font-bold text-slate-900">
+              Résidence Les Oliviers
+            </h1>
+
+            <span
+              class="rounded-lg bg-sky-100 px-3 py-1 text-sm font-semibold text-sky-600">
+              En cours
+            </span>
+          </div>
+
+          <p class="mt-1 text-sm sm:text-base text-slate-500">
+            Entrepreneur :
+            <span class="font-semibold text-slate-900">
+              Entreprise Bâtipro SARL
+            </span>
+
+            <span class="mx-2 text-slate-300">|</span>
+
+            Budget total :
+            <span class="font-semibold text-slate-900">
+              45 000 000 FCFA
+            </span>
+          </p>
+        </div>
+
+        <!-- Actions -->
+        <div class="flex flex-wrap gap-2">
+
+          <button
+            class="flex items-center justify-center gap-2 rounded-lg border-2
+                   border-sky-500 bg-white px-4 py-2.5 text-sm font-semibold
+                   text-sky-600 transition hover:bg-sky-50">
+
+            <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M9 12l2 2 4-4m5-2v10a2 2 0 01-2 2H6a2 2 0 01-2-2V6a2 2 0 012-2h7"/>
+            </svg>
+
+            Vérifier
+          </button>
+
+          <button
+            class="flex items-center justify-center gap-2 rounded-lg border-2
+                   border-amber-500 bg-white px-4 py-2.5 text-sm font-semibold
+                   text-amber-600 transition hover:bg-amber-50">
+
+            <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <circle cx="12" cy="12" r="9" stroke-width="2"/>
+              <path stroke-linecap="round" stroke-width="2"
+                    d="M12 8v4m0 4h.01"/>
+            </svg>
+
+            Demander une justification
+          </button>
+
+          <button
+            class="flex items-center justify-center gap-2 rounded-lg border-2
+                   border-red-500 bg-white px-4 py-2.5 text-sm font-semibold
+                   text-red-500 transition hover:bg-red-50">
+
+            <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M11 5h2M5 5h2m10 0h2M5 19h14M7 5v14m10-14v14M9 9h6m-6 4h6"/>
+            </svg>
+
+            Demander une correction
+          </button>
+
+        </div>
+      </div>
+
+      <!-- Progression -->
+      <div class="mt-6 flex items-center gap-4">
+
+        <div class="h-3 flex-1 overflow-hidden rounded-full bg-slate-200">
+          <div
+            class="h-full w-[62%] rounded-full bg-sky-500">
+          </div>
+        </div>
+
+        <span class="whitespace-nowrap text-sm sm:text-base font-bold text-sky-600">
+          62% complété
+        </span>
+
+      </div>
+
+    </div>
+  </header>
+
+
+  <!-- ================= CONTENU ================= -->
+  <main class="px-4 sm:px-6 lg:px-10 py-6">
+
+    <!-- ================= TABS ================= -->
+    <div class="mb-7 overflow-x-auto border-b border-slate-200">
+
+      <div class="flex min-w-max gap-7">
+
+        @for (tab of tabs; track tab) {
+
+          <button
+            (click)="setActiveTab(tab)"
+            class="relative pb-4 text-sm sm:text-base font-medium transition"
+            [class.text-sky-600]="activeTab === tab"
+            [class.text-slate-500]="activeTab !== tab">
+
+            {{ tab }}
+
+            @if (activeTab === tab) {
+              <span
+                class="absolute bottom-0 left-0 right-0 h-0.5 bg-sky-500">
+              </span>
+            }
+
+          </button>
+
+        }
+
+      </div>
+
+    </div>
+
+
+    <!-- ================= INFORMATIONS + ACTIVITES ================= -->
+    <section class="grid grid-cols-1 gap-6 xl:grid-cols-12">
+
+      <!-- Informations -->
+      <div
+        class="rounded-2xl border border-slate-200 bg-white p-6
+               xl:col-span-4">
+
+        <h2 class="text-lg font-bold text-slate-900">
+          Informations du Projet
+        </h2>
+
+        <div class="mt-6 space-y-5">
+
+          <div>
+            <p class="text-sm text-slate-500">
+              Type de construction
+            </p>
+            <p class="mt-1 font-semibold text-slate-900">
+              Résidentiel Collectif R+2
+            </p>
+          </div>
+
+          <div>
+            <p class="text-sm text-slate-500">
+              Localisation
+            </p>
+            <p class="mt-1 font-semibold text-slate-900">
+              Cocody, Abidjan, Côte d'Ivoire
+            </p>
+          </div>
+
+          <div>
+            <p class="text-sm text-slate-500">
+              Surface totale
+            </p>
+            <p class="mt-1 font-semibold text-slate-900">
+              480 m² habitables
+            </p>
+          </div>
+
+          <div>
+            <p class="text-sm text-slate-500">
+              Date de début
+            </p>
+            <p class="mt-1 font-semibold text-slate-900">
+              05 Janvier 2025
+            </p>
+          </div>
+
+          <div>
+            <p class="text-sm text-slate-500">
+              Date de fin prévue
+            </p>
+            <p class="mt-1 font-semibold text-slate-900">
+              20 Novembre 2025
+            </p>
+          </div>
+
+          <div>
+            <p class="text-sm text-slate-500">
+              Permis de construire
+            </p>
+            <p class="mt-1 font-semibold text-slate-900">
+              N° CPC-2024-8839
+            </p>
+          </div>
+
+        </div>
+      </div>
+
+
+      <!-- Activités -->
+      <div
+        class="rounded-2xl border border-slate-200 bg-white p-6
+               xl:col-span-8">
+
+        <div class="flex items-center justify-between gap-4">
+
+          <h2 class="text-lg font-bold text-slate-900">
+            Dernières Activités
+          </h2>
+
+          <button
+            class="text-sm font-semibold text-sky-600 hover:text-sky-700">
+            Tout voir
+          </button>
+
+        </div>
+
+
+        <div class="mt-6 space-y-5">
+
+          @for (activity of activities; track activity.text) {
+
+            <div class="flex gap-4">
+
+              <!-- Icon -->
+              <div
+                class="flex h-10 w-10 shrink-0 items-center justify-center
+                       rounded-full bg-sky-50 text-sky-600">
+
+                @if (activity.icon === 'document') {
+                  <svg class="h-5 w-5" fill="none" stroke="currentColor"
+                       viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                          stroke-width="2"
+                          d="M9 12h6m-6 4h6M9 8h6m3 12H6a2 2 0 01-2-2V6a2 2 0 012-2h8l4 4v10a2 2 0 01-2 2z"/>
+                  </svg>
+                }
+
+                @if (activity.icon === 'clipboard') {
+                  <svg class="h-5 w-5" fill="none" stroke="currentColor"
+                       viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                          stroke-width="2"
+                          d="M9 5h6m-7 4h8m-8 4h8m-8 4h5M7 3h10a2 2 0 012 2v14a2 2 0 01-2 2H7a2 2 0 01-2-2V5a2 2 0 012-2z"/>
+                  </svg>
+                }
+
+                @if (activity.icon === 'check') {
+                  <svg class="h-5 w-5" fill="none" stroke="currentColor"
+                       viewBox="0 0 24 24">
+                    <circle cx="12" cy="12" r="9" stroke-width="2"/>
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                          stroke-width="2" d="M8 12l2.5 2.5L16 9"/>
+                  </svg>
+                }
+
+              </div>
+
+
+              <div class="min-w-0">
+
+                <p class="text-sm text-slate-500">
+                  {{ activity.time }}
+                  —
+                  {{ activity.author }}
+                </p>
+
+                <p class="font-semibold text-slate-900">
+                  {{ activity.text }}
+                </p>
+
+              </div>
+
+            </div>
+
+          }
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ================= JUSTIFICATIFS ================= -->
+    <section
+      class="mt-7 rounded-2xl border border-slate-200 bg-white p-4 sm:p-6">
+
+      <h2 class="text-lg font-bold text-slate-900">
+        Justificatifs de dépenses récents
+      </h2>
+
+
+      <!-- Desktop table -->
+      <div class="mt-5 hidden overflow-x-auto md:block">
+
+        <table class="w-full min-w-[800px]">
+
+          <thead>
+            <tr class="bg-slate-50 text-left text-sm text-slate-500">
+
+              <th class="rounded-l-lg px-4 py-4 font-semibold">
+                Date
+              </th>
+
+              <th class="px-4 py-4 font-semibold">
+                Désignation
+              </th>
+
+              <th class="px-4 py-4 font-semibold">
+                Montant
+              </th>
+
+              <th class="px-4 py-4 font-semibold">
+                Statut
+              </th>
+
+              <th class="rounded-r-lg px-4 py-4 text-right font-semibold">
+                Actions
+              </th>
+
+            </tr>
+          </thead>
+
+
+          <tbody>
+
+            @for (expense of expenses; track expense.date) {
+
+              <tr class="border-b border-slate-100 last:border-0">
+
+                <td class="px-4 py-4 text-sm text-slate-500">
+                  {{ expense.date }}
+                </td>
+
+                <td class="px-4 py-4 font-semibold text-slate-900">
+                  {{ expense.designation }}
+                </td>
+
+                <td class="px-4 py-4 font-bold text-slate-900">
+                  {{ expense.amount }}
+                </td>
+
+                <td class="px-4 py-4">
+
+                  <span
+                    class="inline-flex rounded-lg px-3 py-1 text-xs font-semibold"
+                    [class]="getStatusClass(expense.status)">
+                    {{ expense.status }}
+                  </span>
+
+                </td>
+
+                <td class="px-4 py-4">
+
+                  <div class="flex justify-end gap-4">
+
+                    <button class="text-sky-600 hover:text-sky-700">
+
+                      <svg class="h-5 w-5" fill="none"
+                           stroke="currentColor"
+                           viewBox="0 0 24 24">
+                        <path stroke-linecap="round"
+                              stroke-linejoin="round"
+                              stroke-width="2"
+                              d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6S2 12 2 12z"/>
+                        <circle cx="12" cy="12" r="2.5"
+                                stroke-width="2"/>
+                      </svg>
+
+                    </button>
+
+
+                    <button class="text-slate-500 hover:text-slate-700">
+
+                      <svg class="h-5 w-5" fill="none"
+                           stroke="currentColor"
+                           viewBox="0 0 24 24">
+                        <path stroke-linecap="round"
+                              stroke-linejoin="round"
+                              stroke-width="2"
+                              d="M12 3v12m0 0l-4-4m4 4l4-4M5 21h14"/>
+                      </svg>
+
+                    </button>
+
+                  </div>
+
+                </td>
+
+              </tr>
+
+            }
+
+          </tbody>
+
+        </table>
+
+      </div>
+
+
+      <!-- Mobile cards -->
+      <div class="mt-5 space-y-4 md:hidden">
+
+        @for (expense of expenses; track expense.date) {
+
+          <div class="rounded-xl border border-slate-200 p-4">
+
+            <div class="flex items-start justify-between gap-3">
+
+              <div>
+                <p class="text-xs text-slate-500">
+                  {{ expense.date }}
+                </p>
+
+                <p class="mt-1 font-semibold text-slate-900">
+                  {{ expense.designation }}
+                </p>
+              </div>
+
+              <span
+                class="shrink-0 rounded-lg px-2.5 py-1 text-xs font-semibold"
+                [class]="getStatusClass(expense.status)">
+                {{ expense.status }}
+              </span>
+
+            </div>
+
+            <div class="mt-4 flex items-center justify-between">
+
+              <span class="font-bold text-slate-900">
+                {{ expense.amount }}
+              </span>
+
+              <div class="flex gap-4">
+
+                <button class="text-sky-600">
+                  <svg class="h-5 w-5" fill="none"
+                       stroke="currentColor"
+                       viewBox="0 0 24 24">
+                    <path stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6S2 12 2 12z"/>
+                    <circle cx="12" cy="12" r="2.5"
+                            stroke-width="2"/>
+                  </svg>
+                </button>
+
+                <button class="text-slate-500">
+                  <svg class="h-5 w-5" fill="none"
+                       stroke="currentColor"
+                       viewBox="0 0 24 24">
+                    <path stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="M12 3v12m0 0l-4-4m4 4l4-4M5 21h14"/>
+                  </svg>
+                </button>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        }
+
+      </div>
+
+    </section>
+
+  </main>
+
+</div>

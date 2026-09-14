@@ -1,0 +1,488 @@
+<div
+  class="min-h-screen w-full bg-slate-100
+         bg-cover bg-center bg-no-repeat
+         flex items-center justify-center
+         px-4 py-8 sm:px-6 lg:px-8"
+  style="background-image: url('images/design-hills-hfI0pr6g4yw-unsplash.jpg');"
+>
+
+  <!-- Overlay -->
+  <div class="fixed inset-0 bg-slate-950/35"></div>
+
+  <!-- Card -->
+  <div
+    class="relative z-10 w-full
+           max-w-[560px]
+           rounded-2xl bg-white
+           shadow-2xl
+           overflow-hidden"
+  >
+
+    <!-- Contenu -->
+    <div class="px-6 py-8 sm:px-10 sm:py-9 lg:px-10">
+
+      <!-- Logo -->
+      <div class="flex justify-center mb-5">
+
+        <div class="flex items-center gap-2">
+
+          <div
+            class="flex h-10 w-10 items-center justify-center
+                   rounded-lg bg-[#078dcc] text-white"
+          >
+            <!-- Icône chantier -->
+            <svg
+              class="h-6 w-6"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path d="M3 20h18" />
+              <path d="M5 20V10l7-5 7 5v10" />
+              <path d="M9 20v-6h6v6" />
+            </svg>
+          </div>
+
+          <span
+            class="text-xl font-extrabold tracking-tight
+                   text-slate-900"
+          >
+            CHANTIAL<span class="text-[#078dcc]">.</span>
+          </span>
+
+        </div>
+
+      </div>
+
+      <!-- Titre -->
+      <h1
+        class="text-center text-2xl sm:text-[27px]
+               font-bold text-slate-900"
+      >
+        Créer mon compte
+      </h1>
+
+      <!-- Form -->
+      <form
+        [formGroup]="inscriptionForm"
+        (ngSubmit)="inscrire()"
+        class="mt-7"
+      >
+
+        <!-- Vous êtes -->
+        <div>
+
+          <label
+            class="mb-2 block text-sm font-semibold text-slate-900"
+          >
+            Vous êtes :
+          </label>
+
+          <div class="grid grid-cols-1 gap-3 sm:grid-cols-2">
+
+            <!-- Entrepreneur -->
+            <button
+              type="button"
+              (click)="selectRole('entrepreneur')"
+              class="flex min-h-[64px] items-center gap-3
+                     rounded-lg border-2 px-4 text-left
+                     transition-all"
+              [class.border-[#078dcc]]="role() === 'entrepreneur'"
+              [class.bg-slate-50]="role() === 'entrepreneur'"
+              [class.border-slate-200]="role() !== 'entrepreneur'"
+            >
+
+              <span
+                class="flex h-4 w-4 shrink-0 items-center
+                       justify-center rounded-full border"
+                [class.border-[#078dcc]]="role() === 'entrepreneur'"
+                [class.bg-[#078dcc]]="role() === 'entrepreneur'"
+                [class.border-slate-300]="role() !== 'entrepreneur'"
+              >
+                @if (role() === 'entrepreneur') {
+                  <span class="h-1.5 w-1.5 rounded-full bg-white"></span>
+                }
+              </span>
+
+              <span>
+                <span
+                  class="block text-sm font-bold text-slate-900"
+                >
+                  Entrepreneur
+                </span>
+
+                <span
+                  class="block text-xs text-slate-500"
+                >
+                  Je pilote l'exécution
+                </span>
+              </span>
+
+            </button>
+
+            <!-- Bailleur -->
+            <button
+              type="button"
+              (click)="selectRole('bailleur')"
+              class="flex min-h-[64px] items-center gap-3
+                     rounded-lg border-2 px-4 text-left
+                     transition-all"
+              [class.border-[#078dcc]]="role() === 'bailleur'"
+              [class.bg-slate-50]="role() === 'bailleur'"
+              [class.border-slate-200]="role() !== 'bailleur'"
+            >
+
+              <span
+                class="flex h-4 w-4 shrink-0 items-center
+                       justify-center rounded-full border"
+                [class.border-[#078dcc]]="role() === 'bailleur'"
+                [class.bg-[#078dcc]]="role() === 'bailleur'"
+                [class.border-slate-300]="role() !== 'bailleur'"
+              >
+                @if (role() === 'bailleur') {
+                  <span class="h-1.5 w-1.5 rounded-full bg-white"></span>
+                }
+              </span>
+
+              <span>
+                <span
+                  class="block text-sm font-bold text-slate-900"
+                >
+                  Bailleur
+                </span>
+
+                <span
+                  class="block text-xs text-slate-500"
+                >
+                  Je finance le projet
+                </span>
+              </span>
+
+            </button>
+
+          </div>
+
+        </div>
+
+
+        <!-- Prénom / Nom -->
+        <div class="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2">
+
+          <!-- Prénom -->
+          <div>
+
+            <label
+              class="mb-2 block text-sm font-semibold text-slate-900"
+            >
+              Prénom <span class="text-red-500">*</span>
+            </label>
+
+            <input
+              type="text"
+              formControlName="prenom"
+              placeholder="Jean"
+              class="h-11 w-full rounded-lg border
+                     border-slate-200 bg-white px-4
+                     text-sm text-slate-900
+                     outline-none transition
+                     placeholder:text-slate-400
+                     focus:border-[#078dcc]
+                     focus:ring-2 focus:ring-[#078dcc]/10"
+            />
+
+            @if (
+              inscriptionForm.get('prenom')?.touched &&
+              inscriptionForm.get('prenom')?.invalid
+            ) {
+              <p class="mt-1 text-xs text-red-500">
+                Le prénom est obligatoire.
+              </p>
+            }
+
+          </div>
+
+
+          <!-- Nom -->
+          <div>
+
+            <label
+              class="mb-2 block text-sm font-semibold text-slate-900"
+            >
+              Nom <span class="text-red-500">*</span>
+            </label>
+
+            <input
+              type="text"
+              formControlName="nom"
+              placeholder="Dupont"
+              class="h-11 w-full rounded-lg border
+                     border-slate-200 bg-white px-4
+                     text-sm text-slate-900
+                     outline-none transition
+                     placeholder:text-slate-400
+                     focus:border-[#078dcc]
+                     focus:ring-2 focus:ring-[#078dcc]/10"
+            />
+
+            @if (
+              inscriptionForm.get('nom')?.touched &&
+              inscriptionForm.get('nom')?.invalid
+            ) {
+              <p class="mt-1 text-xs text-red-500">
+                Le nom est obligatoire.
+              </p>
+            }
+
+          </div>
+
+        </div>
+
+
+        <!-- Email -->
+        <div class="mt-4">
+
+          <label
+            class="mb-2 block text-sm font-semibold text-slate-900"
+          >
+            Adresse e-mail
+            <span class="text-red-500">*</span>
+          </label>
+
+          <input
+            type="email"
+            formControlName="email"
+            placeholder="jean.dupont@entreprise.com"
+            class="h-11 w-full rounded-lg border
+                   border-slate-200 bg-white px-4
+                   text-sm text-slate-900
+                   outline-none transition
+                   placeholder:text-slate-400
+                   focus:border-[#078dcc]
+                   focus:ring-2 focus:ring-[#078dcc]/10"
+          />
+
+          @if (
+            inscriptionForm.get('email')?.touched &&
+            inscriptionForm.get('email')?.invalid
+          ) {
+            <p class="mt-1 text-xs text-red-500">
+              Entrez une adresse e-mail valide.
+            </p>
+          }
+
+        </div>
+
+
+        <!-- Téléphone -->
+        <div class="mt-4">
+
+          <label
+            class="mb-2 block text-sm font-semibold text-slate-900"
+          >
+            Numéro de téléphone
+            <span class="text-red-500">*</span>
+          </label>
+
+          <input
+            type="tel"
+            formControlName="telephone"
+            placeholder="+33 6 12 34 56 78"
+            class="h-11 w-full rounded-lg border
+                   border-slate-200 bg-white px-4
+                   text-sm text-slate-900
+                   outline-none transition
+                   placeholder:text-slate-400
+                   focus:border-[#078dcc]
+                   focus:ring-2 focus:ring-[#078dcc]/10"
+          />
+
+        </div>
+
+
+        <!-- Mot de passe -->
+        <div class="mt-4">
+
+          <label
+            class="mb-2 block text-sm font-semibold text-slate-900"
+          >
+            Mot de passe
+            <span class="text-red-500">*</span>
+          </label>
+
+          <div class="relative">
+
+            <input
+              [type]="showPassword() ? 'text' : 'password'"
+              formControlName="password"
+              placeholder="••••••••"
+              class="h-11 w-full rounded-lg border
+                     border-slate-200 bg-white px-4 pr-12
+                     text-sm text-slate-900
+                     outline-none transition
+                     placeholder:text-slate-400
+                     focus:border-[#078dcc]
+                     focus:ring-2 focus:ring-[#078dcc]/10"
+            />
+
+            <button
+              type="button"
+              (click)="togglePassword()"
+              class="absolute right-3 top-1/2
+                     -translate-y-1/2
+                     text-slate-400 hover:text-slate-600"
+            >
+
+              @if (!showPassword()) {
+
+                <svg
+                  class="h-5 w-5"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12Z"/>
+                  <circle cx="12" cy="12" r="3"/>
+                </svg>
+
+              } @else {
+
+                <svg
+                  class="h-5 w-5"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <path d="m3 3 18 18"/>
+                  <path d="M10.6 10.6a2 2 0 0 0 2.8 2.8"/>
+                  <path d="M9.9 4.2A10.6 10.6 0 0 1 12 4c6.5 0 10 8 10 8a18 18 0 0 1-3.1 4.3"/>
+                  <path d="M6.1 6.1C3.5 8 2 12 2 12s3.5 8 10 8a10.7 10.7 0 0 0 4.1-.8"/>
+                </svg>
+
+              }
+
+            </button>
+
+          </div>
+
+          @if (
+            inscriptionForm.get('password')?.touched &&
+            inscriptionForm.get('password')?.invalid
+          ) {
+            <p class="mt-1 text-xs text-red-500">
+              Le mot de passe doit contenir au moins 8 caractères.
+            </p>
+          }
+
+        </div>
+
+
+        <!-- Confirmation -->
+        <div class="mt-4">
+
+          <label
+            class="mb-2 block text-sm font-semibold text-slate-900"
+          >
+            Confirmation du mot de passe
+            <span class="text-red-500">*</span>
+          </label>
+
+          <div class="relative">
+
+            <input
+              [type]="showConfirmPassword() ? 'text' : 'password'"
+              formControlName="confirmPassword"
+              placeholder="••••••••"
+              class="h-11 w-full rounded-lg border
+                     border-slate-200 bg-white px-4 pr-12
+                     text-sm text-slate-900
+                     outline-none transition
+                     placeholder:text-slate-400
+                     focus:border-[#078dcc]
+                     focus:ring-2 focus:ring-[#078dcc]/10"
+            />
+
+            <button
+              type="button"
+              (click)="toggleConfirmPassword()"
+              class="absolute right-3 top-1/2
+                     -translate-y-1/2
+                     text-slate-400 hover:text-slate-600"
+            >
+
+              <svg
+                class="h-5 w-5"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12Z"/>
+                <circle cx="12" cy="12" r="3"/>
+              </svg>
+
+            </button>
+
+          </div>
+
+          @if (
+            inscriptionForm.get('confirmPassword')?.touched &&
+            inscriptionForm.get('confirmPassword')?.hasError('passwordMismatch')
+          ) {
+            <p class="mt-1 text-xs text-red-500">
+              Les mots de passe ne correspondent pas.
+            </p>
+          }
+
+        </div>
+
+
+        <!-- Bouton -->
+        <button
+          type="submit"
+          [disabled]="isSubmitting()"
+          class="mt-6 h-11 w-full rounded-lg
+                 bg-[#078dcc]
+                 px-5 text-sm font-bold text-white
+                 shadow-sm transition
+                 hover:bg-[#067fb5]
+                 focus:outline-none
+                 focus:ring-2 focus:ring-[#078dcc]/30
+                 disabled:cursor-not-allowed
+                 disabled:opacity-60"
+        >
+
+          @if (isSubmitting()) {
+            Création en cours...
+          } @else {
+            Créer mon compte
+          }
+
+        </button>
+
+
+        <!-- Connexion -->
+        <p
+          class="mt-4 text-center text-sm text-slate-500"
+        >
+          Déjà un compte ?
+
+          <a
+            routerLink="/connexion"
+            class="font-semibold text-[#078dcc]
+                   hover:underline"
+          >
+            Se connecter
+          </a>
+
+        </p>
+
+      </form>
+
+    </div>
+
+  </div>
+
+</div>

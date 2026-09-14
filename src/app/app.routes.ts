@@ -1,64 +1,41 @@
 import { Routes } from '@angular/router';
 import { App } from './app';
 import { ProjetComponent } from './pages/Entrepreneur/projet/projet';
+import { InscriptionComponent } from './pages/inscription/inscription';
+import { ConnexionComponent } from './pages/connexion/connexion';
+import { HomeComponent } from './pages/home/home.component';
+import { DepensesJustificatifs } from './pages/Entrepreneur/depenses-justificatifs/depenses-justificatifs';
+import { DetailProjetComponent } from './pages/Entrepreneur/detail-projet/detail-projet';
+import { OrcControle } from './pages/Entrepreneur/orc-controle/orc-controle';
+import { MainLayout } from './pages/main-layout/main-layout';
 
 export const routes: Routes = [
+  //espace general
+  { path: '', component: HomeComponent },
+  { path: 'inscription', component: InscriptionComponent },
+  { path: 'connexion', component: ConnexionComponent },
 
+  // espace entrepreneur
   {
-    path: '',
-    component: App,
-    children: [
-
+    path: 'entrepreneur',
+    component: MainLayout,
+    children : [
       {
         path: 'projet',
-        loadComponent: () =>
-          import('./pages/Entrepreneur/projet/projet')
-            .then(m => m.ProjetComponent)
+        component: ProjetComponent,
       },
-
+      {
+        path: 'depense',
+        component: DepensesJustificatifs,
+      },
       {
         path: 'detail',
-        loadComponent: () =>
-          import('./pages/Entrepreneur/detail-projet/detail-projet')
-        .then(m => m.DetailProjetComponent)
+        component: DetailProjetComponent,
       },
-
       {
         path: 'controle',
-        loadComponent: () =>
-          import('./pages/Entrepreneur/orc-controle/orc-controle')
-            .then(m => m.OrcControle)
+        component: OrcControle,
       },
-
-      {
-        path: 'justificatifs',
-        loadComponent: () =>
-          import('./pages/Entrepreneur/depenses-justificatifs/depenses-justificatifs')
-            .then(m => m.DepensesJustificatifs)
-      },
-
-    //   {
-    //     path: 'analyses',
-    //     loadComponent: () =>
-    //       import('./pages/analyses/analyses.component')
-    //         .then(m => m.AnalysesComponent)
-    //   },
-
-    //   {
-    //     path: 'parametres',
-    //     loadComponent: () =>
-    //       import('./pages/parametres/parametres.component')
-    //         .then(m => m.ParametresComponent)
-    //   },
-
-    //   {
-    //     path: 'profil',
-    //     loadComponent: () =>
-    //       import('./pages/profil/profil.component')
-    //         .then(m => m.ProfilComponent)
-    //   }
-
-    ]
-  }
-
+    ],
+  },
 ];

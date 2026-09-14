@@ -9,7 +9,8 @@
 
   <div class="flex items-center gap-2">
     <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-[#0797D5]">
-      <i class="fa-solid fa-helmet-safety text-lg text-white"></i>
+      <i class="fa-solid fa-helmet-safety text-lg text-white"
+      routerLink=''></i>
     </div>
 
     <span class="text-lg font-bold text-[#0D192C]"> CHANTIAL </span>
@@ -18,6 +19,7 @@
   <!-- Bouton menu -->
 
   <button
+  routerLink=""
     type="button"
     (click)="toggleMobileMenu()"
     class="flex h-10 w-10 items-center justify-center rounded-lg text-[#0D192C] hover:bg-gray-100"
@@ -83,7 +85,7 @@
       <!-- Dashboard -->
 
       <a
-        routerLink="/dashboard"
+        routerLink="/entrepreneur/projet"
         routerLinkActive="bg-[#202D42] text-white"
         [routerLinkActiveOptions]="{ exact: true }"
         (click)="closeMobileMenu()"
@@ -92,27 +94,12 @@
         <i class="fa-solid fa-border-all w-5 text-center text-lg text-[#0797D5]"></i>
 
         <span>Dashboard</span>
-      </a>
-
-      <!-- Mes projets -->
-
-      <a
-        routerLink="/projets"
-        routerLinkActive="bg-[#202D42] text-white"
-        (click)="closeMobileMenu()"
-        class="group flex h-12 items-center gap-4 rounded-lg px-4 text-base font-medium text-gray-400 transition-all duration-200 hover:bg-[#18263A] hover:text-white sm:h-[53px] sm:px-5 sm:text-[17px]"
-      >
-        <i
-          class="fa-regular fa-folder-open w-5 text-center text-lg text-[#718096] group-hover:text-[#0797D5]"
-        ></i>
-
-        <span>Mes Projets</span>
-      </a>
+    </a>
 
       <!-- Dépenses -->
 
       <a
-        routerLink="/depenses"
+        routerLink="/entrepreneur/depense"
         routerLinkActive="bg-[#202D42] text-white"
         (click)="closeMobileMenu()"
         class="group flex h-12 items-center gap-4 rounded-lg px-4 text-base font-medium text-gray-400 transition-all duration-200 hover:bg-[#18263A] hover:text-white sm:h-[53px] sm:px-5 sm:text-[17px]"
@@ -127,7 +114,7 @@
       <!-- Justificatifs -->
 
       <a
-        routerLink="/justificatifs"
+        routerLink="/entrepreneur/controle"
         routerLinkActive="bg-[#202D42] text-white"
         (click)="closeMobileMenu()"
         class="group flex h-12 items-center gap-4 rounded-lg px-4 text-base font-medium text-gray-400 transition-all duration-200 hover:bg-[#18263A] hover:text-white sm:h-[53px] sm:px-5 sm:text-[17px]"
@@ -142,7 +129,7 @@
       <!-- Analyses -->
 
       <a
-        routerLink="/analyses"
+        routerLink="/analyse"
         routerLinkActive="bg-[#202D42] text-white"
         (click)="closeMobileMenu()"
         class="group flex h-12 items-center gap-4 rounded-lg px-4 text-base font-medium text-gray-400 transition-all duration-200 hover:bg-[#18263A] hover:text-white sm:h-[53px] sm:px-5 sm:text-[17px]"

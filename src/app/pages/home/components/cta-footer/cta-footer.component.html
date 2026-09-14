@@ -1,0 +1,80 @@
+<section class="mx-auto max-w-6xl px-6 pt-16">
+  <div class="relative grid overflow-hidden rounded-2xl lg:grid-cols-[1.4fr_1fr]">
+    <div class="relative min-h-[320px]">
+      <img
+        src="images/pied.jpg"
+        alt="Trousseau de clés posé sur des documents d'investissement"
+        class="absolute inset-0 h-full w-full object-cover"
+      />
+      <div class="absolute inset-0 bg-[#0D192C]/55"></div>
+      <div class="relative flex h-full flex-col justify-center gap-8 px-8 py-14 sm:px-12">
+        <h2 class="max-w-md font-sans tracking-tight text-3xl font-semibold uppercase leading-tight text-white sm:text-4xl">
+          Prêt à mieux suivre vos chantiers ?
+        </h2>
+        <a
+          routerLink="/inscription"
+          class="w-fit rounded-md bg-[#0797D5] px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-[#0579AA]"
+        >
+          Commencer gratuitement
+        </a>
+      </div>
+    </div>
+
+    <div class="flex flex-col items-center justify-center gap-4 bg-[#F5F6F8] px-8 py-14 text-center">
+      <h3 class="font-sans tracking-tight text-xl font-semibold uppercase text-[#0D192C]">Une question ?</h3>
+      <a
+        routerLink="/contact"
+        class="rounded-md bg-[#0797D5] px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-[#0579AA]"
+      >
+        Contactez-nous
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer class="mx-auto mt-16 max-w-6xl px-6 pb-10">
+  <div class="grid gap-10 border-t border-[#1B2430]/10 pt-12 sm:grid-cols-2 lg:grid-cols-4">
+    <div>
+      <p class="font-sans tracking-tight text-lg font-semibold text-[#0D192C]">Chantial</p>
+      <p class="mt-3 max-w-xs text-sm leading-relaxed text-[#1B2430]/70">
+        Chantial révolutionne la gestion de chantier en apportant transparence et contrôle
+        aux acteurs du bâtiment grâce à l'intelligence artificielle.
+      </p>
+    </div>
+
+    <nav aria-label="Plateforme">
+      <p class="text-sm font-semibold text-[#0D192C]">Plateforme</p>
+      <ul class="mt-3 space-y-2 text-sm text-[#1B2430]/70">
+        <li><a routerLink="/fonctionnalites" class="hover:text-[#0797D5]">Fonctionnalités</a></li>
+        <li><a routerLink="/comment-ca-marche" class="hover:text-[#0797D5]">Comment ça marche</a></li>
+        <li><a routerLink="/securite" class="hover:text-[#0797D5]">Sécurité des données</a></li>
+        <li><a routerLink="/application-mobile" class="hover:text-[#0797D5]">Application mobile</a></li>
+      </ul>
+    </nav>
+
+    <nav aria-label="Société">
+      <p class="text-sm font-semibold text-[#0D192C]">Société</p>
+      <ul class="mt-3 space-y-2 text-sm text-[#1B2430]/70">
+        <li><a routerLink="/a-propos" class="hover:text-[#0797D5]">À propos</a></li>
+        <li><a routerLink="/blog" class="hover:text-[#0797D5]">Blog</a></li>
+        <li><a routerLink="/carrieres" class="hover:text-[#0797D5]">Carrières</a></li>
+        <li><a routerLink="/contact" class="hover:text-[#0797D5]">Contact</a></li>
+      </ul>
+    </nav>
+
+    <nav aria-label="Légal">
+      <p class="text-sm font-semibold text-[#0D192C]">Légal</p>
+      <ul class="mt-3 space-y-2 text-sm text-[#1B2430]/70">
+        <li><a routerLink="/mentions-legales" class="hover:text-[#0797D5]">Mentions légales</a></li>
+        <li><a routerLink="/cgu-cgv" class="hover:text-[#0797D5]">CGU / CGV</a></li>
+        <li><a routerLink="/confidentialite" class="hover:text-[#0797D5]">Confidentialité</a></li>
+        <li><a routerLink="/cookies" class="hover:text-[#0797D5]">Cookies</a></li>
+      </ul>
+    </nav>
+  </div>
+
+  <div class="mt-10 flex flex-col gap-3 border-t border-[#1B2430]/10 pt-6 text-xs text-[#1B2430]/60 sm:flex-row sm:items-center sm:justify-between">
+    <p>© {{ currentYear }} Chantial. Tous droits réservés.</p>
+    <p>Paris, France · Dakar, Sénégal</p>
+  </div>
+</footer>
