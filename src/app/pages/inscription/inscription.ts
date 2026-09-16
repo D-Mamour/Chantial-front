@@ -1,20 +1,16 @@
 import { Component, signal } from '@angular/core';
-import {
-  FormBuilder,
-  ReactiveFormsModule,
-  Validators
-} from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { Router } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-inscription',
   standalone: true,
-  imports: [ReactiveFormsModule, RouterLink],
+  imports: [ReactiveFormsModule],
   templateUrl: './inscription.html',
-  styleUrl: './inscription.css'
+  styleUrl: './inscription.css',
 })
 export class InscriptionComponent {
-
   isSubmitting = signal(false);
   showPassword = signal(false);
   showConfirmPassword = signal(false);
@@ -23,56 +19,25 @@ export class InscriptionComponent {
 
   inscriptionForm;
 
-  constructor(private fb: FormBuilder) {
-
+  constructor(
+    private fb: FormBuilder,
+    private authService: AuthService,
+    private router: Router,
+  ) {
     this.inscriptionForm = this.fb.group({
       role: ['entrepreneur', Validators.required],
 
-      prenom: [
-        '',
-        [
-          Validators.required,
-          Validators.minLength(2)
-        ]
-      ],
+      prenom: ['', [Validators.required, Validators.minLength(2)]],
 
-      nom: [
-        '',
-        [
-          Validators.required,
-          Validators.minLength(2)
-        ]
-      ],
+      nom: ['', [Validators.required, Validators.minLength(2)]],
 
-      email: [
-        '',
-        [
-          Validators.required,
-          Validators.email
-        ]
-      ],
+      email: ['', [Validators.required, Validators.email]],
 
-      telephone: [
-        '',
-        [
-          Validators.required
-        ]
-      ],
+      telephone: ['', [Validators.required]],
 
-      password: [
-        '',
-        [
-          Validators.required,
-          Validators.minLength(8)
-        ]
-      ],
+      password: ['', [Validators.required, Validators.minLength(8)]],
 
-      confirmPassword: [
-        '',
-        [
-          Validators.required
-        ]
-      ]
+      confirmPassword: ['', [Validators.required]],
     });
   }
 
@@ -80,20 +45,19 @@ export class InscriptionComponent {
     this.role.set(role);
 
     this.inscriptionForm.patchValue({
-      role
+      role,
     });
   }
 
   togglePassword(): void {
-    this.showPassword.update(value => !value);
+    this.showPassword.update((value) => !value);
   }
 
   toggleConfirmPassword(): void {
-    this.showConfirmPassword.update(value => !value);
+    this.showConfirmPassword.update((value) => !value);
   }
 
   inscrire(): void {
-
     if (this.inscriptionForm.invalid) {
       this.inscriptionForm.markAllAsTouched();
       return;
@@ -104,7 +68,7 @@ export class InscriptionComponent {
 
     if (password !== confirmPassword) {
       this.inscriptionForm.get('confirmPassword')?.setErrors({
-        passwordMismatch: true
+        passwordMismatch: true,
       });
 
       return;
@@ -114,23 +78,15 @@ export class InscriptionComponent {
 
     const data = {
       ...this.inscriptionForm.value,
-      role: this.role()
+      role: this.role(),
     };
 
-    console.log('Inscription :', data);
-
-    // Exemple :
-    // this.authService.register(data).subscribe({
-    //   next: () => {
-    //     this.isSubmitting.set(false);
-    //   },
-    //   error: () => {
-    //     this.isSubmitting.set(false);
-    //   }
-    // });
-
-    setTimeout(() => {
-      this.isSubmitting.set(false);
-    }, 800);
+    this.authService.inscription(data).subscribe({
+      next: () => {
+        this.isSubmitting.set(false);
+        this.router.navigate(['/connexion']);
+      },
+      error: () => this.isSubmitting.set(false),
+    });
   }
 }
