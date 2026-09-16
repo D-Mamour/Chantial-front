@@ -1,5 +1,5 @@
-import { Component, signal } from '@angular/core';
-import { RouterLink, RouterLinkActive } from '@angular/router';
+import { Component} from '@angular/core';
+import { RouterLink, RouterLinkActive ,Router} from '@angular/router';
 
 @Component({
   selector: 'app-sidebar-bailleur',
@@ -10,37 +10,38 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
 })
 export class SidebarBailleurComponent {
 
-  isOpen = signal(false);
+  
+  profileMenuOpen = false;
+  mobileMenuOpen = false;
 
-  menuItems = [
-    {
-      label: 'Tableau de bord',
-      icon: 'fa-solid fa-grip',
-      route: '/bailleur/dashboard'
-    },
-    {
-      label: 'Ma Construction',
-      icon: 'fa-solid fa-building',
-      route: '/bailleur/construction'
-    },
-    {
-      label: 'Administration',
-      icon: 'fa-solid fa-users',
-      route: '/bailleur/administration'
-    },
-    {
-      label: 'Notifications',
-      icon: 'fa-solid fa-bell',
-      route: '/bailleur/notifications'
-    }
-  ];
+  constructor(private router: Router) {}
 
-  toggleSidebar(): void {
-    this.isOpen.update(value => !value);
+  toggleMobileMenu(): void {
+    this.mobileMenuOpen = !this.mobileMenuOpen;
   }
 
-  closeSidebar(): void {
-    this.isOpen.set(false);
+  closeMobileMenu(): void {
+    this.mobileMenuOpen = false;
   }
 
+  toggleProfileMenu(): void {
+    this.profileMenuOpen = !this.profileMenuOpen;
+  }
+
+  goToProfile(): void {
+    this.profileMenuOpen = false;
+    this.closeMobileMenu();
+
+    this.router.navigate(['/profil']);
+  }
+
+  logout(): void {
+    this.profileMenuOpen = false;
+    this.closeMobileMenu();
+
+    // Exemple :
+    // localStorage.removeItem('token');
+
+    this.router.navigate(['/connexion']);
+  }
 }

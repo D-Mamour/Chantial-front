@@ -6,7 +6,7 @@ import { MainLayout } from './pages/Entrepreneur/entrepreneur-layout/main-layout
 import { ProjetComponent } from './pages/Entrepreneur/projet/projet';
 import { DepensesJustificatifs } from './pages/Entrepreneur/depenses-justificatifs/depenses-justificatifs';
 import { DetailProjetComponent } from './pages/Entrepreneur/detail-projet/detail-projet';
-import { OrcControle } from './pages/Entrepreneur/orc-controle/orc-controle';
+import { OrcControle } from './pages/Bailleur/orc-controle/orc-controle';
 import { Notifications } from './pages/Entrepreneur/notification/notifications';
 import { DashboardBailleur } from './pages/Bailleur/dashboard-bailleur/dashboard-bailleur';
 import { MaConstructionComponent } from './pages/Bailleur/ma-construction/ma-construction';
@@ -14,6 +14,8 @@ import { DemandeModalComponent } from './pages/Bailleur/demande/demande';
 import { AdminComponent } from './pages/Administrateur/admin/admin';
 import { authGuard } from './guards/auth.guard';
 import { roleGuard } from './guards/role.guard';
+import { AnalysesComponent } from './pages/Entrepreneur/analyse/analyse';
+import { BailleurLayout } from './pages/Bailleur/bailleur-layout/bailleur-layout';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -22,23 +24,26 @@ export const routes: Routes = [
   {
     path: 'entrepreneur',
     component: MainLayout,
-    canActivate: [authGuard, roleGuard(['ENTREPRENEUR'])],
+    // canActivate: [authGuard, roleGuard(['ENTREPRENEUR'])],
     children: [
       { path: '', pathMatch: 'full', redirectTo: 'projet' },
       { path: 'projet', component: ProjetComponent },
       { path: 'depense', component: DepensesJustificatifs },
-      { path: 'detail', component: DetailProjetComponent },
       { path: 'controle', component: OrcControle },
+      { path: 'detail', component: DetailProjetComponent },
       { path: 'notifications', component: Notifications },
+      { path: 'analyse', component: AnalysesComponent}
     ],
   },
   {
     path: 'bailleur',
-    canActivate: [authGuard, roleGuard(['BAILLEUR'])],
+    component: BailleurLayout,
+    // canActivate: [authGuard, roleGuard(['BAILLEUR'])],
     children: [
       { path: '', pathMatch: 'full', redirectTo: 'dashboard' },
       { path: 'dashboard', component: DashboardBailleur },
       { path: 'construction', component: MaConstructionComponent },
+      { path: 'controle', component: OrcControle },
       { path: 'demande', component: DemandeModalComponent },
     ],
   },

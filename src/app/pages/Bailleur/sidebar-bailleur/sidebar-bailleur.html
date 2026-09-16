@@ -1,99 +1,209 @@
-<!-- Bouton mobile -->
+<!-- ===================================================== -->
+<!-- HEADER MOBILE -->
+<!-- ===================================================== -->
 
-<button
-  type="button"
-  (click)="toggleSidebar()"
-  class="fixed left-4 top-4 z-50 flex h-11 w-11 items-center justify-center rounded-xl bg-[#0C172B] text-white shadow-lg lg:hidden"
-  aria-label="Ouvrir le menu"
+<header
+  class="fixed left-0 top-0 z-30 flex h-16 w-full items-center justify-between border-b border-gray-200 bg-white px-4 lg:hidden"
 >
-  <i class="fa-solid fa-bars text-lg"></i>
-</button>
+  <!-- Logo mobile -->
 
-<!-- Overlay mobile -->
-
-@if (isOpen()) {
-  <div class="fixed inset-0 z-40 bg-black/50 lg:hidden" (click)="closeSidebar()"></div>
-}
-
-<!-- Sidebar -->
-
-<aside
-  class="fixed inset-y-0 left-0 z-50 flex w-[280px] flex-col bg-[#0C172B] px-7 py-10 transition-transform duration-300 lg:w-80 lg:translate-x-0 lg:px-7"
-  [class.-translate-x-full]="!isOpen()"
-  [class.translate-x-0]="isOpen()"
->
-  <!-- Logo -->
-
-  <div class="mb-14 flex items-center gap-4">
-    <div class="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl bg-[#0797D5]">
-      <i 
-      routerLink='X'
-      class="fa-solid fa-helmet-safety text-2xl text-white">
-      </i>
+  <div class="flex items-center gap-2">
+    <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-[#0797D5]">
+      <i class="fa-solid fa-helmet-safety text-lg text-white"
+      routerLink=''></i>
     </div>
 
-    <span class="text-[28px] font-bold tracking-tight text-white"> CHANTIAL </span>
-
-    <!-- Fermer mobile -->
-
-    <button
-      type="button"
-      (click)="closeSidebar()"
-      class="ml-auto text-xl text-slate-400 lg:hidden"
-      aria-label="Fermer le menu"
-    >
-      <i class="fa-solid fa-xmark"></i>
-    </button>
+    <span class="text-lg font-bold text-[#0D192C]"> CHANTIAL </span>
   </div>
 
-  <!-- Navigation -->
+  <!-- Bouton menu -->
 
-  <nav class="flex flex-col gap-3">
-    @for (item of menuItems; track item.route) {
+  <button
+  routerLink=""
+    type="button"
+    (click)="toggleMobileMenu()"
+    class="flex h-10 w-10 items-center justify-center rounded-lg text-[#0D192C] hover:bg-gray-100"
+    aria-label="Ouvrir le menu"
+  >
+    <i class="fa-solid fa-bars text-xl"></i>
+  </button>
+</header>
+
+<!-- ===================================================== -->
+<!-- OVERLAY MOBILE -->
+<!-- ===================================================== -->
+
+@if (mobileMenuOpen) {
+  <div class="fixed inset-0 z-40 bg-black/50 lg:hidden" (click)="closeMobileMenu()"></div>
+}
+
+<!-- ===================================================== -->
+<!-- SIDEBAR -->
+<!-- ===================================================== -->
+
+<aside
+  class="fixed left-0 top-0 z-50 h-screen w-[280px] bg-[#0D192C] text-white transform transition-transform duration-300 ease-in-out lg:translate-x-0 lg:w-80"
+  [class.translate-x-0]="mobileMenuOpen"
+  [class.-translate-x-full]="!mobileMenuOpen"
+>
+  <div class="flex h-full flex-col px-4 sm:px-5">
+    <!-- ================================================= -->
+    <!-- LOGO -->
+    <!-- ================================================= -->
+
+    <div class="flex items-center justify-between py-6 sm:py-8">
+      <div class="flex items-center gap-3">
+        <div
+          class="flex h-12 w-12 items-center justify-center rounded-lg bg-[#0797D5] shadow-lg sm:h-14 sm:w-14"
+        >
+          <i class="fa-solid fa-helmet-safety text-xl text-white sm:text-2xl"></i>
+        </div>
+
+        <span class="text-xl font-bold tracking-wide sm:text-[23px]"> CHANTIAL </span>
+      </div>
+
+      <!-- Fermer sur mobile -->
+
+      <button
+        type="button"
+        (click)="closeMobileMenu()"
+        class="flex h-9 w-9 items-center justify-center rounded-lg text-gray-400 hover:bg-[#18263A] hover:text-white lg:hidden"
+      >
+        <i class="fa-solid fa-xmark text-xl"></i>
+      </button>
+    </div>
+
+    <!-- Séparation -->
+
+    <div class="border-t border-[#1D2A3D]"></div>
+
+    <!-- ================================================= -->
+    <!-- NAVIGATION -->
+    <!-- ================================================= -->
+
+    <nav class="mt-6 flex flex-col gap-1.5 sm:mt-7 sm:gap-2">
+      <!-- Dashboard -->
+
       <a
-        [routerLink]="item.route"
-        routerLinkActive="sidebar-active"
-        (click)="closeSidebar()"
-        class="group flex min-h-[62px] items-center gap-5 rounded-xl px-6 text-[19px] font-medium text-[#9AA8BE] transition-colors hover:bg-[#102B45] hover:text-white"
+        routerLink="/bailleur/dashboard"
+        routerLinkActive="bg-[#202D42] text-white"
+        [routerLinkActiveOptions]="{ exact: true }"
+        (click)="closeMobileMenu()"
+        class="group flex h-12 items-center gap-4 rounded-lg px-4 text-base font-medium text-gray-400 transition-all duration-200 hover:bg-[#18263A] hover:text-white sm:h-[53px] sm:px-5 sm:text-[17px]"
+      >
+        <i class="fa-solid fa-border-all w-5 text-center text-lg text-[#0797D5]"></i>
+
+        <span>Dashboard</span>
+    </a>
+
+      <!-- Dépenses -->
+
+      <a
+        routerLink="/bailleur/construction"
+        routerLinkActive="bg-[#202D42] text-white"
+        (click)="closeMobileMenu()"
+        class="group flex h-12 items-center gap-4 rounded-lg px-4 text-base font-medium text-gray-400 transition-all duration-200 hover:bg-[#18263A] hover:text-white sm:h-[53px] sm:px-5 sm:text-[17px]"
       >
         <i
-          [class]="item.icon"
-          class="w-6 text-center text-xl text-[#9AA8BE] group-hover:text-[#0797D5]"
+          class="fa-solid fa-receipt w-5 text-center text-lg text-[#718096] group-hover:text-[#0797D5]"
         ></i>
 
-        <span>
-          {{ item.label }}
-        </span>
+        <span> Ma construction </span>
       </a>
-    }
-  </nav>
 
-  <!-- Espace flexible -->
+      <!-- Justificatifs -->
 
-  <div class="flex-1"></div>
-
-  <!-- Profil -->
-
-  <div class="border-t border-[#26354B] pt-6">
-    <button
-      type="button"
-      class="flex w-full items-center gap-4 rounded-xl p-2 text-left transition hover:bg-[#10203A]"
-    >
-      <!-- Avatar -->
-
-      <div
-        class="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-[#0797D5] text-lg font-bold text-white"
+      <a
+        routerLink="/bailleur/controle"
+        routerLinkActive="bg-[#202D42] text-white"
+        (click)="closeMobileMenu()"
+        class="group flex h-12 items-center gap-4 rounded-lg px-4 text-base font-medium text-gray-400 transition-all duration-200 hover:bg-[#18263A] hover:text-white sm:h-[53px] sm:px-5 sm:text-[17px]"
       >
-        MA
-      </div>
+        <i
+          class="fa-regular fa-file-lines w-5 text-center text-lg text-[#718096] group-hover:text-[#0797D5]"
+        ></i>
 
-      <!-- Informations -->
+        <span>Justificatifs</span>
+      </a>
+    </nav>
 
-      <div class="min-w-0">
-        <p class="truncate text-lg font-bold text-white">Mouhamed</p>
+    <!-- ================================================= -->
+    <!-- ESPACE FLEXIBLE -->
+    <!-- ================================================= -->
 
-        <p class="truncate text-sm text-[#7D8DA6]">Bailleur </p>
-      </div>
-    </button>
+    <div class="flex-1"></div>
+
+    <!-- ================================================= -->
+    <!-- PROFIL -->
+    <!-- ================================================= -->
+
+    <div class="relative mb-4 border-t border-[#1D2A3D] pt-4 sm:mb-5 sm:pt-5">
+      <!-- Bouton profil -->
+
+      <button
+        type="button"
+        (click)="toggleProfileMenu()"
+        class="flex w-full items-center justify-between rounded-lg px-2 py-3 text-left transition-colors hover:bg-[#18263A]"
+      >
+        <div class="flex min-w-0 items-center gap-3">
+          <!-- Avatar -->
+
+          <div
+            class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#202D42]"
+          >
+            <i class="fa-solid fa-user text-gray-400"></i>
+          </div>
+
+          <!-- Informations -->
+
+          <div class="min-w-0">
+            <p class="truncate text-sm font-semibold text-white sm:text-base">Ibrahima SOW</p>
+
+            <p class="truncate text-xs text-gray-500 sm:text-sm">Sow BTP Sénégal</p>
+          </div>
+        </div>
+
+        <!-- Chevron -->
+
+        <i
+          class="fa-solid fa-chevron-up ml-2 shrink-0 text-xs text-gray-500 transition-transform duration-200"
+          [class.rotate-180]="profileMenuOpen"
+        ></i>
+      </button>
+
+      <!-- ================================================= -->
+      <!-- MENU PROFIL -->
+      <!-- ================================================= -->
+
+      @if (profileMenuOpen) {
+        <div
+          class="absolute bottom-[70px] left-0 w-full overflow-hidden rounded-lg border border-[#26354A] bg-[#172438] shadow-2xl"
+        >
+          <!-- Mon profil -->
+
+          <button
+            type="button"
+            (click)="goToProfile()"
+            class="flex w-full items-center gap-3 px-4 py-3 text-left text-sm text-gray-300 transition-colors hover:bg-[#202D42] hover:text-white"
+          >
+            <i class="fa-regular fa-user w-5 text-center"></i>
+
+            <span>Mon profil</span>
+          </button>
+
+          <!-- Déconnexion -->
+
+          <button
+            type="button"
+            (click)="logout()"
+            class="flex w-full items-center gap-3 border-t border-[#26354A] px-4 py-3 text-left text-sm text-red-400 transition-colors hover:bg-[#202D42] hover:text-red-300"
+          >
+            <i class="fa-solid fa-right-from-bracket w-5 text-center"></i>
+
+            <span>Déconnexion</span>
+          </button>
+        </div>
+      }
+    </div>
   </div>
 </aside>
