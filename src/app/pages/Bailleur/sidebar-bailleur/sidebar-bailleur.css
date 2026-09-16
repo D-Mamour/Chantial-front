@@ -1,0 +1,9 @@
+.sidebar-active {
+  background-color: #102f49;
+  color: #0797d5;
+  border-left: 4px solid #0797d5;
+}
+
+.sidebar-active i {
+  color: #0797d5;
+}

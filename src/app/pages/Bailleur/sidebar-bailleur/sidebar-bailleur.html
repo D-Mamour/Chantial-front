@@ -1,0 +1,99 @@
+<!-- Bouton mobile -->
+
+<button
+  type="button"
+  (click)="toggleSidebar()"
+  class="fixed left-4 top-4 z-50 flex h-11 w-11 items-center justify-center rounded-xl bg-[#0C172B] text-white shadow-lg lg:hidden"
+  aria-label="Ouvrir le menu"
+>
+  <i class="fa-solid fa-bars text-lg"></i>
+</button>
+
+<!-- Overlay mobile -->
+
+@if (isOpen()) {
+  <div class="fixed inset-0 z-40 bg-black/50 lg:hidden" (click)="closeSidebar()"></div>
+}
+
+<!-- Sidebar -->
+
+<aside
+  class="fixed inset-y-0 left-0 z-50 flex w-[280px] flex-col bg-[#0C172B] px-7 py-10 transition-transform duration-300 lg:w-80 lg:translate-x-0 lg:px-7"
+  [class.-translate-x-full]="!isOpen()"
+  [class.translate-x-0]="isOpen()"
+>
+  <!-- Logo -->
+
+  <div class="mb-14 flex items-center gap-4">
+    <div class="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl bg-[#0797D5]">
+      <i 
+      routerLink='X'
+      class="fa-solid fa-helmet-safety text-2xl text-white">
+      </i>
+    </div>
+
+    <span class="text-[28px] font-bold tracking-tight text-white"> CHANTIAL </span>
+
+    <!-- Fermer mobile -->
+
+    <button
+      type="button"
+      (click)="closeSidebar()"
+      class="ml-auto text-xl text-slate-400 lg:hidden"
+      aria-label="Fermer le menu"
+    >
+      <i class="fa-solid fa-xmark"></i>
+    </button>
+  </div>
+
+  <!-- Navigation -->
+
+  <nav class="flex flex-col gap-3">
+    @for (item of menuItems; track item.route) {
+      <a
+        [routerLink]="item.route"
+        routerLinkActive="sidebar-active"
+        (click)="closeSidebar()"
+        class="group flex min-h-[62px] items-center gap-5 rounded-xl px-6 text-[19px] font-medium text-[#9AA8BE] transition-colors hover:bg-[#102B45] hover:text-white"
+      >
+        <i
+          [class]="item.icon"
+          class="w-6 text-center text-xl text-[#9AA8BE] group-hover:text-[#0797D5]"
+        ></i>
+
+        <span>
+          {{ item.label }}
+        </span>
+      </a>
+    }
+  </nav>
+
+  <!-- Espace flexible -->
+
+  <div class="flex-1"></div>
+
+  <!-- Profil -->
+
+  <div class="border-t border-[#26354B] pt-6">
+    <button
+      type="button"
+      class="flex w-full items-center gap-4 rounded-xl p-2 text-left transition hover:bg-[#10203A]"
+    >
+      <!-- Avatar -->
+
+      <div
+        class="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-[#0797D5] text-lg font-bold text-white"
+      >
+        MA
+      </div>
+
+      <!-- Informations -->
+
+      <div class="min-w-0">
+        <p class="truncate text-lg font-bold text-white">Mouhamed</p>
+
+        <p class="truncate text-sm text-[#7D8DA6]">Bailleur </p>
+      </div>
+    </button>
+  </div>
+</aside>

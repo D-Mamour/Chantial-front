@@ -1,1 +1,242 @@
-<p>demande works!</p>
+<!-- Overlay -->
+
+<div
+  class="fixed inset-0 z-[100] flex items-center justify-center bg-[#111827]/50 p-3 sm:p-5 lg:p-8"
+  (click)="onOverlayClick($event)"
+>
+  <!-- Modal -->
+
+  <div
+    class="flex w-full max-w-[960px] max-h-[95vh] flex-col overflow-hidden rounded-2xl bg-white shadow-2xl sm:max-h-[92vh]"
+  >
+    <!-- Header -->
+
+    <header
+      class="flex shrink-0 items-center justify-between border-b border-[#DCE4EE] px-5 py-5 sm:px-8 sm:py-6"
+    >
+      <h2 class="text-xl font-bold text-[#152238] sm:text-2xl lg:text-[30px]">Nouvelle demande</h2>
+
+      <button
+        type="button"
+        (click)="fermer()"
+        aria-label="Fermer"
+        class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-[#F6F8FA] text-[#64748B] hover:bg-[#EAF0F5]"
+      >
+        <i class="fa-solid fa-xmark text-2xl"></i>
+      </button>
+    </header>
+
+    <!-- Formulaire -->
+
+    <form
+      [formGroup]="requestForm"
+      (ngSubmit)="envoyerDemande()"
+      class="overflow-y-auto px-5 py-6 sm:px-8 lg:px-10 lg:py-7"
+    >
+      <!-- Type de demande -->
+
+      <div class="mb-8">
+        <label class="mb-3 block text-base font-semibold uppercase tracking-wide text-[#64748B]">
+          Type de demande
+        </label>
+
+        <div class="grid grid-cols-1 gap-3 sm:grid-cols-2">
+          <!-- Justification -->
+
+          <label
+            class="flex min-h-16 cursor-pointer items-center gap-3 rounded-xl border-2 px-5 py-3 transition"
+            [class.border-[#0797D5]]="requestForm.controls.type.value === 'justification'"
+            [class.bg-[#DFF2FC]]="requestForm.controls.type.value === 'justification'"
+            [class.border-[#DCE4EE]]="requestForm.controls.type.value !== 'justification'"
+          >
+            <input
+              type="radio"
+              value="justification"
+              formControlName="type"
+              class="h-5 w-5 accent-[#0797D5]"
+            />
+
+            <span
+              class="text-base font-semibold"
+              [class.text-[#0797D5]]="requestForm.controls.type.value === 'justification'"
+              [class.text-[#152238]]="requestForm.controls.type.value !== 'justification'"
+            >
+              Demander une justification
+            </span>
+          </label>
+
+          <!-- Correction -->
+
+          <label
+            class="flex min-h-16 cursor-pointer items-center gap-3 rounded-xl border-2 px-5 py-3 transition"
+            [class.border-[#0797D5]]="requestForm.controls.type.value === 'correction'"
+            [class.bg-[#DFF2FC]]="requestForm.controls.type.value === 'correction'"
+            [class.border-[#DCE4EE]]="requestForm.controls.type.value !== 'correction'"
+          >
+            <input
+              type="radio"
+              value="correction"
+              formControlName="type"
+              class="h-5 w-5 accent-[#0797D5]"
+            />
+
+            <span
+              class="text-base font-semibold"
+              [class.text-[#0797D5]]="requestForm.controls.type.value === 'correction'"
+              [class.text-[#152238]]="requestForm.controls.type.value !== 'correction'"
+            >
+              Demander une correction
+            </span>
+          </label>
+        </div>
+      </div>
+
+      <!-- Élément concerné -->
+
+      <div class="mb-7">
+        <label
+          for="element"
+          class="mb-3 block text-base font-semibold uppercase tracking-wide text-[#64748B]"
+        >
+          Élément concerné
+        </label>
+
+        <div class="relative">
+          <select
+            id="element"
+            formControlName="element"
+            class="h-14 w-full appearance-none rounded-xl border border-[#DCE4EE] bg-white px-5 pr-12 text-base text-[#152238] outline-none focus:border-[#0797D5] focus:ring-2 focus:ring-[#0797D5]/10"
+          >
+            <option value="" disabled>Sélectionner un élément</option>
+
+            @for (element of elements; track element) {
+              <option [value]="element">
+                {{ element }}
+              </option>
+            }
+          </select>
+
+          <i
+            class="fa-solid fa-chevron-down pointer-events-none absolute right-5 top-1/2 -translate-y-1/2 text-[#64748B]"
+          ></i>
+        </div>
+      </div>
+
+      <!-- Motif -->
+
+      <div class="mb-7">
+        <label
+          for="motif"
+          class="mb-3 block text-base font-semibold uppercase tracking-wide text-[#64748B]"
+        >
+          Motif de la demande
+        </label>
+
+        <div class="relative">
+          <select
+            id="motif"
+            formControlName="motif"
+            class="h-14 w-full appearance-none rounded-xl border border-[#DCE4EE] bg-white px-5 pr-12 text-base text-[#152238] outline-none focus:border-[#0797D5] focus:ring-2 focus:ring-[#0797D5]/10"
+          >
+            <option value="" disabled>Sélectionner un motif</option>
+
+            @for (reason of reasons; track reason) {
+              <option [value]="reason">
+                {{ reason }}
+              </option>
+            }
+          </select>
+
+          <i
+            class="fa-solid fa-chevron-down pointer-events-none absolute right-5 top-1/2 -translate-y-1/2 text-[#64748B]"
+          ></i>
+        </div>
+      </div>
+
+      <!-- Message -->
+
+      <div class="mb-8">
+        <label
+          for="message"
+          class="mb-3 block text-base font-semibold uppercase tracking-wide text-[#64748B]"
+        >
+          Message explicatif
+        </label>
+
+        <textarea
+          id="message"
+          formControlName="message"
+          rows="5"
+          placeholder="Expliquez votre demande..."
+          class="w-full resize-none rounded-xl border border-[#DCE4EE] px-5 py-4 text-base text-[#152238] outline-none placeholder:text-[#718096] focus:border-[#0797D5] focus:ring-2 focus:ring-[#0797D5]/10"
+        ></textarea>
+
+        @if (requestForm.controls.message.touched && requestForm.controls.message.invalid) {
+          <p class="mt-2 text-sm text-red-500">Le message doit contenir au moins 10 caractères.</p>
+        }
+      </div>
+
+      <!-- Prévisualisation du statut -->
+
+      <div class="mb-8 rounded-xl bg-[#F6F8FA] px-5 py-5 sm:px-6">
+        <h3 class="mb-5 text-base font-semibold uppercase tracking-wide text-[#64748B]">
+          Preview statut de la demande
+        </h3>
+
+        <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+          <div class="flex items-center gap-3">
+            <span class="h-5 w-5 rounded-full bg-[#0797D5]"></span>
+
+            <span class="text-base font-semibold text-[#0797D5]"> Envoyée </span>
+          </div>
+
+          <div class="hidden h-0.5 flex-1 bg-[#DCE4EE] sm:block"></div>
+
+          <div class="flex items-center gap-3">
+            <span class="h-5 w-5 rounded-full bg-[#64748B]"></span>
+
+            <span class="text-base text-[#64748B]"> En cours de traitement </span>
+          </div>
+
+          <div class="hidden h-0.5 flex-1 bg-[#DCE4EE] sm:block"></div>
+
+          <div class="flex items-center gap-3">
+            <span class="h-5 w-5 rounded-full bg-[#64748B]"></span>
+
+            <span class="text-base text-[#64748B]"> Répondue </span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Footer -->
+
+      <div
+        class="flex flex-col-reverse gap-3 border-t border-[#DCE4EE] pt-6 sm:flex-row sm:justify-end"
+      >
+        <button
+          type="button"
+          (click)="fermer()"
+          class="h-12 w-full rounded-xl border border-[#DCE4EE] bg-white px-7 text-base font-semibold text-[#64748B] hover:bg-[#F8FAFC] sm:w-auto"
+        >
+          Annuler
+        </button>
+
+        <button
+          type="submit"
+          [disabled]="isSubmitting()"
+          class="h-12 w-full rounded-xl bg-[#0797D5] px-7 text-base font-semibold text-white hover:bg-[#0787BF] disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto"
+        >
+          @if (isSubmitting()) {
+            <span class="flex items-center justify-center gap-2">
+              <i class="fa-solid fa-spinner animate-spin"></i>
+
+              Envoi...
+            </span>
+          } @else {
+            Envoyer la demande
+          }
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

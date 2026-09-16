@@ -1,5 +1,4 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-
 import { HeroComponent } from './components/hero/hero.component';
 import { SimplificationComponent } from './components/simplification/simplification.component';
 import { TransparencyComponent } from './components/transparency/transparency.component';

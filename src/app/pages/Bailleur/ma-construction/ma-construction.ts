@@ -1,13 +1,16 @@
 import { Component } from '@angular/core';
+import { DemandeModalComponent } from '../demande/demande';
 
 @Component({
   selector: 'app-ma-construction',
   standalone: true,
   templateUrl: './ma-construction.html',
+  imports: [DemandeModalComponent],
 })
 export class MaConstructionComponent {
 
   activeTab = 'Vue d’ensemble';
+  showRequestModal = false;
 
   tabs = [
     'Vue d’ensemble',
@@ -105,5 +108,20 @@ export class MaConstructionComponent {
       default:
         return 'bg-slate-100 text-slate-500';
     }
-  }
+    }
+    ouvrirDemande(): void {
+      this.showRequestModal = true;
+    }
+
+    fermerDemande(): void {
+      this.showRequestModal = false;
+    }
+
+    demandeEnvoyee(demande: any): void {
+
+      console.log('Demande envoyée :', demande);
+
+      // Plus tard : appel API Django
+      this.showRequestModal = false;
+    }
 }
