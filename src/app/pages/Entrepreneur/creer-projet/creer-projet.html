@@ -1,0 +1,223 @@
+<!-- OVERLAY -->
+
+<div
+ class="fixed inset-0 z-[100] flex items-center justify-center bg-[#0F172A]/50 p-3 sm:p-5 lg:p-8"
+ (click)="onOverlayClick($event)"
+>
+ <!-- MODAL -->
+
+ <div
+ class="flex w-full max-w-[920px] max-h-[95vh] flex-col overflow-hidden rounded-lg bg-white shadow-2xl sm:max-h-[92vh]"
+ >
+ <!-- ============================================= -->
+ <!-- EN-TÊTE -->
+ <!-- ============================================= -->
+
+ <header
+ class="flex shrink-0 items-center justify-between border-b border-[#E2E8F0] px-5 py-5 sm:px-7 sm:py-6 lg:px-8"
+ >
+ <h2 class="text-[#0F172A] text-2xl font-bold">Créer un nouveau projet</h2>
+
+ <!-- Fermer -->
+
+ <button
+ type="button"
+ (click)="fermer()"
+ class="flex h-9 w-9 items-center justify-center rounded-lg bg-[#F8FAFC] text-[#64748B] transition hover:bg-[#E2E8F0] hover:text-[#0F172A] text-sm font-semibold"
+ aria-label="Fermer"
+ >
+ <i class="fa-solid fa-circle-xmark text-xl"></i>
+ </button>
+ </header>
+
+ <!-- ============================================= -->
+ <!-- CONTENU -->
+ <!-- ============================================= -->
+
+ <form
+ [formGroup]="projectForm"
+ (ngSubmit)="creerProjet()"
+ class="overflow-y-auto px-5 py-6 sm:px-7 lg:px-8 lg:py-7"
+ >
+ <!-- =========================================== -->
+ <!-- NOM -->
+ <!-- =========================================== -->
+
+ <div class="mb-6">
+ <label for="nom" class="mb-2 block text-[#0F172A] text-sm font-semibold">
+ Nom du projet
+ </label>
+
+ <input
+ id="nom"
+ type="text"
+ formControlName="nom"
+ placeholder="Nom du projet"
+ class="h-12 w-full rounded-lg border border-[#E2E8F0] px-4 text-[#0F172A] outline-none placeholder:text-[#64748B] focus:border-[#0284C7] focus:ring-2 focus:ring-[#0284C7]/10 text-sm font-normal"
+ />
+
+ @if (projectForm.controls.nom.touched && projectForm.controls.nom.invalid) {
+ <p class="mt-1 text-xs text-red-500">Le nom du projet est obligatoire.</p>
+ }
+ </div>
+
+ <!-- =========================================== -->
+ <!-- DESCRIPTION -->
+ <!-- =========================================== -->
+
+ <div class="mb-6">
+ <label for="description" class="mb-2 block text-[#0F172A] text-sm font-semibold">
+ Description
+ </label>
+
+ <textarea
+ id="description"
+ rows="4"
+ formControlName="description"
+ placeholder="Description synthétique des objectifs du projet..."
+ class="w-full resize-none rounded-lg border border-[#E2E8F0] px-4 py-3 text-[#0F172A] outline-none placeholder:text-[#64748B] focus:border-[#0284C7] focus:ring-2 focus:ring-[#0284C7]/10 text-sm font-normal"
+ ></textarea>
+ </div>
+
+ <!-- =========================================== -->
+ <!-- ADRESSE -->
+ <!-- =========================================== -->
+
+ <div class="mb-6">
+ <label for="adresse" class="mb-2 block text-[#0F172A] text-sm font-semibold">
+ Adresse complète
+ </label>
+
+ <input
+ id="adresse"
+ type="text"
+ formControlName="adresse"
+ placeholder="Rue, Quartier, Ville, Sénégal"
+ class="h-12 w-full rounded-lg border border-[#E2E8F0] px-4 text-[#0F172A] outline-none placeholder:text-[#64748B] focus:border-[#0284C7] focus:ring-2 focus:ring-[#0284C7]/10 text-sm font-normal"
+ />
+ </div>
+
+ <!-- =========================================== -->
+ <!-- BAILLEUR -->
+ <!-- =========================================== -->
+
+ <div class="mb-6">
+ <label for="bailleur" class="mb-2 block text-[#0F172A] text-sm font-semibold">
+ Bailleur
+ </label>
+
+ <div class="relative">
+ <select
+ id="bailleur"
+ formControlName="bailleur"
+ class="h-12 w-full appearance-none rounded-lg border border-[#E2E8F0] bg-white px-4 pr-12 text-[#64748B] outline-none focus:border-[#0284C7] focus:ring-2 focus:ring-[#0284C7]/10 text-sm font-normal"
+ >
+ <option value="">{{ chargementBailleurs() ? 'Chargement des bailleurs...' : 'Sélectionner un bailleur' }}</option>
+@for (bailleur of bailleurs(); track bailleur.id) { <option [value]="bailleur.id">{{ bailleur.first_name }} {{ bailleur.last_name }} — {{ bailleur.email }}</option> }
+ </select>
+ @if (erreurBailleurs()) { <p class="mt-2 text-xs text-[#EF4444]">{{ erreurBailleurs() }}</p> }
+
+ <i
+ class="fa-solid fa-chevron-down pointer-events-none absolute right-5 top-1/2 -translate-y-1/2 text-[#64748B]"
+ ></i>
+ </div>
+ </div>
+
+ <!-- =========================================== -->
+ <!-- BUDGET PRÉVISIONNEL -->
+ <!-- =========================================== -->
+
+ <div class="mb-6">
+ <label for="budget" class="mb-2 block text-[#0F172A] text-sm font-semibold">
+ Budget total en FCFA
+ </label>
+
+ <input
+ id="budget"
+ type="number"
+ formControlName="budget" min="1" step="1" inputmode="numeric"
+ placeholder="Saisir le budget total"
+ class="h-12 w-full rounded-lg border border-[#E2E8F0] px-4 text-[#0F172A] outline-none placeholder:text-[#64748B] focus:border-[#0284C7] focus:ring-2 focus:ring-[#0284C7]/10 text-sm font-normal"
+ />
+ </div>
+
+ <!-- =========================================== -->
+ <!-- DATES PRÉVISIONNELLES -->
+ <!-- =========================================== -->
+
+ <div class="mb-7 grid grid-cols-1 gap-5 sm:grid-cols-2">
+ <!-- Date début -->
+
+ <div>
+ <label for="dateDebut" class="mb-2 block text-[#0F172A] text-sm font-semibold">
+ Date de début
+ </label>
+
+ <div class="relative">
+ <input
+ id="dateDebut"
+ type="date"
+ formControlName="dateDebut"
+ class="h-12 w-full rounded-lg border border-[#E2E8F0] bg-white px-4 text-[#64748B] outline-none focus:border-[#0284C7] focus:ring-2 focus:ring-[#0284C7]/10 text-sm font-normal"
+ />
+ </div>
+ </div>
+
+ <!-- Date fin -->
+
+ <div>
+ <label for="dateFin" class="mb-2 block text-[#0F172A] text-sm font-semibold">
+ Date de fin
+ </label>
+
+ <div class="relative">
+ <input
+ id="dateFin"
+ type="date"
+ formControlName="dateFin"
+ class="h-12 w-full rounded-lg border border-[#E2E8F0] bg-white px-4 text-[#64748B] outline-none focus:border-[#0284C7] focus:ring-2 focus:ring-[#0284C7]/10 text-sm font-normal"
+ />
+ </div>
+ </div>
+ </div>
+
+ <!-- =========================================== -->
+ <!-- PIED DE FORMULAIRE -->
+ <!-- =========================================== -->
+
+ @if (erreurCreation()) { <p class="mb-4 text-sm text-[#EF4444]">{{ erreurCreation() }}</p> }
+
+ <div
+ class="flex flex-col-reverse gap-3 border-t border-[#E2E8F0] pt-6 sm:flex-row sm:justify-end"
+ >
+ <!-- Annuler -->
+
+ <button
+ type="button"
+ (click)="fermer()"
+ class="h-12 w-full rounded-lg border-2 border-[#0284C7] bg-white px-6 text-[#0284C7] transition hover:bg-[#F8FAFC] sm:w-auto text-sm font-semibold"
+ >
+ Annuler
+ </button>
+
+ <!-- Créer -->
+
+ <button
+ type="submit"
+ [disabled]="isSubmitting()"
+ class="h-12 w-full rounded-lg bg-[#0284C7] px-6 text-white transition hover:bg-[#0284C7] disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto text-sm font-semibold"
+ >
+ @if (isSubmitting()) {
+ <span class="flex items-center gap-2">
+ <i class="fa-solid fa-spinner animate-spin"></i>
+
+ Création...
+ </span>
+ } @else {
+ Créer le projet
+ }
+ </button>
+ </div>
+ </form>
+ </div>
+</div>

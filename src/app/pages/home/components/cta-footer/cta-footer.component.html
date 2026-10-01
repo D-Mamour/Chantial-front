@@ -1,0 +1,62 @@
+<section class="bg-[#0B1120] px-5 pb-10 pt-16 text-white sm:px-8 lg:px-10">
+  <div
+    class="mx-auto max-w-7xl overflow-hidden rounded-lg border border-sky-400/20 bg-[#0284C7] px-7 py-14 sm:px-12 lg:flex lg:items-center lg:justify-between lg:py-16"
+  >
+    <div>
+      <p class="text-xs font-bold uppercase tracking-[.2em] text-sky-100">
+        Prêt à centraliser votre chantier ?
+      </p>
+      <h2 class="mt-3 max-w-2xl text-3xl font-black tracking-tight sm:text-5xl">
+        Du budget au justificatif, gardez une vision claire.
+      </h2>
+    </div>
+    <div class="mt-8 flex flex-wrap gap-3 lg:mt-0">
+      <a
+        routerLink="/inscription"
+        class="rounded-lg bg-white px-6 py-3.5 text-sm font-extrabold text-[#0F172A] hover:bg-slate-100"
+        >Créer un compte</a
+      ><a
+        routerLink="/connexion"
+        class="rounded-lg border border-white/25 bg-white/10 px-6 py-3.5 text-sm font-bold text-white hover:bg-white/15"
+        >Se connecter</a
+      >
+    </div>
+  </div>
+</section>
+<footer class="bg-[#0B1120] px-5 pb-10 pt-10 text-white sm:px-8 lg:px-10">
+  <div class="mx-auto max-w-7xl border-t border-white/10 pt-8">
+    <div class="flex flex-col gap-7 sm:flex-row sm:items-end sm:justify-between">
+      <div>
+        <div class="flex items-center gap-3">
+          <div class="flex justify-center">
+            <div class="flex items-center gap-2">
+              <!-- Logo icon -->
+              <div
+                class="flex h-10 w-10 items-center justify-center rounded-lg bg-[#0284C7] shadow-lg sm:h-14 sm:w-14"
+              >
+                <i routerLink="" class="fa-solid fa-helmet-safety text-xl text-white sm:text-2xl">
+                </i>
+              </div>
+            </div>
+          </div>
+          <strong class="tracking-[.12em]">CHANTIAL</strong>
+        </div>
+        <p class="mt-4 max-w-md text-sm leading-6 text-slate-500">
+          Plateforme intelligente de suivi et de contrôle des projets BTP.
+        </p>
+      </div>
+      <nav
+        aria-label="Liens de pied de page"
+        class="flex flex-wrap gap-5 text-sm font-medium text-slate-400"
+      >
+        <a href="#solution" class="hover:text-white">Solution</a
+        ><a href="#fonctionnement" class="hover:text-white">Fonctionnement</a
+        ><a routerLink="/confidentialite" class="hover:text-white">Confidentialité</a
+        ><a routerLink="/cgu" class="hover:text-white">CGU</a>
+      </nav>
+    </div>
+    <div class="mt-8 border-t border-white/5 pt-5 text-xs text-slate-600">
+      © {{ currentYear }} Chantial. Tous droits réservés.
+    </div>
+  </div>
+</footer>

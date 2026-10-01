@@ -1,0 +1,6 @@
+:host { display: block; }
+.tab-btn { border-bottom: 2px solid transparent; padding: .8rem 0; font-size: .875rem; font-weight: 700; color: #64748b; transition: color .15s ease, border-color .15s ease; }
+.tab-btn:hover { color: #0284c7; }
+.tab-btn span { margin-left: .35rem; border-radius: .5rem; background: #e2e8f0; padding: .1rem .45rem; font-size: .7rem; }
+.tab-btn.active-tab { border-color: #0284c7; color: #0284c7; }
+.tab-btn.active-tab span { background: #e0f2fe; color: #0369a1; }

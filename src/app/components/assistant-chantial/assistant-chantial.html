@@ -1,0 +1,66 @@
+@if (connecte()) {
+ @if (ouvert()) {
+ <section class="assistant-panel" aria-label="Assistant Chantial">
+ <header class="assistant-header">
+ <div class="assistant-brand">
+ <span class="assistant-logo">✦</span>
+ <div><strong>Assistant Chantial</strong><small>Analyse contextuelle du chantier</small></div>
+ </div>
+ <button type="button" class="icon-button text-sm font-semibold" (click)="fermer()" aria-label="Fermer l'assistant">×</button>
+ </header>
+
+ <div class="assistant-project">
+ <label for="assistant-projet">Projet analysé</label>
+ <select id="assistant-projet" [ngModel]="projetSelectionne()" (ngModelChange)="projetSelectionne.set($event)">
+ @for (projet of projets(); track projet.id) {
+ <option [value]="projet.id">{{ projet.nom }}</option>
+ }
+ </select>
+ </div>
+
+ <div class="assistant-messages">
+ @if (messages().length === 0) {
+ <div class="assistant-welcome">
+ <span>✦</span>
+ <h3>Que voulez-vous savoir ?</h3>
+ <p>Je m'appuie sur les données autorisées et les documents indexés du projet.</p>
+ </div>
+ <div class="suggestions">
+ @for (suggestion of suggestions(); track suggestion) {
+ <button type="button" (click)="choisirSuggestion(suggestion)">{{ suggestion }}</button>
+ }
+ </div>
+ }
+
+ @for (message of messages(); track $index) {
+ <article class="message" [class.message-user]="message.auteur === 'utilisateur'">
+ <div>{{ message.texte }}</div>
+ @if (message.sources?.length) {
+ <details>
+ <summary>Sources utilisées ({{ message.sources?.length }})</summary>
+ @for (source of message.sources; track source.document) {
+ <small>{{ source.document }}</small>
+ }
+ </details>
+ }
+ </article>
+ }
+
+ @if (chargement()) {
+ <div class="assistant-thinking"><i></i><i></i><i></i><span>Chantial analyse le projet…</span></div>
+ }
+ </div>
+
+ <form class="assistant-input" (ngSubmit)="envoyer()">
+ <textarea name="question" [(ngModel)]="question" maxlength="1000" rows="1"
+ placeholder="Posez une question sur le chantier…"></textarea>
+ <button type="submit" [disabled]="chargement() || !question.trim()" aria-label="Envoyer">➜</button>
+ </form>
+ <footer>L'assistant aide à comprendre les données ; la décision reste humaine.</footer>
+ </section>
+ }
+
+ <button type="button" class="assistant-fab text-sm font-semibold" (click)="basculer()" aria-label="Ouvrir Assistant Chantial">
+ <span>✦</span><b>Assistant</b>
+ </button>
+}

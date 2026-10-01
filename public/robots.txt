@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /entrepreneur/
+Disallow: /bailleur/
+Disallow: /administrateur/
+Sitemap: /sitemap.xml

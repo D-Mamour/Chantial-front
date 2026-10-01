@@ -1,0 +1,567 @@
+<div class="min-h-screen bg-[#f6f8fb] text-slate-800 ml-0">
+  <!-- =====================================================
+       HEADER
+  ====================================================== -->
+  <header class="border-b border-slate-200 bg-white">
+    <div class="flex min-h-[108px] items-center justify-between gap-4 px-5 py-5 sm:px-8">
+      <!-- Title -->
+      <div class="min-w-0">
+        <div class="mb-1 flex items-center gap-2 text-xs sm:text-sm">
+          <span class="font-medium uppercase tracking-wide text-slate-500"> CHANTIAL </span>
+
+          <svg class="h-3.5 w-3.5 text-slate-400" viewBox="0 0 20 20" fill="currentColor">
+            <path
+              fill-rule="evenodd"
+              d="M7.21 14.77a.75.75 0 0 1 .02-1.06L10.94 10 7.23 6.29a.75.75 0 1 1 1.06-1.06l4.24 4.24a.75.75 0 0 1 0 1.06l-4.24 4.24a.75.75 0 0 1-1.08 0z"
+              clip-rule="evenodd"
+            />
+          </svg>
+
+          <span class="font-medium text-slate-800"> Comptabilité </span>
+        </div>
+
+        <h1 class="truncate text-2xl font-bold text-slate-900 sm:text-3xl">
+          Dépenses & Justificatifs
+        </h1>
+        <p class="mt-1 text-sm text-slate-500">
+          Suivez les dépenses du chantier et assurez-vous que chacune est correctement justifiée.
+        </p>
+      </div>
+
+      <!-- Actions -->
+      <div class="flex shrink-0 items-center gap-2 sm:gap-3">
+        <!-- Add expense -->
+        <button
+          type="button"
+          (click)="ouvrirAjoutDepense()"
+          class="inline-flex items-center gap-2 rounded-lg bg-sky-600 px-5 py-3 font-semibold text-white hover:bg-sky-700"
+        >
+          + Ajouter dépense
+        </button>
+
+        <!-- Notification -->
+        <button
+          type="button"
+          class="flex h-11 w-11 items-center justify-center rounded-lg bg-slate-50 text-slate-500 hover:bg-slate-100"
+        >
+          <svg
+            class="h-5 w-5"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9" />
+
+            <path d="M10 21h4" />
+          </svg>
+        </button>
+
+        <!-- Search -->
+        <button
+          type="button"
+          class="hidden h-11 w-11 items-center justify-center rounded-lg bg-slate-50 text-slate-500 hover:bg-slate-100 sm:flex"
+        >
+          <svg
+            class="h-5 w-5"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <circle cx="11" cy="11" r="7" />
+            <path d="m20 20-4-4" />
+          </svg>
+        </button>
+
+        <div class="hidden h-9 w-px bg-slate-200 sm:block"></div>
+
+        <span class="hidden text-sm font-semibold text-slate-800 md:block">
+          {{ nomUtilisateur }}
+        </span>
+      </div>
+    </div>
+  </header>
+
+  <!-- =====================================================
+       MAIN
+  ====================================================== -->
+  <main class="px-4 py-7 sm:px-6 lg:px-8">
+    @if (erreur()) {
+      <div class="mb-4 rounded-lg bg-red-50 p-3 text-sm font-medium text-red-700">
+        {{ erreur() }}
+      </div>
+    }
+    @if (message()) {
+      <div class="mb-4 rounded-lg bg-emerald-50 p-3 text-sm font-medium text-emerald-700">
+        {{ message() }}
+      </div>
+    }
+    <!-- ===================================================
+         STATISTICS CARDS
+    ==================================================== -->
+    <section class="grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-3">
+      <!-- Total dépenses -->
+      <div class="rounded-lg border border-slate-200 bg-white p-5 shadow-sm sm:p-6">
+        <p class="text-sm font-semibold text-slate-500">Total des dépenses déclarées</p>
+
+        <p class="mt-2 text-2xl font-bold tracking-tight text-slate-900 sm:text-[26px]">
+          {{ total().toLocaleString('fr-FR') }} FCFA
+        </p>
+
+        <div class="mt-2 flex items-center gap-1 text-xs font-medium text-emerald-500">
+          <span>✓</span>
+
+          <span> Intégralité des chantiers pris en compte </span>
+        </div>
+      </div>
+
+      <!-- Justificatifs -->
+      <div class="rounded-lg border border-slate-200 bg-white p-5 shadow-sm sm:p-6">
+        <p class="text-sm font-semibold text-slate-500">Justificatifs disponibles</p>
+
+        <div class="mt-2 flex items-baseline gap-2">
+          <span class="text-2xl font-bold text-emerald-500 sm:text-[26px]">
+            {{ justifiees() }} / {{ totalJustificatifs() }}
+          </span>
+
+          <span class="text-sm font-medium text-slate-500"> ({{ pourcentageJustifies() }}%) </span>
+        </div>
+
+        <p class="mt-2 text-xs text-slate-400 sm:text-sm">
+          {{ enAttente() }} dépense(s) en attente de traitement
+        </p>
+      </div>
+
+      <!-- Anomalies -->
+      <div class="rounded-lg border border-slate-200 bg-white p-5 shadow-sm sm:p-6">
+        <p class="text-sm font-semibold text-slate-500">Points à vérifier</p>
+
+        <div class="mt-2 flex items-baseline gap-2">
+          <span class="text-2xl font-bold text-[#df7900] sm:text-[26px]">
+            {{ anomalies() }} anomalie(s)
+          </span>
+
+          <span class="text-sm font-medium text-slate-500"> - OCR </span>
+        </div>
+
+        <div class="mt-2 flex items-center gap-1 text-xs font-medium text-red-500">
+          <svg
+            class="h-4 w-4"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2.5"
+          >
+            <path
+              d="M10.3 3.9 2.5 17a2 2 0 0 0 1.7 3h15.6a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z"
+            />
+
+            <path d="M12 9v4" />
+            <path d="M12 17h.01" />
+          </svg>
+
+          <span> Vérification recommandée </span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================
+         FILTERS
+    ==================================================== -->
+    <section class="mt-6 rounded-lg border border-slate-200 bg-white p-4 shadow-sm sm:p-5">
+      <div class="flex flex-col gap-3 xl:flex-row xl:items-center xl:justify-between">
+        <!-- Filters -->
+        <div class="flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+          <!-- Search -->
+          <div class="relative">
+            <svg
+              class="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-500"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.5"
+            >
+              <circle cx="11" cy="11" r="7" />
+              <path d="m20 20-4-4" />
+            </svg>
+
+            <input
+              [(ngModel)]="searchTerm"
+              type="text"
+              placeholder="Filtrer par mot-clé..."
+              class="h-10 w-full rounded-lg border border-slate-200 bg-white pl-9 pr-3 text-sm text-slate-700 outline-none transition placeholder:text-slate-400 focus:border-sky-400 focus:ring-2 focus:ring-sky-100 sm:w-[220px]"
+            />
+          </div>
+
+          <!-- Projet -->
+          <select
+            [(ngModel)]="selectedProject"
+            class="h-10 rounded-lg border border-slate-200 bg-white px-3 text-sm font-medium text-slate-700 outline-none focus:border-sky-400"
+          >
+            <option value="Tous">Projet: Tous</option>
+            @for (project of projects(); track project.id) {
+              <option [value]="project.id">Projet: {{ project.nom }}</option>
+            }
+          </select>
+
+          <!-- Justificatif -->
+          <select
+            [(ngModel)]="selectedStatus"
+            class="h-10 rounded-lg border border-slate-200 bg-white px-3 text-sm font-medium text-slate-700 outline-none focus:border-sky-400"
+          >
+            <option value="Tous">Justificatif: Tous</option>
+
+            <option value="Valide">Justificatif: Validé</option>
+
+            <option value="Attente">Justificatif: En attente</option>
+
+            <option value="Rejete">Justificatif: Rejeté</option>
+
+            <option value="NonFourni">Justificatif: Non fourni</option>
+          </select>
+        </div>
+
+        <!-- Period -->
+        <button
+          type="button"
+          class="flex h-10 items-center gap-2 text-left text-sm text-slate-500 xl:justify-end"
+        >
+          <span> Période : Toutes </span>
+
+          <svg
+            class="h-5 w-5 text-slate-500"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <rect x="3" y="4" width="18" height="18" rx="2" />
+
+            <path d="M16 2v4" />
+            <path d="M8 2v4" />
+            <path d="M3 10h18" />
+          </svg>
+        </button>
+      </div>
+    </section>
+
+    <!-- ===================================================
+         TRANSACTIONS
+    ==================================================== -->
+    <section class="mt-6 rounded-lg border border-slate-200 bg-white p-5 shadow-sm sm:p-6">
+      <h2 class="mb-3 text-lg font-bold text-slate-900">Dépenses enregistrées</h2>
+
+      <!-- Table -->
+      <div class="overflow-x-auto">
+        <table class="w-full min-w-[1050px] border-collapse">
+          <!-- Header -->
+          <thead>
+            <tr class="bg-slate-50 text-left text-xs font-semibold text-slate-500">
+              <th class="rounded-lg px-3 py-3.5">Projet</th>
+
+              <th class="px-3 py-3.5">Étape</th>
+
+              <th class="px-3 py-3.5">Libellé dépense</th>
+
+              <th class="px-3 py-3.5">Montant</th>
+
+              <th class="px-3 py-3.5">Date</th>
+
+              <th class="px-3 py-3.5">Justificatif</th>
+
+              <th class="rounded-lg px-3 py-3.5 text-right">Actions</th>
+            </tr>
+          </thead>
+
+          <!-- Body -->
+          <tbody class="divide-y divide-slate-200">
+            @for (transaction of filteredTransactions; track transaction.id) {
+              <tr class="text-sm">
+                <!-- Projet -->
+                <td class="whitespace-nowrap px-3 py-3.5 font-semibold text-slate-800">
+                  {{ transaction.project }}
+                </td>
+
+                <!-- Étape -->
+                <td class="whitespace-nowrap px-3 py-3.5 text-slate-500">
+                  {{ transaction.step }}
+                </td>
+
+                <!-- Libellé -->
+                <td class="whitespace-nowrap px-3 py-3.5 text-slate-800">
+                  {{ transaction.label }}
+                </td>
+
+                <!-- Montant -->
+                <td class="whitespace-nowrap px-3 py-3.5 font-bold text-slate-800">
+                  {{ transaction.amount }}
+                </td>
+
+                <!-- Date -->
+                <td class="whitespace-nowrap px-3 py-3.5 text-slate-500">
+                  {{ transaction.date }}
+                </td>
+
+                <!-- Status -->
+                <td class="whitespace-nowrap px-3 py-3.5">
+                  @if (transaction.status === 'Validé') {
+                    <span
+                      class="inline-flex rounded-lg bg-emerald-100 px-2.5 py-1 text-xs font-semibold text-emerald-600"
+                    >
+                      Validé
+                    </span>
+                  } @else if (transaction.status === 'En attente') {
+                    <span
+                      class="inline-flex rounded-lg bg-amber-100 px-2.5 py-1 text-xs font-semibold text-amber-600"
+                    >
+                      En attente
+                    </span>
+                  } @else if (transaction.status === 'Rejeté') {
+                    <span
+                      class="inline-flex rounded-lg bg-red-100 px-2.5 py-1 text-xs font-semibold text-red-500"
+                    >
+                      Rejeté
+                    </span>
+                  } @else {
+                    <span
+                      class="inline-flex rounded-lg bg-slate-100 px-2.5 py-1 text-xs font-semibold text-slate-500"
+                    >
+                      Non fourni
+                    </span>
+                  }
+                </td>
+
+                <!-- Actions -->
+                <td class="px-3 py-3.5">
+                  <div class="flex justify-end gap-4 whitespace-nowrap">
+                    <button
+                      type="button"
+                      (click)="consult(transaction)"
+                      class="font-semibold text-sky-600 transition hover:text-sky-800"
+                    >
+                      Consulter
+                    </button>
+
+                    <button
+                      type="button"
+                      (click)="edit(transaction)"
+                      class="font-medium text-slate-500 transition hover:text-slate-800"
+                    >
+                      Éditer
+                    </button>
+                    @if (!transaction.hasJustificatif) {
+                      <button
+                        type="button"
+                        (click)="ouvrirJustificatif(transaction)"
+                        class="font-semibold text-indigo-600 hover:text-indigo-800"
+                      >
+                        + Justificatif
+                      </button>
+                    }
+                    <button
+                      type="button"
+                      (click)="supprimer(transaction)"
+                      class="font-medium text-red-500 hover:text-red-700"
+                    >
+                      Supprimer
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Pagination calculée à partir des données réellement chargées -->
+      <div class="mt-4 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+        <p class="text-sm text-slate-500">{{ toutesTransactionsFiltrees.length }} dépense(s)</p>
+        <div class="flex items-center gap-2">
+          <button
+            type="button"
+            (click)="previousPage()"
+            [disabled]="currentPage === 1"
+            class="rounded-lg border border-slate-200 px-3 py-2 text-sm disabled:opacity-40"
+          >
+            &lt;
+          </button>
+          <span class="rounded-lg bg-[#0284C7] px-3 py-2 text-sm font-semibold text-white"
+            >{{ currentPage }} / {{ totalPages }}</span
+          >
+          <button
+            type="button"
+            (click)="nextPage()"
+            [disabled]="currentPage === totalPages"
+            class="rounded-lg border border-slate-200 px-3 py-2 text-sm disabled:opacity-40"
+          >
+            &gt;
+          </button>
+        </div>
+      </div>
+    </section>
+  </main>
+</div>
+
+@if (showAddExpenseModal) {
+  <app-ajout-depense (close)="fermerAjoutDepense()" (expenseAdded)="onExpenseAdded()" />
+}
+
+@if (edition()) {
+  <div class="fixed inset-0 z-50 grid place-items-center bg-slate-950/45 p-4 backdrop-blur-sm">
+    <div class="w-full max-w-lg rounded-lg bg-white p-6 shadow-2xl">
+      <h2 class="text-xl font-bold text-slate-900">Modifier la dépense</h2>
+      <div class="mt-5 grid gap-4 sm:grid-cols-2">
+        <label class="text-sm text-slate-600"
+          >Libellé<input
+            [(ngModel)]="edition().libelle"
+            class="mt-1 w-full rounded-lg border border-slate-200 p-3"
+        /></label>
+        <label class="text-sm text-slate-600"
+          >Montant<input
+            type="number"
+            min="1"
+            step="1"
+            inputmode="numeric"
+            [(ngModel)]="edition().montant"
+            class="mt-1 w-full rounded-lg border border-slate-200 p-3"
+        /></label>
+        <label class="text-sm text-slate-600"
+          >Date<input
+            type="date"
+            [(ngModel)]="edition().date_depense"
+            class="mt-1 w-full rounded-lg border border-slate-200 p-3"
+        /></label>
+        <label class="text-sm text-slate-600"
+          >Fournisseur<input
+            [(ngModel)]="edition().fournisseur"
+            class="mt-1 w-full rounded-lg border border-slate-200 p-3"
+        /></label>
+      </div>
+      <div class="mt-6 flex justify-end gap-3">
+        <button type="button" (click)="fermerEdition()" class="rounded-lg border-2 border-[#0284C7] bg-white px-6 text-[#0284C7] transition hover:bg-[#F8FAFC] px-4 py-2">
+          Annuler</button
+        ><button
+          type="button"
+          (click)="enregistrerEdition()"
+          class="rounded-lg bg-sky-600 px-4 py-2 font-semibold text-white"
+        >
+          Enregistrer
+        </button>
+      </div>
+    </div>
+  </div>
+}
+@if (fichierDepense()) {
+  <div class="fixed inset-0 z-50 grid place-items-center bg-slate-950/45 p-4 backdrop-blur-sm">
+    <div class="w-full max-w-xl rounded-lg border border-white/70 bg-white p-6 shadow-2xl">
+      <div class="flex items-start justify-between gap-4">
+        <div>
+          <p class="text-xs font-bold uppercase tracking-[0.18em] text-indigo-600">
+            Automatisation Chantial
+          </p>
+          <h2 class="mt-1 text-xl font-bold text-slate-900">Ajouter un justificatif</h2>
+          <p class="mt-1 text-sm text-slate-500">{{ fichierDepense().label }}</p>
+        </div>
+        <button
+          type="button"
+          (click)="fermerJustificatif()"
+          [disabled]="automatisationEnCours()"
+          class="grid h-9 w-9 place-items-center rounded-lg bg-slate-100 text-slate-500 hover:bg-slate-200 disabled:opacity-40"
+          aria-label="Fermer"
+        >
+          ×
+        </button>
+      </div>
+
+      @if (!automatisationTerminee()) {
+        <input
+          type="file"
+          accept=".pdf,.png,.jpg,.jpeg"
+          (change)="selectionnerJustificatif($event)"
+          [disabled]="automatisationEnCours()"
+          class="mt-5 w-full rounded-lg border border-dashed border-slate-300 bg-slate-50 p-5 text-sm disabled:opacity-50"
+        />
+      }
+
+      <div class="mt-5 rounded-lg border border-slate-200 bg-slate-50 p-4">
+        <p class="text-sm font-bold text-slate-900">Traitement automatique</p>
+        <div class="mt-3 grid gap-2 text-sm">
+          <div class="flex items-center gap-3">
+            <span class="grid h-6 w-6 place-items-center rounded-lg bg-emerald-100 text-emerald-700"
+              >✓</span
+            ><span>Justificatif prêt à être enregistré</span>
+          </div>
+          <div class="flex items-center gap-3">
+            <span
+              class="grid h-6 w-6 place-items-center rounded-lg"
+              [class.bg-indigo-100]="automatisationEnCours() || automatisationTerminee()"
+              [class.text-indigo-700]="automatisationEnCours() || automatisationTerminee()"
+              [class.bg-slate-200]="!automatisationEnCours() && !automatisationTerminee()"
+              >{{ automatisationTerminee() ? '✓' : '2' }}</span
+            ><span>Extraction OCR : date, fournisseur, montant TTC</span>
+          </div>
+          <div class="flex items-center gap-3">
+            <span
+              class="grid h-6 w-6 place-items-center rounded-lg"
+              [class.bg-indigo-100]="automatisationEnCours() || automatisationTerminee()"
+              [class.text-indigo-700]="automatisationEnCours() || automatisationTerminee()"
+              [class.bg-slate-200]="!automatisationEnCours() && !automatisationTerminee()"
+              >{{ automatisationTerminee() ? '✓' : '3' }}</span
+            ><span>Comparaison avec la dépense déclarée</span>
+          </div>
+          <div class="flex items-center gap-3">
+            <span
+              class="grid h-6 w-6 place-items-center rounded-lg"
+              [class.bg-indigo-100]="automatisationEnCours() || automatisationTerminee()"
+              [class.text-indigo-700]="automatisationEnCours() || automatisationTerminee()"
+              [class.bg-slate-200]="!automatisationEnCours() && !automatisationTerminee()"
+              >{{ automatisationTerminee() ? '✓' : '4' }}</span
+            ><span>Contrôles, analyse et recommandation si nécessaire</span>
+          </div>
+          <div class="flex items-center gap-3">
+            <span
+              class="grid h-6 w-6 place-items-center rounded-lg"
+              [class.bg-indigo-100]="automatisationEnCours() || automatisationTerminee()"
+              [class.text-indigo-700]="automatisationEnCours() || automatisationTerminee()"
+              [class.bg-slate-200]="!automatisationEnCours() && !automatisationTerminee()"
+              >{{ automatisationTerminee() ? '✓' : '5' }}</span
+            ><span>Alerte bailleur en cas d'élément nécessitant son attention</span>
+          </div>
+        </div>
+        @if (automatisationEnCours()) {
+          <div class="mt-4 h-2 overflow-hidden rounded-lg bg-slate-200">
+            <div class="h-full w-2/3 animate-pulse rounded-lg bg-indigo-600"></div>
+          </div>
+          <p class="mt-2 text-xs font-medium text-indigo-700">Analyse automatique en cours…</p>
+        }
+        @if (automatisationTerminee()) {
+          <p class="mt-4 rounded-lg bg-emerald-50 px-3 py-2 text-sm font-semibold text-emerald-700">
+            Traitement terminé. Les résultats OCR sont disponibles dans le contrôle du justificatif.
+          </p>
+        }
+      </div>
+
+      <div class="mt-6 flex justify-end gap-3">
+        <button
+          type="button"
+          (click)="fermerJustificatif()"
+          [disabled]="automatisationEnCours()"
+          class="rounded-lg border border-slate-200 px-4 py-2 font-medium disabled:opacity-40"
+        >
+          {{ automatisationTerminee() ? 'Fermer' : 'Annuler' }}
+        </button>
+        @if (!automatisationTerminee()) {
+          <button
+            type="button"
+            (click)="envoyerJustificatif()"
+            [disabled]="!fichierJustificatif() || automatisationEnCours()"
+            class="rounded-lg bg-indigo-600 px-4 py-2 font-semibold text-white disabled:opacity-40"
+          >
+            {{ automatisationEnCours() ? 'Traitement…' : 'Envoyer et analyser' }}
+          </button>
+        }
+      </div>
+    </div>
+  </div>
+}

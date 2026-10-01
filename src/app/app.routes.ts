@@ -1,0 +1,73 @@
+import { Routes } from '@angular/router';
+import { HomeComponent } from './pages/home/home.component';
+import { InscriptionComponent } from './pages/inscription/inscription';
+import { ConnexionComponent } from './pages/connexion/connexion';
+import { MainLayout } from './pages/Entrepreneur/entrepreneur-layout/main-layout';
+import { ProjetComponent } from './pages/Entrepreneur/projet/projet';
+import { DepensesJustificatifs } from './pages/Entrepreneur/depenses-justificatifs/depenses-justificatifs';
+import { DetailProjetComponent } from './pages/Entrepreneur/detail-projet/detail-projet';
+import { OrcControle } from './pages/Bailleur/orc-controle/orc-controle';
+import { Notifications } from './pages/Entrepreneur/notification/notifications';
+import { DashboardBailleur } from './pages/Bailleur/dashboard-bailleur/dashboard-bailleur';
+import { MaConstructionComponent } from './pages/Bailleur/ma-construction/ma-construction';
+import { DemandeModalComponent } from './pages/Bailleur/demande/demande';
+import { AdminComponent } from './pages/Administrateur/admin/admin';
+import { AdminLayoutComponent } from './pages/Administrateur/admin-layout/admin-layout';
+import { authGuard } from './guards/auth.guard';
+import { roleGuard } from './guards/role.guard';
+import { AnalysesComponent } from './pages/Entrepreneur/analyse/analyse';
+import { BailleurLayout } from './pages/Bailleur/bailleur-layout/bailleur-layout';
+import { ProfilComponent } from './pages/profil/profil';
+import { ConfidentialiteComponent } from './pages/confidentialite/confidentialite';
+import { CguComponent } from './pages/cgu/cgu';
+import { NotFoundComponent } from './pages/not-found/not-found';
+import { PilotageAvanceComponent } from './pages/pilotage-avance/pilotage-avance';
+
+export const routes: Routes = [
+  { path: '', component: HomeComponent },
+  { path: 'inscription', component: InscriptionComponent },
+  { path: 'connexion', component: ConnexionComponent },
+  { path: 'confidentialite', component: ConfidentialiteComponent },
+  { path: 'cgu', component: CguComponent },
+  {
+    path: 'entrepreneur',
+    component: MainLayout,
+    canActivate: [authGuard, roleGuard(['ENTREPRENEUR'])],
+    children: [
+      { path: '', pathMatch: 'full', redirectTo: 'projet' },
+      { path: 'projet', component: ProjetComponent },
+      { path: 'depense', component: DepensesJustificatifs },
+      { path: 'controle', component: OrcControle },
+      { path: 'detail/:id', component: DetailProjetComponent },
+      { path: 'detail-projet/:id', component: DetailProjetComponent },
+      { path: 'notifications', component: Notifications },
+      { path: 'analyse', component: AnalysesComponent },
+      { path: 'pilotage-avance', component: PilotageAvanceComponent },
+      { path: 'profil', component: ProfilComponent },
+    ],
+  },
+  {
+    path: 'bailleur',
+    component: BailleurLayout,
+    canActivate: [authGuard, roleGuard(['BAILLEUR'])],
+    children: [
+      { path: '', pathMatch: 'full', redirectTo: 'dashboard' },
+      { path: 'dashboard', component: DashboardBailleur },
+      { path: 'construction', component: MaConstructionComponent },
+      { path: 'controle', component: OrcControle },
+      { path: 'demande', component: DemandeModalComponent },
+      { path: 'pilotage-avance', component: PilotageAvanceComponent },
+      { path: 'profil', component: ProfilComponent },
+    ],
+  },
+  {
+    path: 'administrateur',
+    component: AdminLayoutComponent,
+    canActivate: [authGuard, roleGuard(['ADMINISTRATEUR'])],
+    children: [
+      { path: '', component: AdminComponent },
+      { path: 'profil', component: ProfilComponent },
+    ],
+  },
+  { path: '**', component: NotFoundComponent },
+];

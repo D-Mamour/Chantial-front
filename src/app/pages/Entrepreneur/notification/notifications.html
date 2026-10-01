@@ -1,0 +1,27 @@
+<div class="min-h-screen bg-[#F8FAFC] px-4 py-6 sm:px-6 lg:px-8">
+  <div class="mx-auto max-w-[1400px]">
+    <div class="mb-6 flex items-end justify-between gap-4">
+      <p class="text-xs font-medium text-[#64748B]">CHANTIAL &gt; Notifications</p>
+      <h1 class="mt-1 text-2xl font-bold text-[#0F172A] sm:text-3xl">Notifications</h1>
+    <button type="button" (click)="toutMarquerLu()" class="rounded-lg border border-[#E2E8F0] bg-white px-3 py-2 text-sm font-semibold text-[#0284C7]">Tout marquer comme lu</button></div>
+    <section class="overflow-hidden rounded-lg border border-[#E2E8F0] bg-white">
+      @for (notification of notifications(); track notification.id) {
+        <article (click)="marquerLue(notification.id)" class="cursor-pointer flex gap-4 border-b border-[#E8EDF3] p-5 last:border-b-0 sm:p-6">
+          <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-[#EEF8FD] text-[#0284C7]">
+            <i class="fa-solid fa-bell"></i>
+          </div>
+          <div class="min-w-0 flex-1">
+            <div class="flex flex-wrap items-center justify-between gap-2">
+              <p class="font-bold text-[#0F172A]">{{ notification.type_alerte }}</p>
+              <span class="text-xs text-[#64748B]">{{ notification.date_creation | date:'dd/MM/yyyy HH:mm' }}</span>
+            </div>
+            <p class="mt-2 text-sm leading-6 text-[#64748B]">{{ notification.message }}</p>
+          </div>
+        </article>
+      }
+      @if (notifications().length === 0) {
+        <div class="p-10 text-center text-sm text-[#64748B]">Aucune notification.</div>
+      }
+    </section>
+  </div>
+</div>

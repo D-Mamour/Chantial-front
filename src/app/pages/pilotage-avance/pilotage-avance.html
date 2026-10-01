@@ -1,0 +1,646 @@
+<section class="min-h-screen px-4 py-6 sm:px-6 lg:px-8 xl:px-10">
+  <!-- En-tête : le pilotage doit d'abord donner une lecture rapide du chantier. -->
+  <header
+    class="mb-7 overflow-hidden rounded-lg bg-slate-900 px-5 py-6 text-white shadow-sm sm:px-7 sm:py-8"
+  >
+    <div class="flex flex-col gap-6 xl:flex-row xl:items-end xl:justify-between">
+      <div class="max-w-3xl">
+        <div
+          class="mb-3 inline-flex items-center gap-2 rounded-lg bg-white/10 px-3 py-1.5 text-xs font-semibold text-sky-200"
+        >
+          <span class="h-2 w-2 rounded-lg bg-emerald-400"></span> Centre de pilotage
+        </div>
+        <h1 id="pilotage-title" class="text-2xl font-bold tracking-tight sm:text-3xl">
+          Pilotage financier & suivi terrain
+        </h1>
+        <p class="mt-2 max-w-2xl text-sm leading-6 text-slate-300 sm:text-base">
+          Contrôlez le budget, formalisez les avenants, suivez les situations de travaux et
+          conservez les preuves du chantier dans un seul espace.
+        </p>
+      </div>
+      <div class="w-full xl:max-w-sm">
+        <label
+          for="pilotage-projet"
+          class="mb-2 block uppercase tracking-wide text-slate-300 text-sm font-semibold"
+          >Projet analysé</label
+        >
+        <select
+          id="pilotage-projet"
+          [(ngModel)]="projetId"
+          (ngModelChange)="changerProjet()"
+          class="h-12 w-full rounded-lg border border-white/15 bg-white px-4 text-slate-900 outline-none ring-0 focus:border-sky-400 text-sm font-normal"
+        >
+          <option value="">Sélectionner un projet</option>
+          @for (p of projets; track p.id) {
+            <option [value]="p.id">{{ p.nom }}</option>
+          }
+        </select>
+      </div>
+    </div>
+  </header>
+
+  @if (message()) {
+    <div
+      role="status"
+      class="mb-5 flex items-start gap-3 rounded-lg border border-emerald-200 bg-emerald-50 p-4 text-sm text-emerald-800"
+    >
+      <span class="mt-0.5">✓</span><span>{{ message() }}</span>
+    </div>
+  }
+  @if (erreur()) {
+    <div
+      role="alert"
+      class="mb-5 flex items-start gap-3 rounded-lg border border-red-200 bg-red-50 p-4 text-sm text-red-800"
+    >
+      <span class="mt-0.5">!</span><span>{{ erreur() }}</span>
+    </div>
+  }
+
+  @if (projetId) {
+    <!-- Synthèse décisionnelle : lisible avant d'entrer dans les formulaires. -->
+    <section class="mb-7" aria-label="Synthèse du projet">
+      <div class="mb-4 flex flex-wrap items-end justify-between gap-3">
+        <div>
+          <p class="text-xs font-semibold uppercase tracking-wide text-sky-600">Vue d'ensemble</p>
+          <h2 class="mt-1 text-slate-900 text-2xl font-bold">{{ projetSelectionne()?.nom }}</h2>
+          <p class="mt-1 text-sm text-slate-500">
+            {{ projetSelectionne()?.localisation || 'Localisation non renseignée' }}
+          </p>
+        </div>
+        @if (indicateurs()) {
+          <span
+            class="rounded-lg px-3 py-1.5 text-xs font-bold"
+            [class.bg-red-100]="niveauEcart() === 'critique'"
+            [class.text-red-700]="niveauEcart() === 'critique'"
+            [class.bg-amber-100]="niveauEcart() === 'attention'"
+            [class.text-amber-700]="niveauEcart() === 'attention'"
+            [class.bg-emerald-100]="niveauEcart() === 'normal'"
+            [class.text-emerald-700]="niveauEcart() === 'normal'"
+            >{{
+              niveauEcart() === 'critique'
+                ? 'Vérification prioritaire'
+                : niveauEcart() === 'attention'
+                  ? 'À surveiller'
+                  : 'Situation maîtrisée'
+            }}</span
+          >
+        }
+      </div>
+      @if (chargementIndicateurs()) {
+        <div class="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+          @for (x of [1, 2, 3, 4]; track x) {
+            <div class="h-28 animate-pulse rounded-lg border border-slate-200 bg-white"></div>
+          }
+        </div>
+      } @else if (indicateurs(); as i) {
+        <div class="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+          <article class="rounded-lg border border-slate-200 bg-white p-5 shadow-sm">
+            <div class="flex items-center justify-between">
+              <p class="text-sm font-medium text-slate-500">Budget de référence</p>
+              <span class="rounded-lg bg-sky-50 px-2 py-1 text-xs font-bold text-sky-700"
+                >Budget</span
+              >
+            </div>
+            <p class="mt-4 text-xl font-bold text-slate-900">{{ fcfa(i.budget_reference) }}</p>
+            <p class="mt-1 text-xs text-slate-400">Initial : {{ fcfa(i.budget_initial) }}</p>
+          </article>
+          <article class="rounded-lg border border-slate-200 bg-white p-5 shadow-sm">
+            <div class="flex items-center justify-between">
+              <p class="text-sm font-medium text-slate-500">Dépenses validées</p>
+              <span class="rounded-lg bg-violet-50 px-2 py-1 text-xs font-bold text-violet-700"
+                >Réalisé</span
+              >
+            </div>
+            <p class="mt-4 text-xl font-bold text-slate-900">{{ fcfa(i.depenses_validees) }}</p>
+            <p class="mt-1 text-xs text-slate-400">
+              {{ nombre(i.consommation_budgetaire) | number: '1.0-1' }} % du budget
+            </p>
+          </article>
+          <article class="rounded-lg border border-slate-200 bg-white p-5 shadow-sm">
+            <div class="flex items-center justify-between">
+              <p class="text-sm font-medium text-slate-500">Avancement physique</p>
+              <span class="rounded-lg bg-emerald-50 px-2 py-1 text-xs font-bold text-emerald-700"
+                >Terrain</span
+              >
+            </div>
+            <p class="mt-4 text-xl font-bold text-slate-900">
+              {{ nombre(i.avancement_physique) | number: '1.0-1' }} %
+            </p>
+            <div class="mt-3 h-1.5 overflow-hidden rounded-lg bg-slate-100">
+              <div
+                class="h-full rounded-lg bg-emerald-500"
+                [style.width.%]="
+                  nombre(i.avancement_physique) > 100 ? 100 : nombre(i.avancement_physique)
+                "
+              ></div>
+            </div>
+          </article>
+          <article
+            class="rounded-lg border p-5 shadow-sm"
+            [class.border-red-200]="estCritique()"
+            [class.bg-red-50]="estCritique()"
+            [class.border-slate-200]="!estCritique()"
+            [class.bg-white]="!estCritique()"
+          >
+            <div class="flex items-center justify-between">
+              <p class="text-sm font-medium text-slate-500">Écart budget / avancement</p>
+              <span
+                class="rounded-lg px-2 py-1 text-xs font-bold"
+                [class.bg-red-100]="estCritique()"
+                [class.text-red-700]="estCritique()"
+                [class.bg-amber-50]="!estCritique()"
+                [class.text-amber-700]="!estCritique()"
+                >Contrôle</span
+              >
+            </div>
+            <p
+              class="mt-4 text-xl font-bold"
+              [class.text-red-700]="estCritique()"
+              [class.text-slate-900]="!estCritique()"
+            >
+              {{ nombre(i.ecart_points) | number: '1.0-1' }} pts
+            </p>
+            <p class="mt-1 text-xs text-slate-500">
+              CPI : {{ i.CPI ? (nombre(i.CPI) | number: '1.0-2') : '—' }}
+            </p>
+          </article>
+        </div>
+      }
+    </section>
+  }
+
+  <nav
+    class="mb-6 grid grid-cols-2 gap-2 rounded-lg border border-slate-200 bg-white p-2 shadow-sm sm:flex"
+    aria-label="Sections de pilotage"
+  >
+    @for (tab of tabs; track tab.id) {
+      <button
+        type="button"
+        (click)="onglet = tab.id"
+        [attr.aria-current]="onglet === tab.id ? 'page' : null"
+        [class.bg-slate-900]="onglet === tab.id"
+        [class.text-white]="onglet === tab.id"
+        [class.shadow-sm]="onglet === tab.id"
+        class="min-h-11 flex-1 rounded-lg px-3 py-2.5 text-slate-600 transition hover:bg-slate-50 text-sm font-semibold"
+      >
+        {{ tab.label }}
+      </button>
+    }
+  </nav>
+
+  @if (!projetId) {
+    <div class="rounded-lg border border-dashed border-slate-300 bg-white p-8 text-center">
+      <h2 class="text-slate-900 text-2xl font-bold">Sélectionnez d'abord un projet</h2>
+      <p class="mt-2 text-sm text-slate-500">
+        Les avenants, situations, preuves et rapports apparaîtront ici.
+      </p>
+    </div>
+  } @else if (onglet === 'avenants') {
+    @if (entrepreneur) {
+      <div class="mb-4 flex justify-end">
+        <button
+          type="button"
+          (click)="formulaireAvenant = !formulaireAvenant"
+          class="rounded-lg bg-sky-600 px-4 py-2.5 text-white text-sm font-semibold"
+        >
+          {{ formulaireAvenant ? 'Fermer' : 'Nouvel avenant' }}
+        </button>
+      </div>
+      @if (formulaireAvenant) {
+        <form
+          (ngSubmit)="creerAvenant()"
+          class="mb-6 rounded-lg border border-slate-200 bg-white p-5 shadow-sm"
+          novalidate
+        >
+          <h2 class="text-slate-900 text-2xl font-bold">Nouvel avenant</h2>
+          <p class="mb-5 mt-1 text-sm text-slate-500">
+            Formalisez une modification de coût, de délai ou de prestation avant validation par le
+            bailleur.
+          </p>
+          <div class="grid gap-5 md:grid-cols-2">
+            <div>
+              <label for="av-titre" class="mb-2 block text-sm font-semibold"
+                >Titre <span class="text-red-500">*</span></label
+              ><input
+                id="av-titre"
+                name="titre"
+                [(ngModel)]="titre"
+                maxlength="150"
+                required
+                placeholder="Ex. Hausse du prix du ciment"
+                class="h-12 w-full rounded-lg border border-slate-300 px-4 text-sm font-normal"
+              />
+            </div>
+            <div>
+              <label for="av-montant" class="mb-2 block text-sm font-semibold"
+                >Impact financier (FCFA) <span class="text-red-500">*</span></label
+              ><input
+                id="av-montant"
+                name="montant"
+                [(ngModel)]="montant"
+                type="number"
+                min="0"
+                step="1"
+                inputmode="numeric"
+                required
+                class="h-12 w-full rounded-lg border border-slate-300 px-4 text-sm font-normal"
+              />
+              <p class="mt-1 text-xs text-slate-500">0 si l'avenant n'a aucun impact financier.</p>
+            </div>
+            <div class="md:col-span-2">
+              <label for="av-motif" class="mb-2 block text-sm font-semibold"
+                >Motif et description <span class="text-red-500">*</span></label
+              ><textarea
+                id="av-motif"
+                name="motif"
+                [(ngModel)]="motif"
+                maxlength="2000"
+                required
+                rows="4"
+                placeholder="Décrivez la modification et sa justification…"
+                class="w-full rounded-lg border border-slate-300 p-4 text-sm font-normal"
+              ></textarea>
+            </div>
+            <div>
+              <label for="av-delai" class="mb-2 block text-sm font-semibold"
+                >Impact sur le délai (jours)</label
+              ><input
+                id="av-delai"
+                name="impact"
+                [(ngModel)]="impact"
+                type="number"
+                min="0"
+                step="1"
+                inputmode="numeric"
+                class="h-12 w-full rounded-lg border border-slate-300 px-4 text-sm font-normal"
+              />
+            </div>
+            <div>
+              <label for="av-doc" class="mb-2 block text-sm font-semibold"
+                >Document justificatif</label
+              ><input
+                id="av-doc"
+                type="file"
+                accept=".pdf,.png,.jpg,.jpeg"
+                (change)="fichierAvenant($event)"
+                class="w-full rounded-lg border border-slate-300 p-2.5 text-sm font-normal"
+              />
+              <p class="mt-1 text-xs text-slate-500">PDF, JPG ou PNG — 10 Mo maximum.</p>
+            </div>
+          </div>
+          <button
+            type="submit"
+            [disabled]="chargement()"
+            class="mt-5 rounded-lg bg-sky-600 px-5 py-3 text-white disabled:cursor-not-allowed disabled:opacity-50 text-sm font-semibold"
+          >
+            {{ chargement() ? 'Enregistrement…' : 'Créer l’avenant' }}
+          </button>
+        </form>
+      }
+    }
+    <div class="space-y-3">
+      @for (a of avenantsProjet(); track a.id) {
+        <article class="rounded-lg border border-slate-200 bg-white p-5 shadow-sm">
+          <div class="flex flex-wrap justify-between gap-3">
+            <div>
+              <h3 class="text-slate-900 text-lg font-semibold">{{ a.titre }}</h3>
+              <p class="mt-1 text-sm text-slate-500">{{ a.motif }}</p>
+            </div>
+            <span class="h-fit rounded-lg bg-slate-100 px-3 py-1 text-xs font-semibold">{{
+              libelleStatut(a.statut)
+            }}</span>
+          </div>
+          <div class="mt-3 text-sm">
+            <b>{{ a.montant | number: '1.0-0' }} FCFA</b> · impact
+            {{ a.impact_delai_jours }} jour(s)
+          </div>
+          <div class="mt-4 flex flex-wrap gap-2">
+            @if (entrepreneur && a.statut === 'BROUILLON') {
+              <button
+                type="button"
+                (click)="soumettre(a)"
+                class="rounded-lg bg-sky-600 px-3 py-2 text-white text-sm font-semibold"
+              >
+                Soumettre au bailleur
+              </button>
+            }
+            @if (bailleur && a.statut === 'SOUMIS') {
+              <button
+                type="button"
+                (click)="demanderConfirmation('approuver-avenant', a)"
+                class="rounded-lg bg-emerald-600 px-3 py-2 text-white text-sm font-semibold"
+              >
+                Approuver</button
+              ><button
+                type="button"
+                (click)="demanderConfirmation('rejeter-avenant', a, true)"
+                class="rounded-lg bg-red-600 px-3 py-2 text-white text-sm font-semibold"
+              >
+                Rejeter
+              </button>
+            }
+          </div>
+        </article>
+      } @empty {
+        <div class="rounded-lg border border-dashed bg-white p-8 text-center text-slate-500">
+          Aucun avenant pour ce projet.
+        </div>
+      }
+    </div>
+  } @else if (onglet === 'situations') {
+    <div class="space-y-4">
+      @if (entrepreneur) {
+        <div class="flex justify-end">
+          <button
+            type="button"
+            (click)="formulaireSituation = !formulaireSituation"
+            class="rounded-lg bg-sky-600 px-4 py-2.5 text-white text-sm font-semibold"
+          >
+            {{ formulaireSituation ? 'Fermer' : 'Nouvelle situation' }}
+          </button>
+        </div>
+        @if (formulaireSituation) {
+          <form
+            (ngSubmit)="creerSituation()"
+            class="rounded-lg border border-slate-200 bg-white p-5 shadow-sm"
+          >
+            <h2 class="mb-5 text-2xl font-bold">Nouvelle situation de travaux</h2>
+            <div class="grid gap-5 md:grid-cols-2">
+              <div>
+                <label for="sit-etape" class="mb-2 block text-sm font-semibold"
+                  >Étape <span class="text-red-500">*</span></label
+                ><select
+                  id="sit-etape"
+                  name="etape"
+                  [(ngModel)]="situationEtape"
+                  required
+                  class="h-12 w-full rounded-lg border border-slate-300 px-4 text-sm font-normal"
+                >
+                  <option value="">Sélectionner une étape</option>
+                  @for (e of etapesProjet(); track e.id) {
+                    <option [value]="e.id">{{ e.nom }}</option>
+                  }
+                </select>
+              </div>
+              <div>
+                <label for="sit-pct" class="mb-2 block text-sm font-semibold"
+                  >Avancement physique (%) <span class="text-red-500">*</span></label
+                ><input
+                  id="sit-pct"
+                  name="pct"
+                  [(ngModel)]="situationPct"
+                  type="number"
+                  min="0"
+                  max="100"
+                  step="1"
+                  required
+                  class="h-12 w-full rounded-lg border border-slate-300 px-4 text-sm font-normal"
+                />
+              </div>
+              <div>
+                <label for="sit-montant" class="mb-2 block text-sm font-semibold"
+                  >Montant de la situation (FCFA)</label
+                ><input
+                  id="sit-montant"
+                  name="sitMontant"
+                  [(ngModel)]="situationMontant"
+                  type="number"
+                  min="0"
+                  step="1"
+                  class="h-12 w-full rounded-lg border border-slate-300 px-4 text-sm font-normal"
+                />
+              </div>
+              <div>
+                <label for="sit-comment" class="mb-2 block text-sm font-semibold">Commentaire</label
+                ><input
+                  id="sit-comment"
+                  name="sitComment"
+                  [(ngModel)]="situationCommentaire"
+                  maxlength="1000"
+                  placeholder="Précisions utiles"
+                  class="h-12 w-full rounded-lg border border-slate-300 px-4 text-sm font-normal"
+                />
+              </div>
+            </div>
+            <button
+              type="submit"
+              [disabled]="chargement()"
+              class="mt-5 rounded-lg bg-sky-600 px-5 py-3 text-white disabled:opacity-50 text-sm font-semibold"
+            >
+              Soumettre la situation
+            </button>
+          </form>
+        }
+      }
+      @for (x of situationsProjet(); track x.id) {
+        <article class="rounded-lg border border-slate-200 bg-white p-5 shadow-sm">
+          <div class="flex flex-wrap justify-between gap-3">
+            <b
+              >Avancement {{ x.pourcentage }} % ·
+              {{ x.montant_situation | number: '1.0-0' }} FCFA</b
+            ><span class="rounded-lg bg-slate-100 px-3 py-1 text-xs font-semibold">{{
+              libelleStatut(x.statut)
+            }}</span>
+          </div>
+          <p class="mt-2 text-sm text-slate-500">{{ x.commentaire || 'Aucun commentaire.' }}</p>
+          @if (bailleur && x.statut === 'SOUMISE') {
+            <div class="mt-3 flex gap-2">
+              <button
+                type="button"
+                (click)="demanderConfirmation('valider-situation', x)"
+                class="rounded-lg bg-emerald-600 px-3 py-2 text-white text-sm font-semibold"
+              >
+                Valider</button
+              ><button
+                type="button"
+                (click)="demanderConfirmation('rejeter-situation', x, true)"
+                class="rounded-lg bg-red-600 px-3 py-2 text-white text-sm font-semibold"
+              >
+                Rejeter
+              </button>
+            </div>
+          }
+        </article>
+      } @empty {
+        <div class="rounded-lg border border-dashed bg-white p-8 text-center text-slate-500">
+          Aucune situation de travaux.
+        </div>
+      }
+    </div>
+  } @else if (onglet === 'terrain') {
+    @if (entrepreneur) {
+      <div class="mb-4 flex justify-end">
+        <button
+          type="button"
+          (click)="formulaireTerrain = !formulaireTerrain"
+          class="rounded-lg bg-sky-600 px-4 py-2.5 text-white text-sm font-semibold"
+        >
+          {{ formulaireTerrain ? 'Fermer' : 'Nouvelle preuve terrain' }}
+        </button>
+      </div>
+      @if (formulaireTerrain) {
+        <form
+          (ngSubmit)="ajouterPreuve()"
+          class="mb-6 rounded-lg border border-slate-200 bg-white p-5 shadow-sm"
+        >
+          <h2 class="text-2xl font-bold">Nouvelle preuve terrain</h2>
+          <p class="mb-5 mt-1 text-sm text-slate-500">
+            Ajoutez une photo récente du chantier. La position est facultative et nécessite votre
+            autorisation.
+          </p>
+          <label for="terrain-comment" class="mb-2 block text-sm font-semibold">Commentaire</label
+          ><textarea
+            id="terrain-comment"
+            name="terrainComment"
+            [(ngModel)]="commentaire"
+            maxlength="1000"
+            rows="3"
+            placeholder="Décrivez ce qui est visible sur la photo…"
+            class="mb-4 w-full rounded-lg border border-slate-300 p-3 text-sm font-normal"
+          ></textarea
+          ><label for="terrain-photo" class="mb-2 block text-sm font-semibold"
+            >Photo <span class="text-red-500">*</span></label
+          ><input
+            id="terrain-photo"
+            type="file"
+            accept="image/jpeg,image/png,image/webp"
+            capture="environment"
+            (change)="fichierTerrain($event)"
+            class="mb-2 w-full rounded-lg border border-slate-300 p-3 text-sm font-normal"
+          />
+          <p class="mb-4 text-xs text-slate-500">JPG, PNG ou WebP — 10 Mo maximum.</p>
+          <div class="flex flex-wrap gap-2">
+            <button
+              type="button"
+              (click)="utiliserPosition()"
+              class="rounded-lg border border-slate-300 px-4 py-2 text-sm font-semibold"
+            >
+              {{ latitude !== null ? 'Position ajoutée ✓' : 'Ajouter ma position' }}</button
+            ><button
+              type="submit"
+              [disabled]="!photo || chargement()"
+              class="rounded-lg bg-sky-600 px-4 py-2 text-white disabled:cursor-not-allowed disabled:opacity-40 text-sm font-semibold"
+            >
+              Publier la preuve
+            </button>
+          </div>
+        </form>
+      }
+    }
+    <div class="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+      @for (j of preuvesProjet(); track j.id) {
+        <article class="overflow-hidden rounded-lg border border-slate-200 bg-white shadow-sm">
+          <img
+            [src]="urlMedia(j.fichier)"
+            alt="Photo de suivi du chantier"
+            loading="lazy"
+            class="h-52 w-full object-cover"
+          />
+          <div class="p-4">
+            <p class="font-medium">{{ j.commentaire || 'Preuve terrain' }}</p>
+            <p class="mt-2 text-xs text-slate-500">
+              {{ j.date_ajout | date: 'dd/MM/yyyy à HH:mm' }}
+              @if (j.latitude !== null && j.latitude !== undefined) {
+                · Position enregistrée
+              }
+            </p>
+            <details class="mt-2 text-xs text-slate-400">
+              <summary class="cursor-pointer">Informations techniques</summary>
+              <p class="mt-1 break-all">SHA-256 : {{ j.hash_fichier }}</p>
+              @if (j.latitude !== null && j.latitude !== undefined) {
+                <p>GPS : {{ j.latitude }}, {{ j.longitude }}</p>
+              }
+            </details>
+          </div>
+        </article>
+      } @empty {
+        <div
+          class="rounded-lg border border-dashed bg-white p-8 text-center text-slate-500 sm:col-span-2"
+        >
+          Aucune preuve terrain.
+        </div>
+      }
+    </div>
+  } @else {
+    <div class="rounded-lg border border-slate-200 bg-white p-6 shadow-sm">
+      <h2 class="text-2xl font-bold">Rapport de chantier</h2>
+      <p class="mt-2 max-w-2xl text-slate-500">
+        Compile le budget, l'avancement, les dépenses, les anomalies, les avenants et le journal
+        terrain dans un document partageable.
+      </p>
+      <div class="mt-5 flex flex-wrap gap-3">
+        <button
+          type="button"
+          (click)="telecharger()"
+          [disabled]="chargement()"
+          class="rounded-lg bg-slate-900 px-4 py-3 text-white disabled:opacity-50 text-sm font-semibold"
+        >
+          Exporter en PDF</button
+        ><button
+          type="button"
+          (click)="demanderConfirmation('email', null)"
+          [disabled]="chargement()"
+          class="rounded-lg bg-sky-600 px-4 py-3 text-white disabled:opacity-50 text-sm font-semibold"
+        >
+          Envoyer par e-mail</button
+        ><button
+          type="button"
+          (click)="demanderConfirmation('whatsapp', null)"
+          [disabled]="chargement()"
+          class="rounded-lg bg-emerald-600 px-4 py-3 text-white disabled:opacity-50 text-sm font-semibold"
+        >
+          E-mail + WhatsApp
+        </button>
+      </div>
+      <p class="mt-4 text-xs text-slate-500">
+        L'envoi dépend de la configuration e-mail et WhatsApp Cloud du serveur.
+      </p>
+    </div>
+  }
+</section>
+
+@if (actionConfirmation) {
+  <div
+    class="fixed inset-0 z-[100] flex items-center justify-center bg-slate-950/50 p-4"
+    (click)="fermerConfirmation($event)"
+    role="presentation"
+  >
+    <section
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="confirmation-title"
+      class="w-full max-w-md rounded-lg bg-white p-6 shadow-2xl"
+    >
+      <h2 id="confirmation-title" class="text-slate-900 text-2xl font-bold">Confirmer l'action</h2>
+      <p class="mt-2 text-sm text-slate-600">{{ texteConfirmation() }}</p>
+      @if (motifObligatoire) {
+        <label for="motif-rejet" class="mb-2 mt-5 block text-sm font-semibold"
+          >Motif du rejet <span class="text-red-500">*</span></label
+        ><textarea
+          id="motif-rejet"
+          [(ngModel)]="motifRejet"
+          maxlength="1000"
+          rows="3"
+          class="w-full rounded-lg border border-slate-300 p-3 text-sm font-normal"
+          placeholder="Expliquez la raison du rejet…"
+        ></textarea>
+      }
+      <div class="mt-6 flex justify-end gap-3">
+        <button
+          type="button"
+          (click)="annulerConfirmation()"
+          class="rounded-lg border border-slate-300 px-4 py-2 text-sm font-semibold"
+        >
+          Annuler</button
+        ><button
+          type="button"
+          (click)="confirmerAction()"
+          [disabled]="motifObligatoire && !motifRejet.trim()"
+          class="rounded-lg bg-slate-900 px-4 py-2 text-white disabled:opacity-40 text-sm font-semibold"
+        >
+          Confirmer
+        </button>
+      </div>
+    </section>
+  </div>
+}

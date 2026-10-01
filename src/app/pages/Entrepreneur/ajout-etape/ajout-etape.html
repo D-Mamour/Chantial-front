@@ -1,0 +1,247 @@
+<div
+ class="fixed inset-0 z-[100] flex items-center justify-center
+ bg-slate-900/50 p-3 sm:p-6"
+ (click)="onOverlayClick($event)">
+
+ <div
+ class="flex max-h-[95vh] w-full max-w-[875px]
+ flex-col overflow-hidden rounded-lg
+ bg-white shadow-2xl
+ sm:max-h-[90vh]">
+
+ <!-- EN-TÊTE -->
+ <div
+ class="flex shrink-0 items-center justify-between
+ border-b border-slate-200
+ px-5 py-5
+ sm:px-8 sm:py-6">
+
+ <h2
+ class="text-slate-900 text-2xl font-bold">
+ Ajouter une étape
+ </h2>
+
+ <button
+ type="button"
+ (click)="fermer()"
+ class="flex h-9 w-9 items-center justify-center rounded-lg bg-slate-50 text-slate-500 transition hover:bg-slate-100 text-sm font-semibold">
+
+ <svg
+ class="h-6 w-6"
+ viewBox="0 0 24 24"
+ fill="none"
+ stroke="currentColor"
+ stroke-width="2.8">
+
+ <circle cx="12" cy="12" r="9" />
+ <path d="m9 9 6 6" />
+ <path d="m15 9-6 6" />
+
+ </svg>
+
+ </button>
+
+ </div>
+
+
+ <!-- FORMULAIRE DE SAISIE -->
+ <form
+ [formGroup]="stepForm"
+ (ngSubmit)="ajouter()"
+ class="overflow-y-auto">
+
+ <div
+ class="space-y-6 px-5 py-6
+ sm:px-9 sm:py-8">
+
+
+ <!-- NOM DE L'ÉTAPE -->
+ <div>
+
+ <label
+ for="nomEtape"
+ class="mb-2 block text-slate-900 text-sm font-semibold">
+
+ Nom de l'étape
+
+ </label>
+
+ <div class="relative">
+
+ <input
+ id="nomEtape"
+ type="text"
+ formControlName="nomEtape"
+ placeholder="Nom de l’étape"
+ class="h-14 w-full rounded-lg border border-slate-200 bg-white px-5 text-slate-700 outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-100 text-sm font-normal">
+
+ <svg
+ class="pointer-events-none absolute
+ right-4 top-1/2 h-6 w-6
+ -translate-y-1/2
+ text-slate-500"
+ viewBox="0 0 24 24"
+ fill="none"
+ stroke="currentColor"
+ stroke-width="2.5">
+
+ <path d="m6 9 6 12 6-12" />
+
+ </svg>
+
+ </div>
+
+ </div>
+
+
+ <!-- ORDRE -->
+ <div>
+
+ <label
+ for="ordre"
+ class="mb-2 block text-slate-900 text-sm font-semibold">
+
+ Ordre dans le projet
+
+ </label>
+
+ <input
+ id="ordre"
+ type="number"
+ formControlName="ordre" min="1" step="1" inputmode="numeric"
+ placeholder="Ex: 1"
+ class="h-14 w-full rounded-lg border border-slate-200 px-5 text-slate-700 outline-none placeholder:text-slate-400 focus:border-sky-500 focus:ring-2 focus:ring-sky-100 text-sm font-normal" />
+
+ </div>
+
+
+ <!-- BUDGET PRÉVISIONNEL -->
+ <div>
+
+ <label
+ for="budget"
+ class="mb-2 block text-slate-900 text-sm font-semibold">
+
+ Budget prévisionnel en FCFA
+
+ </label>
+
+ <input
+ id="budget"
+ type="number"
+ formControlName="budget" min="0" step="1" inputmode="numeric"
+ placeholder="Ex: 25 000 000"
+ class="h-14 w-full rounded-lg border border-slate-200 px-5 text-slate-700 outline-none placeholder:text-slate-400 focus:border-sky-500 focus:ring-2 focus:ring-sky-100 text-sm font-normal" />
+
+ </div>
+
+
+ <!-- DATES PRÉVISIONNELLES -->
+ <div
+ class="grid grid-cols-1 gap-5
+ sm:grid-cols-2">
+
+ <!-- DATE DÉBUT -->
+ <div>
+
+ <label
+ for="dateDebut"
+ class="mb-2 block text-slate-900 text-sm font-semibold">
+
+ Date de début prévue
+
+ </label>
+
+ <input
+ id="dateDebut"
+ type="date"
+ formControlName="dateDebut"
+ class="h-14 w-full rounded-lg border border-slate-200 bg-white px-5 text-slate-500 outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-100 text-sm font-normal" />
+
+ </div>
+
+
+ <!-- DATE DE FIN -->
+ <div>
+
+ <label
+ for="dateFin"
+ class="mb-2 block text-slate-900 text-sm font-semibold">
+
+ Date de fin prévue
+
+ </label>
+
+ <input
+ id="dateFin"
+ type="date"
+ formControlName="dateFin"
+ class="h-14 w-full rounded-lg border border-slate-200 bg-white px-5 text-slate-500 outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-100 text-sm font-normal" />
+
+ </div>
+
+ </div>
+
+
+ <!-- DESCRIPTION -->
+ <div>
+
+ <label
+ for="description"
+ class="mb-2 block text-slate-900 text-sm font-semibold">
+
+ Description / Notes
+
+ </label>
+
+ <textarea
+ id="description"
+ formControlName="description"
+ rows="3"
+ placeholder="Notes ou spécifications pour cette étape..."
+ class="w-full resize-none rounded-lg border border-slate-200 px-5 py-4 text-slate-700 outline-none placeholder:text-slate-400 focus:border-sky-500 focus:ring-2 focus:ring-sky-100 text-sm font-normal">
+ </textarea>
+
+ </div>
+
+ </div>
+
+
+ <!-- PIED DE FORMULAIRE -->
+ <div
+ class="flex shrink-0 flex-col-reverse gap-3
+ border-t border-slate-200
+ px-5 py-5
+ sm:flex-row sm:justify-end
+ sm:px-9 sm:py-6">
+
+ <button
+ type="button"
+ (click)="fermer()"
+ class="h-12 w-full rounded-lg border border-[#0284C7] bg-white px-6 text-[#0284C7] transition hover:bg-[#F8FAFC] sm:w-auto text-sm font-semibold">
+
+ Annuler
+
+ </button>
+
+<!-- stepForm.invalid || -->
+ <button
+ type="submit"
+ [disabled]="isSubmitting()"
+ class="h-12 w-full rounded-lg bg-[#0284C7] px-6 text-white transition hover:bg-[#0284C7] disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto text-sm font-semibold">
+
+ @if (isSubmitting()) {
+ Ajout en cours...
+ } @else {
+ Ajouter l'étape
+ }
+
+ </button>
+
+ </div>
+
+ </form>
+
+ </div>
+
+</div>

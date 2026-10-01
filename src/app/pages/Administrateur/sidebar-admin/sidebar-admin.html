@@ -1,0 +1,50 @@
+<!-- En-tête compact affiché uniquement sur téléphone/tablette. -->
+<header class="fixed inset-x-0 top-0 z-30 flex h-16 items-center justify-between border-b border-slate-200 bg-white/95 px-4 backdrop-blur lg:hidden">
+  <div class="flex items-center gap-2">
+    <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-[#0284C7] text-white shadow-sm">
+      <i class="fa-solid fa-helmet-safety"></i>
+    </div>
+    <div><p class="font-bold text-slate-900">CHANTIAL</p><p class="text-[11px] text-slate-500">Administration</p></div>
+  </div>
+  <button type="button" (click)="toggleMobileMenu()" class="flex h-11 w-11 items-center justify-center rounded-lg border border-slate-200 text-slate-700" aria-label="Ouvrir le menu d'administration" [attr.aria-expanded]="mobileMenuOpen">
+    <i class="fa-solid fa-bars"></i>
+  </button>
+</header>
+
+@if (mobileMenuOpen) {
+  <button type="button" class="fixed inset-0 z-40 bg-slate-950/55 lg:hidden" (click)="closeMobileMenu()" aria-label="Fermer le menu"></button>
+}
+
+<aside class="fixed left-0 top-0 z-50 flex h-dvh w-[280px] max-w-[86vw] flex-col bg-[#0F172A] text-white shadow-2xl transition-transform duration-300 lg:w-80 lg:translate-x-0"
+  [class.translate-x-0]="mobileMenuOpen" [class.-translate-x-full]="!mobileMenuOpen">
+  <div class="flex items-center justify-between px-5 py-7">
+    <div class="flex items-center gap-3">
+      <div class="flex h-12 w-12 items-center justify-center rounded-lg bg-[#0284C7]"><i class="fa-solid fa-helmet-safety text-xl"></i></div>
+      <div><p class="text-xl font-bold tracking-wide">CHANTIAL</p><p class="text-xs text-slate-400">Espace administrateur</p></div>
+    </div>
+    <button type="button" (click)="closeMobileMenu()" class="h-10 w-10 rounded-lg text-slate-400 hover:bg-white/10 lg:hidden" aria-label="Fermer le menu"><i class="fa-solid fa-xmark"></i></button>
+  </div>
+
+  <nav class="flex-1 space-y-2 px-4" aria-label="Navigation administrateur">
+    <a routerLink="/administrateur" routerLinkActive="bg-white/10 text-white" [routerLinkActiveOptions]="{ exact: true }" (click)="closeMobileMenu()" class="flex items-center gap-4 rounded-lg px-4 py-3.5 text-slate-300 transition hover:bg-white/10 hover:text-white">
+      <i class="fa-solid fa-gauge-high w-5 text-center text-[#38BDF8]"></i><span>Tableau de bord</span>
+    </a>
+    <a routerLink="/administrateur/profil" routerLinkActive="bg-white/10 text-white" (click)="closeMobileMenu()" class="flex items-center gap-4 rounded-lg px-4 py-3.5 text-slate-300 transition hover:bg-white/10 hover:text-white">
+      <i class="fa-regular fa-user w-5 text-center text-[#38BDF8]"></i><span>Mon profil</span>
+    </a>
+  </nav>
+
+  <div class="relative border-t border-white/10 p-4">
+    <button type="button" (click)="toggleProfileMenu()" class="flex w-full items-center gap-3 rounded-lg p-3 text-left hover:bg-white/10">
+      <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-[#0284C7]/20 text-[#38BDF8]"><i class="fa-solid fa-user-shield"></i></div>
+      <div class="min-w-0 flex-1"><p class="truncate text-sm font-semibold">{{ nomComplet() }}</p><p class="text-xs text-slate-400">Administrateur</p></div>
+      <i class="fa-solid fa-chevron-up text-xs text-slate-500" [class.rotate-180]="profileMenuOpen"></i>
+    </button>
+    @if (profileMenuOpen) {
+      <div class="absolute bottom-[78px] left-4 right-4 overflow-hidden rounded-lg border border-white/10 bg-[#172438] shadow-2xl">
+        <button type="button" (click)="allerProfil()" class="flex w-full items-center gap-3 px-4 py-3 text-sm text-slate-200 hover:bg-white/10"><i class="fa-regular fa-user"></i> Mon profil</button>
+        <button type="button" (click)="logout()" class="flex w-full items-center gap-3 border-t border-white/10 px-4 py-3 text-sm text-red-300 hover:bg-white/10"><i class="fa-solid fa-right-from-bracket"></i> Déconnexion</button>
+      </div>
+    }
+  </div>
+</aside>

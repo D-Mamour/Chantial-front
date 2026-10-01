@@ -1,0 +1,77 @@
+<div class="min-h-screen bg-[#f6f8fb] text-slate-800">
+@if (chargement && !projet) {
+  <div class="mx-auto max-w-[1500px] p-6 lg:p-8"><div class="animate-pulse rounded-lg border border-slate-200 bg-white p-8"><div class="h-5 w-48 rounded-lg bg-slate-200"></div><div class="mt-4 h-9 w-80 max-w-full rounded-lg bg-slate-200"></div><div class="mt-10 grid gap-4 md:grid-cols-3">@for(i of [1,2,3];track i){<div class="h-32 rounded-lg bg-slate-100"></div>}</div></div></div>
+} @else if (projet) {
+  <header class="border-b border-slate-200 bg-white">
+    <div class="mx-auto max-w-[1500px] px-4 py-5 sm:px-6 lg:px-8">
+      <div class="flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between">
+        <div>
+          <div class="mb-2 flex flex-wrap items-center gap-2 text-xs font-medium text-slate-500"><span>CHANTIAL</span><span>›</span><a routerLink="/entrepreneur/projet" class="hover:text-sky-600">Mes projets</a><span>›</span><span class="text-slate-700">{{ projet.nom }}</span></div>
+          <h1 class="text-2xl font-bold tracking-tight text-slate-950 sm:text-3xl">{{ projet.nom }}</h1>
+          <p class="mt-1.5 text-sm text-slate-500">{{ projet.localisation || 'Localisation non renseignée' }} • {{ etapes.length }} étape{{ etapes.length > 1 ? 's' : '' }}</p>
+        </div>
+        <div class="flex flex-wrap gap-3">
+          <a routerLink="/entrepreneur/pilotage-avance" class="inline-flex h-11 items-center justify-center rounded-lg border border-slate-300 bg-white px-4 text-sm font-semibold text-slate-700 hover:bg-slate-50">Pilotage avancé</a>
+          <button type="button" (click)="ouvrirDeclaration()" [disabled]="!etapes.length" class="inline-flex h-11 items-center justify-center gap-2 rounded-lg bg-sky-600 px-5 text-sm font-semibold text-white shadow-sm hover:bg-sky-700 disabled:cursor-not-allowed disabled:opacity-50"><span class="text-lg">＋</span> Déclarer l’avancement</button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="mx-auto max-w-[1500px] px-4 py-6 sm:px-6 lg:px-8 lg:py-8">
+    @if (message) { <div class="mb-5 rounded-lg border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm font-semibold text-emerald-700" role="status">✓ {{ message }}</div> }
+    @if (erreur) { <div class="mb-5 rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm font-medium text-red-700" role="alert">{{ erreur }}</div> }
+
+    <section class="overflow-hidden rounded-lg border border-slate-200 bg-white shadow-sm">
+      <div class="grid divide-y divide-slate-200 lg:grid-cols-[1.05fr_1.45fr_.8fr] lg:divide-x lg:divide-y-0">
+        <div class="p-6">
+          <p class="text-xs font-bold uppercase tracking-[.14em] text-slate-400">Informations générales</p>
+          <dl class="mt-5 space-y-3 text-sm">
+            <div class="flex justify-between gap-4"><dt class="text-slate-500">Localisation</dt><dd class="text-right font-semibold text-slate-800">{{ projet.localisation || '—' }}</dd></div>
+            <div class="flex justify-between gap-4"><dt class="text-slate-500">Début prévu</dt><dd class="font-semibold text-slate-800">{{ projet.date_debut ? (projet.date_debut|date:'dd/MM/yyyy') : '—' }}</dd></div>
+            <div class="flex justify-between gap-4"><dt class="text-slate-500">Fin prévue</dt><dd class="font-semibold text-slate-800">{{ projet.date_fin_prevue ? (projet.date_fin_prevue|date:'dd/MM/yyyy') : '—' }}</dd></div>
+            <div class="flex justify-between gap-4"><dt class="text-slate-500">Statut</dt><dd><span class="rounded-lg bg-sky-50 px-2.5 py-1 text-xs font-bold text-sky-700">{{ libelleStatutProjet(projet.statut) }}</span></dd></div>
+          </dl>
+        </div>
+        <div class="p-6">
+          <div class="flex items-start justify-between gap-4"><div><p class="text-xs font-bold uppercase tracking-[.14em] text-slate-400">Budget du projet</p><p class="mt-2 text-2xl font-bold text-slate-950">{{ fcfa(projet.budget_previsionnel) }}</p></div><span class="rounded-lg bg-amber-50 px-3 py-1 text-xs font-bold text-amber-700">{{ consommation() | number:'1.0-0' }}% consommé</span></div>
+          <div class="mt-5 h-2.5 overflow-hidden rounded-lg bg-slate-100"><div class="h-full rounded-lg bg-amber-500 transition-all" [style.width.%]="consommation()>100?100:consommation()"></div></div>
+          <div class="mt-4 grid grid-cols-2 gap-4 text-sm"><div><p class="text-slate-500">Dépensé</p><p class="mt-1 font-bold text-slate-800">{{ fcfa(montantDepense) }}</p></div><div><p class="text-slate-500">{{ resteBudget() >= 0 ? 'Reste à engager' : 'Dépassement' }}</p><p class="mt-1 font-bold" [class.text-red-600]="resteBudget()<0">{{ fcfa(resteBudget()>=0?resteBudget():-resteBudget()) }}</p></div></div>
+        </div>
+        <div class="flex items-center gap-5 p-6 lg:flex-col lg:justify-center">
+          <div class="relative flex h-24 w-24 shrink-0 items-center justify-center rounded-lg" [style.background]="'conic-gradient(#10b981 '+avancementGlobal+'%, #e2e8f0 0)'"><div class="flex h-[74px] w-[74px] items-center justify-center rounded-lg bg-white"><span class="text-xl font-extrabold text-emerald-600">{{ avancementGlobal | number:'1.0-0' }}%</span></div></div>
+          <div class="lg:text-center"><p class="font-bold text-slate-900">Avancement physique</p><p class="mt-1 text-xs text-slate-500">Moyenne des étapes déclarées</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="mt-5 grid gap-4 lg:grid-cols-[1fr_auto]">
+      <div class="rounded-lg border border-slate-200 bg-white p-5 shadow-sm">
+        <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between"><div><p class="text-xs font-bold uppercase tracking-[.14em] text-slate-400">Lecture coût / avancement</p><h2 class="mt-1 text-lg font-bold text-slate-950">{{ libellePilotage() }}</h2></div><div class="flex gap-6"><div><p class="text-xs text-slate-500">Consommation</p><p class="text-xl font-bold text-amber-600">{{ consommation()|number:'1.0-0' }}%</p></div><div><p class="text-xs text-slate-500">Avancement</p><p class="text-xl font-bold text-emerald-600">{{ avancementGlobal|number:'1.0-0' }}%</p></div><div><p class="text-xs text-slate-500">Écart</p><p class="text-xl font-bold" [class.text-emerald-600]="statutPilotage()==='coherent'" [class.text-amber-600]="statutPilotage()==='surveillance'" [class.text-red-600]="statutPilotage()==='prioritaire'">{{ ecartPilotage()|number:'1.0-0' }} pts</p></div></div></div>
+        <p class="mt-3 text-sm text-slate-500">@if(statutPilotage()==='coherent'){Les dépenses restent globalement proportionnelles à l’avancement déclaré du chantier.}@else if(statutPilotage()==='surveillance'){Un écart notable existe entre la consommation du budget et l’avancement déclaré. Une vérification est conseillée.}@else{L’écart entre dépenses et avancement est important. Vérifiez les dépenses, justificatifs et déclarations d’avancement.}</p>
+      </div>
+    </section>
+
+    <section class="mt-5 rounded-lg border border-slate-200 bg-white p-5 shadow-sm sm:p-6">
+      <div class="mb-5 flex items-center justify-between"><div><p class="text-xs font-bold uppercase tracking-[.14em] text-slate-400">Échéancier</p><h2 class="mt-1 text-lg font-bold text-slate-950">Étapes de construction</h2></div><button type="button" (click)="ouvrirAjoutEtape()" class="rounded-lg bg-sky-50 px-4 py-2.5 text-sm font-semibold text-sky-700 hover:bg-sky-100">＋ Ajouter une étape</button></div>
+      @if(etapes.length){<div class="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">@for(etape of etapes;track etape.id){<button type="button" (click)="ouvrirDeclaration(etape)" class="group rounded-lg border border-slate-200 p-4 text-left transition hover:border-sky-300 hover:shadow-sm"><div class="flex items-center justify-between gap-3"><span class="font-bold text-slate-800">{{etape.ordre}}. {{etape.nom}}</span><span class="text-sm font-extrabold" [class.text-emerald-600]="etape.progress>=100" [class.text-sky-600]="etape.progress>0&&etape.progress<100" [class.text-slate-400]="etape.progress===0">{{etape.progress|number:'1.0-0'}}%</span></div><div class="mt-3 h-1.5 overflow-hidden rounded-lg bg-slate-100"><div class="h-full rounded-lg" [class.bg-emerald-500]="etape.progress>=100" [class.bg-sky-500]="etape.progress<100" [style.width.%]="etape.progress"></div></div><div class="mt-3 flex justify-between text-xs"><span class="text-slate-500">{{etape.statut}}</span><span class="font-semibold text-sky-600 opacity-0 transition group-hover:opacity-100">Mettre à jour →</span></div></button>}</div>}@else{<div class="rounded-lg border border-dashed border-slate-300 p-8 text-center text-sm text-slate-500">Aucune étape. Ajoutez la première étape pour commencer le suivi.</div>}
+    </section>
+
+    <div class="mt-6 overflow-x-auto border-b border-slate-200"><nav class="flex min-w-max gap-7" aria-label="Détail du projet"><button type="button" (click)="ongletActif='avancement'" [class.active-tab]="ongletActif==='avancement'" class="tab-btn">Avancement</button><button type="button" (click)="ongletActif='depenses'" [class.active-tab]="ongletActif==='depenses'" class="tab-btn">Dépenses <span>{{depenses.length}}</span></button><button type="button" (click)="ongletActif='justificatifs'" [class.active-tab]="ongletActif==='justificatifs'" class="tab-btn">Justificatifs <span>{{justificatifs.length}}</span></button><button type="button" (click)="ongletActif='analyse'" [class.active-tab]="ongletActif==='analyse'" class="tab-btn">Analyse</button></nav></div>
+
+    @if(ongletActif==='avancement'){
+      <section class="mt-5 overflow-hidden rounded-lg border border-slate-200 bg-white shadow-sm"><div class="border-b border-slate-200 px-5 py-4 sm:px-6"><h2 class="font-bold text-slate-950">Détail de l’avancement des étapes</h2><p class="mt-1 text-xs text-slate-500">Dernières déclarations et consommation par étape.</p></div><div class="overflow-x-auto"><table class="w-full min-w-[900px]"><thead><tr class="bg-slate-50 text-left text-xs font-bold uppercase tracking-wide text-slate-500"><th class="p-4">Étape</th><th class="p-4">Budget prévu</th><th class="p-4">Dépensé</th><th class="p-4">Avancement</th><th class="p-4">Dernière mise à jour</th><th class="p-4 text-right">Action</th></tr></thead><tbody class="divide-y divide-slate-100">@for(etape of etapes;track etape.id){<tr class="text-sm hover:bg-slate-50/60"><td class="p-4"><p class="font-bold text-slate-900">{{etape.ordre}}. {{etape.nom}}</p><p class="mt-1 text-xs text-slate-500">{{etape.statut}}</p></td><td class="p-4">{{fcfa(etape.budget_previsionnel)}}</td><td class="p-4 font-semibold">{{fcfa(etape.depense)}}</td><td class="p-4"><div class="flex items-center gap-3"><div class="h-1.5 w-20 overflow-hidden rounded-lg bg-slate-100"><div class="h-full rounded-lg bg-sky-500" [style.width.%]="etape.progress"></div></div><b class="text-sky-700">{{etape.progress|number:'1.0-0'}}%</b></div></td><td class="p-4 text-slate-500">{{etape.dernierAvancement?.date_declaration ? (etape.dernierAvancement.date_declaration|date:'dd/MM/yyyy à HH:mm') : 'Aucune déclaration'}}</td><td class="p-4 text-right"><button type="button" (click)="ouvrirDeclaration(etape)" class="rounded-lg bg-sky-50 px-3 py-2 font-semibold text-sky-700 hover:bg-sky-100">{{etape.progress>0?'Mettre à jour':'Déclarer'}}</button></td></tr>}@empty{<tr><td colspan="6" class="p-8 text-center text-slate-500">Aucune étape à afficher.</td></tr>}</tbody></table></div></section>
+    } @else if(ongletActif==='depenses'){
+      <section class="mt-5 overflow-hidden rounded-lg border border-slate-200 bg-white shadow-sm"><div class="border-b border-slate-200 p-5"><h2 class="font-bold text-slate-950">Dépenses du projet</h2></div><div class="overflow-x-auto"><table class="w-full min-w-[760px]"><thead><tr class="bg-slate-50 text-left text-xs font-bold text-slate-500"><th class="p-4">LIBELLÉ</th><th class="p-4">FOURNISSEUR</th><th class="p-4">DATE</th><th class="p-4">MONTANT</th><th class="p-4">STATUT</th></tr></thead><tbody class="divide-y">@for(d of depenses;track d.id){<tr class="text-sm"><td class="p-4 font-semibold">{{d.libelle}}</td><td class="p-4">{{d.fournisseur||'—'}}</td><td class="p-4">{{d.date_depense|date:'dd/MM/yyyy'}}</td><td class="p-4 font-semibold">{{fcfa(d.montant)}}</td><td class="p-4">{{libelleStatut(d.statut)}}</td></tr>}@empty{<tr><td colspan="5" class="p-8 text-center text-slate-500">Aucune dépense enregistrée pour ce projet.</td></tr>}</tbody></table></div></section>
+    } @else if(ongletActif==='justificatifs'){
+      <section class="mt-5 rounded-lg border border-slate-200 bg-white p-5 shadow-sm sm:p-6"><h2 class="font-bold text-slate-950">Justificatifs du projet</h2><p class="mt-1 text-xs text-slate-500">Documents rattachés aux dépenses de ce chantier.</p><div class="mt-5 grid gap-3 sm:grid-cols-2 xl:grid-cols-3">@for(j of justificatifs;track j.id){<a [href]="j.fichier" target="_blank" rel="noopener" class="rounded-lg border border-slate-200 p-4 hover:border-sky-300 hover:shadow-sm"><div class="flex items-start justify-between gap-3"><div><p class="font-semibold text-slate-900">{{j.type_document||'Justificatif'}}</p><p class="mt-1 text-xs text-slate-500">{{j.date_ajout|date:'dd/MM/yyyy à HH:mm'}}</p></div><span class="rounded-lg bg-sky-50 px-2 py-1 text-xs font-bold text-sky-700">Document</span></div><p class="mt-4 text-sm font-semibold text-sky-600">Ouvrir le document ↗</p></a>}@empty{<div class="rounded-lg border border-dashed border-slate-300 p-8 text-center text-slate-500 sm:col-span-2">Aucun justificatif pour ce projet.</div>}</div></section>
+    } @else {
+      <section class="mt-5 rounded-lg border border-slate-200 bg-white p-6 shadow-sm"><div class="grid gap-5 md:grid-cols-[1fr_auto] md:items-center"><div><p class="text-xs font-bold uppercase tracking-[.14em] text-slate-400">Analyse</p><h2 class="mt-1 text-xl font-bold text-slate-950">Comprendre les écarts du chantier</h2><p class="mt-2 max-w-2xl text-sm text-slate-500">Consultez les anomalies, recommandations et indicateurs produits à partir des données du projet. Ces éléments assistent la vérification et ne remplacent pas la décision humaine.</p></div><a routerLink="/entrepreneur/analyse" class="inline-flex h-11 items-center justify-center rounded-lg bg-sky-600 px-5 text-sm font-semibold text-white hover:bg-sky-700">Ouvrir l’analyse complète</a></div></section>
+    }
+  </main>
+} @else {
+  <div class="mx-auto max-w-[1500px] p-8"><div class="rounded-lg border border-red-200 bg-white p-6"><p class="font-semibold text-red-700">{{erreur || 'Projet introuvable ou inaccessible.'}}</p><div class="mt-4 flex gap-3"><button type="button" (click)="charger()" class="rounded-lg bg-slate-900 px-4 py-2.5 text-sm font-semibold text-white">Réessayer</button><a routerLink="/entrepreneur/projet" class="rounded-lg border border-slate-300 px-4 py-2.5 text-sm font-semibold">Retour aux projets</a></div></div></div>
+}
+</div>
+@if(showProgressModal){<app-declarer-avancement [steps]="etapes" [etapeInitiale]="selectedEtape?.id || ''" [enregistrement]="actionEnCours" [erreurServeur]="erreurAvancement" (close)="fermerDeclaration()" (progressDeclared)="avancementDeclare($event)"></app-declarer-avancement>}
+@if(showAddStepModal){<app-ajout-etape (close)="fermerAjoutEtape()" (stepAdded)="onStepAdded($event)"></app-ajout-etape>}

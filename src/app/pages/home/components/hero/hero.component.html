@@ -1,0 +1,136 @@
+<section id="accueil" class="relative overflow-hidden bg-[#0B1120] text-white">
+  <div
+    class="pointer-events-none absolute -left-24 top-28 h-80 w-80 rounded-lg bg-[#0284C7]/15 blur-3xl"
+  ></div>
+  <div
+    class="pointer-events-none absolute -right-24 top-28 h-80 w-80 rounded-lg bg-[#0284C7]/15 blur-3xl"
+  ></div>
+
+ <nav
+    class="relative z-20 mx-auto flex max-w-7xl items-center justify-between px-5 py-6 sm:px-8 lg:px-10"
+  >
+    <a href="#accueil" class="flex items-center gap-3" aria-label="Chantial - Accueil">
+       <!-- Logo -->
+      <div class="flex justify-center">
+
+        <div class="flex items-center gap-2">
+
+          <!-- Logo icon -->
+        <div
+          class="flex h-10 w-10 items-center justify-center rounded-lg bg-[#0284C7] shadow-lg sm:h-14 sm:w-14"
+        >
+          <i 
+          routerLink=''
+          class="fa-solid fa-helmet-safety text-xl text-white sm:text-2xl">
+          </i>
+        </div>
+      </div>
+
+
+      </div>
+      <span class="text-lg font-extrabold tracking-[.12em]">CHANTIAL</span>
+    </a>
+    <div class="hidden items-center gap-8 text-sm font-medium text-slate-300 md:flex">
+      <a href="#solution" class="hover:text-white">Solution</a>
+      <a href="#fonctionnement" class="hover:text-white">Fonctionnement</a>
+      <a href="#acteurs" class="hover:text-white">Pour qui ?</a>
+    </div>
+    <div class="flex items-center gap-3">
+      <a
+        routerLink="/connexion"
+        class="hidden text-sm font-semibold text-slate-200 hover:text-white sm:block"
+        >Connexion</a
+      >
+      <a
+        routerLink="/inscription"
+        class="rounded-lg bg-[#0284C7] px-4 py-2.5 text-sm font-bold text-white hover:bg-sky-600"
+        >Commencer</a
+      >
+    </div>
+  </nav>
+
+  <div
+    class="relative mx-auto grid min-h-[690px] max-w-7xl items-center gap-12 px-5 pb-20 pt-10 sm:px-8 lg:grid-cols-[.9fr_1.1fr] lg:px-10 lg:pb-28 lg:pt-16"
+  >
+    <div class="relative z-10 max-w-xl">
+
+      <h1 class="text-4xl font-black leading-[1.04] tracking-[-.035em] sm:text-6xl lg:text-7xl">
+        Votre chantier.<br />
+        <span class="text-[#38BDF8]">Enfin transparent.</span>
+      </h1>
+      <p class="mt-7 max-w-lg text-base leading-7 text-slate-300 sm:text-lg">
+        Centralisez l'avancement, les dépenses et les justificatifs. Chantial transforme les
+        informations du chantier en une vision claire, traçable et exploitable.
+      </p>
+      <div class="mt-9 flex flex-wrap gap-3">
+        <a
+          routerLink="/inscription"
+          class="rounded-lg bg-[#0284C7] px-6 py-3.5 text-sm font-bold text-white hover:bg-sky-600"
+          >Créer un compte</a
+        >
+        <a
+          href="#solution"
+          class="rounded-lg border border-white/15 bg-white/5 px-6 py-3.5 text-sm font-bold text-white hover:bg-white/10"
+          >Découvrir Chantial</a
+        >
+      </div>
+      <div class="mt-10 grid max-w-lg grid-cols-2 gap-3 text-sm text-slate-400 sm:grid-cols-4">
+        <span>OCR factures</span><span>Suivi budget</span><span>Analyse IA</span
+        ><span>Traçabilité</span>
+      </div>
+    </div>
+
+    <!-- Composition visuelle inspirée de la référence : images verticales arrondies. -->
+    <div
+      class="relative mx-auto hidden h-[560px] w-full max-w-[620px] lg:block"
+      aria-label="Aperçu visuel de chantiers suivis avec Chantial"
+    >
+      <div
+        class="absolute left-[2%] top-[8%] h-[220px] w-[24%] overflow-hidden rounded-lg border border-white/10 bg-slate-800 shadow-2xl"
+      >
+        <img
+          src="images/visual.jpg"
+          alt="Élévation d'un bâtiment en construction"
+          class="h-full w-full object-cover"
+        />
+      </div>
+      <div
+        class="absolute left-[32%] top-[40%] h-[180px] w-[24%] overflow-hidden rounded-lg border border-white/10 bg-slate-800 shadow-2xl"
+      >
+        <img
+          src="images/Image ChatGPT 29 sept. 2026, 22_54_08.png"
+          alt="Fondations d'un chantier"
+          class="h-full w-full object-cover"
+        />
+      </div>
+      <div
+        class="absolute right-[16%] top-[-6%] h-[197px] w-[24%] overflow-hidden rounded-lg border border-white/10 bg-slate-800 shadow-2xl"
+      >
+        <img
+          src="images/entrepren.jpg"
+          alt="Entrepreneur sur un projet"
+          class="h-full w-full object-cover"
+        />
+      </div>
+      <div
+        class="absolute bottom-[-12%] right-[9%] h-[262px] w-[24%] overflow-hidden rounded-lg border border-white/10 bg-slate-800 shadow-2xl"
+      >
+        <img
+          src="images/fondation1.jpg"
+          alt="Projet de construction terminé"
+          class="h-full w-full object-cover"
+        />
+      </div>
+      <div
+        class="absolute bottom-[-20%] left-[7%] h-[220px] w-[24%] overflow-hidden rounded-lg border border-white/10 bg-slate-800 shadow-2xl"
+      >
+        <img
+          src="images/pied.jpg"
+          alt="Finitions d'un projet immobilier"
+          class="h-full w-full object-cover"
+        />
+      </div>
+     
+    </div>
+  </div>
+</section>
